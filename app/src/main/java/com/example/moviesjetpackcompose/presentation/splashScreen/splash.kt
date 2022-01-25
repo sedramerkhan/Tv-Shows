@@ -20,15 +20,16 @@ import androidx.ui.tooling.preview.Preview
 fun Splash(alpha: Float) {
     Box(
         modifier = Modifier
-            .background(color = Color(0xFFEEEEEE))
+            .background(color = Color(0xFFFFFFFF))
             .fillMaxSize(),
         contentAlignment = Alignment.Center
     ) {
 
         Image(
             modifier = Modifier
+                .size(120.dp)
                 .alpha(alpha = alpha),
-            painter = painterResource(R.drawable.tv_show3),
+            painter = painterResource(R.drawable.tv_show4),
             contentDescription = "Logo Icon",
             )
     }
