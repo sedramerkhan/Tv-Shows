@@ -23,7 +23,7 @@ constructor(
     private val repo: TvShowRepo,
     private val state: SavedStateHandle,
 ): ViewModel() {
-    val recipes: MutableState<List<TvShow>> = mutableStateOf(ArrayList())
+    val tvShows: MutableState<List<TvShow>> = mutableStateOf(ArrayList())
 
     val query = mutableStateOf("")
 
@@ -47,7 +47,7 @@ constructor(
         val result = repo.getPopular(
             page = 1
         )
-        recipes.value = result
+        tvShows.value = result
 
         loading.value = false
     }

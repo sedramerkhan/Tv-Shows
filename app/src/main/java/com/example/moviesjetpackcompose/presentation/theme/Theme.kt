@@ -1,11 +1,13 @@
-package com.example.moviesjetpackcompose.ui.theme
+package com.example.moviesjetpackcompose.presentation.theme
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.darkColors
-import androidx.compose.material.lightColors
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 
 @SuppressLint("ConflictingOnColor")
@@ -37,21 +39,24 @@ private val DarkThemeColors = darkColors(
     onSurface = Color.White,
 )
 
-@Composable
-fun MoviesJetpackComposeTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
-    content: @Composable() () -> Unit
-) {
-    val colors = if (darkTheme) {
-        DarkThemeColors
-    } else {
-        LightThemeColors
-    }
 
+@ExperimentalMaterialApi
+@Composable
+fun AppTheme(
+    darkTheme: Boolean,
+    content: @Composable () -> Unit,
+) {
     MaterialTheme(
-        colors = colors,
-        typography = Typography,
-        shapes = Shapes,
-        content = content
-    )
+        colors = if (darkTheme) DarkThemeColors else LightThemeColors,
+        typography = QuickSandTypography,
+        shapes = AppShapes
+    ) {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(color = if (!darkTheme) Grey1 else Color.Black)
+        ) {
+            content()
+        }
+    }
 }

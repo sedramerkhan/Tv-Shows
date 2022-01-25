@@ -43,7 +43,7 @@ class TvShowsListFragment : Fragment() {
         return ComposeView(requireContext()).apply {
             setContent {
 
-                val tvShows = viewModel.recipes.value
+                val tvShows = viewModel.tvShows.value
 
                 val query = viewModel.query.value
 
