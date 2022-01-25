@@ -19,9 +19,9 @@ class SplashScreen : AppCompatActivity() {
             var startAnimation by remember { mutableStateOf(false) }
             var startActivity by remember { mutableStateOf(false) }
             val alphaAnim = animateFloatAsState(
-                targetValue = if (startAnimation) 1f else 0f,
+                targetValue = if (startAnimation) 0f else 1f,
                 animationSpec = tween(
-                    durationMillis = 3000
+                    durationMillis = 3500
                 )
             )
 
