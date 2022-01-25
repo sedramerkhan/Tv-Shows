@@ -12,6 +12,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.moviesjetpackcompose.domain.model.TvShow
 import com.example.moviesjetpackcompose.presentation.Components.CoilImage
+import com.example.moviesjetpackcompose.presentation.theme.Green300
 
 @Composable
 fun TvShowCard(
@@ -38,7 +39,7 @@ fun TvShowCard(
                 modifier = Modifier
                     .fillMaxWidth()
                     .align(Alignment.CenterVertically)
-                    .padding(top = 12.dp, bottom = 12.dp, start = 8.dp, end = 8.dp)
+//                    .padding(top = 12.dp, bottom = 12.dp, start = 8.dp, end = 8.dp)
 
             ) {
                 Text(
@@ -46,22 +47,32 @@ fun TvShowCard(
                     modifier = Modifier
                         .fillMaxWidth()
                         .wrapContentWidth(Alignment.Start),
-                    style = MaterialTheme.typography.subtitle2
+                    style = MaterialTheme.typography.h3
                 )
                 Text(
-                    text = tvShow.network+"("+tvShow.country+")",
+                    text = tvShow.network+" ("+tvShow.country+")",
                     modifier = Modifier
                         .fillMaxWidth()
                         .wrapContentWidth(Alignment.Start),
                     style = MaterialTheme.typography.h5
                 )
+                tvShow.start_date?.let{
+//                    var end = tvShow.end_date ?: ""
+                    Text(
+                        text = it,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .wrapContentWidth(Alignment.Start),
+                        style = MaterialTheme.typography.h5
+                    )
+                }
                 Text(
                     text = tvShow.status,
                     modifier = Modifier
                         .fillMaxWidth()
                         .wrapContentWidth(Alignment.Start),
-                    style = MaterialTheme.typography.h5,
-                    color = Color.Green
+                    style = MaterialTheme.typography.subtitle1,
+                    color =Green300
                 )
             }
         }

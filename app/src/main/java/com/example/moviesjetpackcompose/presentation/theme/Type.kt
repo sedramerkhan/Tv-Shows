@@ -35,7 +35,7 @@ val QuickSandTypography = Typography(
     ),
     h4 = TextStyle(
         fontFamily = QuickSand,
-        fontWeight = FontWeight.W400,
+        fontWeight = FontWeight.W500,
         fontSize = 18.sp,
     ),
     h5 = TextStyle(
@@ -50,7 +50,7 @@ val QuickSandTypography = Typography(
     ),
     subtitle1 = TextStyle(
         fontFamily = QuickSand,
-        fontWeight = FontWeight.W500,
+        fontWeight = FontWeight.Bold,
         fontSize = 16.sp,
     ),
     subtitle2 = TextStyle(
