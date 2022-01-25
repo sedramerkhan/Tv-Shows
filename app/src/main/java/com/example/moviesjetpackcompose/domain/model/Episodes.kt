@@ -4,5 +4,5 @@ data class Episodes(
     val season: Int,
     val episode: Int,
     val name: String,
-    val air_date: String
+    val air_date: String?
 )

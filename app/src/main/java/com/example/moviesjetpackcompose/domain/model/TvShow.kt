@@ -4,7 +4,7 @@ data class TvShow(
     val id: String,
     val name: String,
     val permalink: String,
-    val start_date: String,
+    val start_date: String?,
     val end_date: String?,
     val country: String,
     val network: String,
