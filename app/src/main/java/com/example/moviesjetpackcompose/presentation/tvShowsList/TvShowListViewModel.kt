@@ -13,6 +13,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+const val PAGE_SIZE = 20
 
 @ExperimentalCoroutinesApi
 @HiltViewModel
