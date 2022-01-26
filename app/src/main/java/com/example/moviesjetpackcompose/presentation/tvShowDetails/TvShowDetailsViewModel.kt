@@ -6,7 +6,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.moviesjetpackcompose.domain.model.TvShow
 import com.example.moviesjetpackcompose.domain.model.TvShowDetails
 import com.example.moviesjetpackcompose.repository.TvShowRepo
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -45,7 +44,7 @@ constructor(
                 when (event) {
                     is TvShowDetailsEvent.GetTvShowDetailsEvent -> {
                         if (tvShow.value == null) {
-                            getRecipe(event.id)
+                            getDetails(event.id)
                         }
                     }
                 }
@@ -56,17 +55,25 @@ constructor(
         }
     }
 
-    private suspend fun getRecipe(id: String) {
+    private suspend fun getDetails(id: String) {
         loading.value = true
 
         // simulate a delay to show loading
         delay(1000)
+        Log.d("soso","hello from get Details")
+        repo.getDetails(id,::apiCallback)
 
-        val recipe = repo.getDetails(id)
-        this.tvShow.value = recipe
 
-        state.set(STATE_KEY_TV_SHOW, recipe.id)
+
 
         loading.value = false
+    }
+
+    fun apiCallback(tvShow: TvShowDetails?){
+       tvShow?.let {
+           this.tvShow.value = it
+           Log.d("soso",it.name)
+           state.set(STATE_KEY_TV_SHOW,it.id)
+       }
     }
 }

@@ -9,15 +9,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import coil.annotation.ExperimentalCoilApi
 import com.example.moviesjetpackcompose.domain.model.TvShow
 import com.example.moviesjetpackcompose.presentation.tvShowsList.Components.CoilImage
 import com.example.moviesjetpackcompose.presentation.theme.Green300
 
+@ExperimentalCoilApi
 @Composable
 fun TvShowCard(
     tvShow: TvShow,
     onClick: () -> Unit
-){
+) {
     Card(
         shape = MaterialTheme.shapes.small,
         modifier = Modifier
@@ -32,7 +34,12 @@ fun TvShowCard(
 
         Row {
 
-            CoilImage(tvShow.image_thumbnail_path)
+            CoilImage(
+                link = tvShow.image_thumbnail_path,
+                modifier = Modifier.padding(top = 8.dp, bottom = 8.dp, start = 16.dp, end = 8.dp),
+                imageModifier = Modifier.height(130.dp).width(110.dp),
+                roundCorner = 20f
+            )
             Spacer(modifier = Modifier.padding(5.dp))
             Column(
                 modifier = Modifier
@@ -49,13 +56,13 @@ fun TvShowCard(
                     style = MaterialTheme.typography.h3
                 )
                 Text(
-                    text = tvShow.network+" ("+tvShow.country+")",
+                    text = tvShow.network + " (" + tvShow.country + ")",
                     modifier = Modifier
                         .fillMaxWidth()
                         .wrapContentWidth(Alignment.Start),
                     style = MaterialTheme.typography.h5
                 )
-                tvShow.start_date?.let{
+                tvShow.start_date?.let {
 //                    var end = tvShow.end_date ?: ""
                     Text(
                         text = it,
@@ -71,7 +78,7 @@ fun TvShowCard(
                         .fillMaxWidth()
                         .wrapContentWidth(Alignment.Start),
                     style = MaterialTheme.typography.subtitle1,
-                    color =Green300
+                    color = Green300
                 )
             }
         }

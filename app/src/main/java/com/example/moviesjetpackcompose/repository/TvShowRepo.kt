@@ -9,5 +9,5 @@ interface TvShowRepo {
 
     suspend fun getPopular( page: Int):  List<TvShow>
 
-    suspend fun getDetails(id: String): TvShowDetails
+    suspend fun getDetails(id: String?, callback: (TvShowDetails?) ->Unit)
 }

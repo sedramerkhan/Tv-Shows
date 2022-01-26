@@ -6,7 +6,7 @@ data class TvShowDetails(
     val permalink: String,
     val url: String,
     val description: String,
-    val description_source: String,
+    val description_source: String?,
     val start_date: String?,
     val end_date: String?,
     val country: String,

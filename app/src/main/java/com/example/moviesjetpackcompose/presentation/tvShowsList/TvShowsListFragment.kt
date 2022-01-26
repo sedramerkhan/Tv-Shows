@@ -76,7 +76,7 @@ class TvShowsListFragment : Fragment() {
                             onTriggerNextPage = { viewModel.onTriggerEvent(TvShowListEvent.NextPageEvent) },
                             onNavigateToTvShowsDetailScreen = {
                                 val bundle = Bundle()
-                                bundle.putString("recipeId", it)
+                                bundle.putString("tvShowId", it)
                                 findNavController().navigate(
                                     R.id.action_moviesListFragment_to_movieFragment,
                                     bundle
