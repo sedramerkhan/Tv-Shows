@@ -30,6 +30,7 @@ constructor(
     val tvShow: MutableState<TvShowDetails?> = mutableStateOf(null)
 
     val loading = mutableStateOf(false)
+    val failure = mutableStateOf(false)
 
     init {
         // restore if process dies
@@ -69,11 +70,14 @@ constructor(
         loading.value = false
     }
 
+    fun setFailure(){
+        failure.value = true
+    }
     fun apiCallback(tvShow: TvShowDetails?){
        tvShow?.let {
            this.tvShow.value = it
            Log.d("soso",it.name)
            state.set(STATE_KEY_TV_SHOW,it.id)
-       }
+       } ?: setFailure()
     }
 }

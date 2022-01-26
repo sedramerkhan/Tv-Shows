@@ -16,7 +16,6 @@
     <fragment
         android:id="@+id/movieFragment"
         android:name="com.example.moviesjetpackcompose.presentation.tvShowDetails.TvShowDetailsFragment"
-        android:label="fragment_movie"
-        tools:layout="@layout/fragment_movie" />
+        android:label="fragment_movie" />
 
 </navigation>

@@ -8,12 +8,15 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import coil.annotation.ExperimentalCoilApi
+import coil.compose.ImagePainter
 import coil.compose.rememberImagePainter
 import coil.size.Scale
 import coil.transform.RoundedCornersTransformation
 import com.example.moviesjetpackcompose.R
+import com.example.moviesjetpackcompose.presentation.utils.CircularIndeterminateProgressBar
 
 
 /***
@@ -23,9 +26,13 @@ add android:usesCleartextTraffic="true" to manifest
 @Composable
 fun CoilImage(
     link: String,
-) {
+    modifier: Modifier = Modifier,
+    imageModifier: Modifier,
+    roundCorner: Float = 0f,
+    loading: Boolean = false
+    ) {
     Box(
-        modifier = Modifier.padding(top = 8.dp, bottom = 8.dp, start = 16.dp, end = 8.dp)
+        modifier = modifier
     ) {
 
         val painter = rememberImagePainter(
@@ -35,7 +42,7 @@ fun CoilImage(
                 error(R.drawable.error)
                 crossfade(1000)
                 transformations(
-                    RoundedCornersTransformation(20f)
+                    RoundedCornersTransformation(roundCorner)
 //                    GrayscaleTransformation(),
 //                    CircleCropTransformation(),
 //                    BlurTransformation(LocalContext.current),
@@ -49,14 +56,12 @@ fun CoilImage(
         Image(
             painter = painter,
             contentDescription = null,
-            contentScale = ContentScale.Crop,
-            modifier = Modifier
-                .height(130.dp)
-                .width(110.dp)
+            contentScale = ContentScale.FillBounds,
+            modifier = imageModifier
         )
-//        var painterState = painter.state
-//        if (painterState is ImagePainter.State.Loading ){
-//            CircularProgressIndicator()
-//        }
+        var painterState = painter.state
+        if (painterState is ImagePainter.State.Loading && loading ){
+            CircularIndeterminateProgressBar(isDisplayed = loading, verticalBias = 0.25f)
+        }
     }
 }
