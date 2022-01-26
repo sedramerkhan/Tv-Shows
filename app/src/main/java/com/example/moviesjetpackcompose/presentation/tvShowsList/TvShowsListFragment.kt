@@ -43,24 +43,21 @@ class TvShowsListFragment : Fragment() {
             setContent {
 
                 val tvShows = viewModel.tvShows.value
-
                 val query = viewModel.query.value
-
-
                 val loading = viewModel.loading.value
-
                 val page = viewModel.page.value
-
+                val isDark = application.isDark.value
                 val scaffoldState = rememberScaffoldState()
 
                 AppTheme(
-                    darkTheme = application.isDark.value,
+                    darkTheme = isDark,
                 ) {
 
                     Scaffold(
                         topBar = {
                             SearchAppBar(
                                 query = query,
+                                isDark = isDark,
                                 onQueryChanged = viewModel::onQueryChanged,
                                 onExecuteSearch = {
 
