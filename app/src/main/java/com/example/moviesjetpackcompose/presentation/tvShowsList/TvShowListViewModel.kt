@@ -14,9 +14,9 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-const val STATE_KEY_PAGE = "recipe.state.page.key"
-const val STATE_KEY_QUERY = "recipe.state.query.key"
-const val STATE_KEY_LIST_POSITION = "recipe.state.query.list_position"
+const val STATE_KEY_PAGE = "tvShow.state.page.key"
+const val STATE_KEY_QUERY = "tvShow.state.query.key"
+const val STATE_KEY_LIST_POSITION = "tvShow.state.query.list_position"
 
 const val PAGE_SIZE = 20
 
@@ -26,9 +26,10 @@ class TvShowListViewModel
 @Inject
 constructor(
     private val repo: TvShowRepo,
-    private val  savedStateHandle: SavedStateHandle,
-): ViewModel() {
+    private val savedStateHandle: SavedStateHandle,
+) : ViewModel() {
     var TAG = "Debug"
+
     val tvShows: MutableState<List<TvShow>> = mutableStateOf(ArrayList())
 
     val query = mutableStateOf("")
@@ -51,19 +52,19 @@ constructor(
         savedStateHandle.get<Int>(STATE_KEY_LIST_POSITION)?.let { p ->
             setListScrollPosition(p)
         }
-        Log.d("init","$tvShowListScrollPosition  ${page.value}  ${query.value}")
-        if(tvShowListScrollPosition != 0){
+        Log.d("init", "$tvShowListScrollPosition  ${page.value}  ${query.value}")
+        if (tvShowListScrollPosition != 0) {
             onTriggerEvent(TvShowListEvent.RestoreStateEvent)
-        }
-        else{
+        } else {
             onTriggerEvent(TvShowListEvent.GetMostPopular)
         }
     }
-    fun onTriggerEvent(event: TvShowListEvent){
+
+    fun onTriggerEvent(event: TvShowListEvent) {
         viewModelScope.launch {
             try {
-                when(event){
-                    is TvShowListEvent.GetMostPopular ->{
+                when (event) {
+                    is TvShowListEvent.GetMostPopular -> {
                         getMostPopular()
                     }
                     is TvShowListEvent.NewSearchEvent -> {
@@ -76,18 +77,17 @@ constructor(
                         restoreState()
                     }
                 }
-            }catch (e: Exception){
+            } catch (e: Exception) {
                 Log.e(TAG, "launchJob: Exception: ${e}, ${e.cause}")
                 e.printStackTrace()
-            }
-            finally {
+            } finally {
                 Log.d(TAG, "launchJob: finally called.")
             }
         }
     }
 
 
-     private suspend fun getMostPopular(){
+    private suspend fun getMostPopular() {
         loading.value = true
         resetSearchState()
         delay(2000)
@@ -99,31 +99,11 @@ constructor(
         loading.value = false
     }
 
-    private suspend fun restoreState(){
+    private suspend fun restoreState() {
         loading.value = true
         val results: MutableList<TvShow> = mutableListOf()
 
-        for(p in 1..page.value){
-            val result = repo.search(
-                page = p,
-                query = query.value
-            )
-            results.addAll(result)
-            if(p == page.value){ // done
-                tvShows.value = results
-                loading.value = false
-            }
-            Log.d("restoreState",results.size.toString())
-        }
-    }
-
-    private suspend fun newSearch() {
-        loading.value = true
-        resetSearchState()
-        delay(2000)
-        val results: MutableList<TvShow> = mutableListOf()
-
-        for(p in 1..page.value) {
+        for (p in 1..page.value) {
             val result = repo.search(
                 page = p,
                 query = query.value
@@ -133,41 +113,62 @@ constructor(
                 tvShows.value = results
                 loading.value = false
             }
-            Log.d("newSearch",results.size.toString())
+            Log.d("restoreState", results.size.toString())
         }
     }
 
-    private suspend fun nextPage(){
+    private suspend fun newSearch() {
+        loading.value = true
+        resetSearchState()
+        delay(2000)
+        val results: MutableList<TvShow> = mutableListOf()
+
+        for (p in 1..page.value) {
+            val result = repo.search(
+                page = p,
+                query = query.value
+            )
+            results.addAll(result)
+            if (p == page.value) { // done
+                tvShows.value = results
+                loading.value = false
+            }
+            Log.d("newSearch", results.size.toString())
+        }
+    }
+
+    private suspend fun nextPage() {
         // prevent duplicate event due to recompose happening to quickly
-        if((tvShowListScrollPosition + 1) >= (page.value * PAGE_SIZE) ){
+        if ((tvShowListScrollPosition + 1) >= (page.value * PAGE_SIZE)) {
             loading.value = true
             incrementPage()
             Log.d(TAG, "nextPage: triggered: ${page.value}")
 
             delay(1000)
 
-            if(page.value > 1){
+            if (page.value > 1) {
                 val result = repo.getPopular(page = page.value)
-                Log.d(TAG, "appending "+result.size.toString())
+                Log.d(TAG, "appending " + result.size.toString())
                 appendTvShows(result)
             }
             loading.value = false
         }
     }
+
     /**
      * Append new recipes to the current list of recipes
      */
-    private fun appendTvShows(recipes: List<TvShow>){
+    private fun appendTvShows(recipes: List<TvShow>) {
         val current = ArrayList(this.tvShows.value)
         current.addAll(recipes)
         this.tvShows.value = current
     }
 
-    private fun incrementPage(){
+    private fun incrementPage() {
         setPage(page.value + 1)
     }
 
-    fun onChangeTvShowScrollPosition(position: Int){
+    fun onChangeTvShowScrollPosition(position: Int) {
         setListScrollPosition(position = position)
     }
 
@@ -183,18 +184,18 @@ constructor(
         setQuery(query)
     }
 
-    private fun setListScrollPosition(position: Int){
+    private fun setListScrollPosition(position: Int) {
         tvShowListScrollPosition = position
         savedStateHandle.set(STATE_KEY_LIST_POSITION, position)
     }
 
-    private fun setPage(page: Int){
+    private fun setPage(page: Int) {
         this.page.value = page
         savedStateHandle.set(STATE_KEY_PAGE, page)
     }
 
 
-    private fun setQuery(query: String){
+    private fun setQuery(query: String) {
         this.query.value = query
         savedStateHandle.set(STATE_KEY_QUERY, query)
     }

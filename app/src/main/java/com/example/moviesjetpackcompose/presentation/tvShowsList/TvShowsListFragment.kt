@@ -21,20 +21,20 @@ import com.example.moviesjetpackcompose.presentation.tvShowsList.Components.TvSh
 import com.example.moviesjetpackcompose.presentation.theme.AppTheme
 import com.example.moviesjetpackcompose.presentation.utils.CircularIndeterminateProgressBar
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import javax.inject.Inject
 
-
+@ExperimentalCoroutinesApi
+@ExperimentalMaterialApi
+@ExperimentalComposeUiApi
 @AndroidEntryPoint
 class TvShowsListFragment : Fragment() {
 
     @Inject
     lateinit var application: BaseApplication
 
-
     private val viewModel: TvShowListViewModel by viewModels()
 
-    @ExperimentalMaterialApi
-    @ExperimentalComposeUiApi
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -61,16 +61,12 @@ class TvShowsListFragment : Fragment() {
                                 onQueryChanged = viewModel::onQueryChanged,
                                 onExecuteSearch = {
 
-                                        viewModel.onTriggerEvent(TvShowListEvent.NewSearchEvent)
+                                    viewModel.onTriggerEvent(TvShowListEvent.NewSearchEvent)
                                 },
                                 onToggleTheme = application::toggleLightTheme
                             )
                         },
                         scaffoldState = scaffoldState,
-                        snackbarHost = {
-                            scaffoldState.snackbarHostState
-                        },
-
                         ) {
                         TvShowList(
                             loading = loading,
@@ -81,13 +77,19 @@ class TvShowsListFragment : Fragment() {
                             onNavigateToTvShowsDetailScreen = {
                                 val bundle = Bundle()
                                 bundle.putString("recipeId", it)
-                                findNavController().navigate(R.id.action_moviesListFragment_to_movieFragment, bundle)
+                                findNavController().navigate(
+                                    R.id.action_moviesListFragment_to_movieFragment,
+                                    bundle
+                                )
                             }
                         )
 
-                        if(loading && tvShows.isNotEmpty()){
-                            Log.d("loading",tvShows.size.toString())
-                            CircularIndeterminateProgressBar(isDisplayed = loading, verticalBias = 0.1f )
+                        if (loading && tvShows.isNotEmpty()) {
+                            Log.d("loading", tvShows.size.toString())
+                            CircularIndeterminateProgressBar(
+                                isDisplayed = loading,
+                                verticalBias = 0.1f
+                            )
                         }
 
                     }
