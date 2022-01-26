@@ -19,7 +19,7 @@ class TvShowRepo_Imp(
     }
 
     override suspend fun getDetails(query: String): TvShowDetails {
-        return tvShowDetailsMapper.mapToDomainModel(apiService.getTVShowDetails(query))
+        return tvShowDetailsMapper.mapToDomainModel(apiService.getTVShowDetails(query).tvShow)
     }
 
 }

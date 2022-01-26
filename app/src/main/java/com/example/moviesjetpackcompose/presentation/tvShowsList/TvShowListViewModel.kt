@@ -41,6 +41,7 @@ constructor(
     var tvShowListScrollPosition = 0
 
     init {
+
         savedStateHandle.get<Int>(STATE_KEY_PAGE)?.let { p ->
             setPage(p)
         }
@@ -50,7 +51,7 @@ constructor(
         savedStateHandle.get<Int>(STATE_KEY_LIST_POSITION)?.let { p ->
             setListScrollPosition(p)
         }
-
+        Log.d("init","$tvShowListScrollPosition  ${page.value}  ${query.value}")
         if(tvShowListScrollPosition != 0){
             onTriggerEvent(TvShowListEvent.RestoreStateEvent)
         }
@@ -120,14 +121,20 @@ constructor(
         loading.value = true
         resetSearchState()
         delay(2000)
+        val results: MutableList<TvShow> = mutableListOf()
 
-        val result = repo.search(
-            page = 1,
-            query = query.value
-        )
-        tvShows.value = result
-
-        loading.value = false
+        for(p in 1..page.value) {
+            val result = repo.search(
+                page = p,
+                query = query.value
+            )
+            results.addAll(result)
+            if (p == page.value) { // done
+                tvShows.value = results
+                loading.value = false
+            }
+            Log.d("newSearch",results.size.toString())
+        }
     }
 
     private suspend fun nextPage(){
@@ -169,7 +176,6 @@ constructor(
      */
     private fun resetSearchState() {
         tvShows.value = listOf()
-        page.value = 1
         onChangeTvShowScrollPosition(0)
     }
 
