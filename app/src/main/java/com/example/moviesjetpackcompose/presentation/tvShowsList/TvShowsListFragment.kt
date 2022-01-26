@@ -1,10 +1,12 @@
 package com.example.moviesjetpackcompose.presentation.tvShowsList
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Scaffold
 import androidx.compose.material.rememberScaffoldState
@@ -14,9 +16,10 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import com.example.moviesjetpackcompose.R
 import com.example.moviesjetpackcompose.presentation.BaseApplication
-import com.example.moviesjetpackcompose.presentation.Components.SearchAppBar
-import com.example.moviesjetpackcompose.presentation.Components.TvShowList
+import com.example.moviesjetpackcompose.presentation.tvShowsList.Components.SearchAppBar
+import com.example.moviesjetpackcompose.presentation.tvShowsList.Components.TvShowList
 import com.example.moviesjetpackcompose.presentation.theme.AppTheme
+import com.example.moviesjetpackcompose.presentation.utils.CircularIndeterminateProgressBar
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -84,6 +87,12 @@ class TvShowsListFragment : Fragment() {
                                 findNavController().navigate(R.id.action_moviesListFragment_to_movieFragment, bundle)
                             }
                         )
+
+                        if(loading && tvShows.isNotEmpty()){
+                            Log.d("loading",tvShows.size.toString())
+                            CircularIndeterminateProgressBar(isDisplayed = loading, verticalBias = 0.1f )
+                        }
+
                     }
                 }
             }

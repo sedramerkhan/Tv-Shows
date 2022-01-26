@@ -1,4 +1,4 @@
-package com.example.moviesjetpackcompose.presentation.Components
+package com.example.moviesjetpackcompose.presentation.tvShowsList.Components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box

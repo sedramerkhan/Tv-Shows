@@ -1,22 +1,17 @@
-package com.example.moviesjetpackcompose.presentation.Components
+package com.example.moviesjetpackcompose.presentation.tvShowsList.Components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import coil.annotation.ExperimentalCoilApi
-import coil.compose.ImagePainter
 import coil.compose.rememberImagePainter
-import coil.transform.BlurTransformation
-import coil.transform.CircleCropTransformation
-import coil.transform.GrayscaleTransformation
+import coil.size.Scale
 import coil.transform.RoundedCornersTransformation
 import com.example.moviesjetpackcompose.R
 

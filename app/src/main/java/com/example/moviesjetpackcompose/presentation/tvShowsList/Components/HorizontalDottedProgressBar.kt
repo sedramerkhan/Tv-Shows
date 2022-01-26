@@ -1,4 +1,4 @@
-package com.example.moviesjetpackcompose.presentation.Components
+package com.example.moviesjetpackcompose.presentation.tvShowsList.Components
 
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.Canvas
