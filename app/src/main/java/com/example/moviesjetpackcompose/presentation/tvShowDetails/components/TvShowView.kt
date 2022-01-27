@@ -40,6 +40,8 @@ fun TvShowView(
                     expandedState = expandedState,
                     onClick = onClick
                 )
+
+                RowRatingGenresTime(rating = tvShow.rating, runtime = tvShow.runtime, genres =tvShow.genres )
             }
         }
     }

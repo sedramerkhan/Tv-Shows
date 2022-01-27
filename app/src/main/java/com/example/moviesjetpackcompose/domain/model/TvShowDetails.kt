@@ -21,5 +21,5 @@ data class TvShowDetails(
     val countdown: String?,
     val genres: List<String>,
     val pictures: List<String>,
-    val episodes: List<Episodes>
+    val episodes: List<Episode>
 )
