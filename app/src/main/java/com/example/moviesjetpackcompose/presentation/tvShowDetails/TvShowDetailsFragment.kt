@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.*
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.unit.dp
@@ -23,9 +24,13 @@ import com.example.moviesjetpackcompose.presentation.tvShowDetails.components.Tv
 import com.example.moviesjetpackcompose.presentation.tvShowsList.TvShowListViewModel
 import com.example.moviesjetpackcompose.presentation.utils.CircularIndeterminateProgressBar
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import javax.inject.Inject
 
-
+@ExperimentalCoroutinesApi
+@ExperimentalComposeUiApi
+@ExperimentalCoilApi
+@ExperimentalMaterialApi
 @AndroidEntryPoint
 class TvShowDetailsFragment : Fragment() {
 
@@ -41,8 +46,6 @@ class TvShowDetailsFragment : Fragment() {
         }
     }
 
-    @ExperimentalCoilApi
-    @ExperimentalMaterialApi
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -54,6 +57,7 @@ class TvShowDetailsFragment : Fragment() {
                 val loading = viewModel.loading.value
                 val failure = viewModel.failure.value
                 val tvShow = viewModel.tvShow.value
+                val expandedState = viewModel.expandedState.value
 
                 val scaffoldState = rememberScaffoldState()
 
@@ -72,6 +76,8 @@ class TvShowDetailsFragment : Fragment() {
 
                                     TvShowView(
                                         tvShow = it,
+                                        expandedState = expandedState,
+                                        onClick = viewModel::setExpandedState
                                     )
 
                             }

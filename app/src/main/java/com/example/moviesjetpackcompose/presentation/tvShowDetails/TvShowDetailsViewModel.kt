@@ -1,8 +1,7 @@
 package com.example.moviesjetpackcompose.presentation.tvShowDetails
 
 import android.util.Log
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.*
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -31,6 +30,7 @@ constructor(
 
     val loading = mutableStateOf(false)
     val failure = mutableStateOf(false)
+    val expandedState = mutableStateOf(false)
 
     init {
         // restore if process dies
@@ -79,5 +79,9 @@ constructor(
            Log.d("soso",it.name)
            state.set(STATE_KEY_TV_SHOW,it.id)
        } ?: setFailure()
+    }
+
+    fun setExpandedState(){
+        expandedState.value = !expandedState.value
     }
 }

@@ -16,7 +16,7 @@ class TvShowDetailsMapper : DomainMapper<TvShowDetailsDto, TvShowDetails> {
             name = model.name,
             permalink = model.permalink,
             url = model.url,
-            description = model.url,
+            description = model.description,
             description_source = model.description_source,
             start_date = model.start_date,
             end_date = model.end_date,
