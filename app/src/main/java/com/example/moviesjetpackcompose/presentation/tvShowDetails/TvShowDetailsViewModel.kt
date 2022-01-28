@@ -31,6 +31,7 @@ constructor(
     val loading = mutableStateOf(false)
     val failure = mutableStateOf(false)
     val expandedState = mutableStateOf(false)
+    val dialogState = mutableStateOf(false)
 
     init {
         // restore if process dies
@@ -58,16 +59,11 @@ constructor(
 
     private suspend fun getDetails(id: String) {
         loading.value = true
-
         // simulate a delay to show loading
         delay(1000)
         Log.d("soso","hello from get Details")
         repo.getDetails(id,::apiCallback)
 
-
-
-
-        loading.value = false
     }
 
     fun setFailure(){
@@ -79,9 +75,15 @@ constructor(
            Log.d("soso",it.name)
            state.set(STATE_KEY_TV_SHOW,it.id)
        } ?: setFailure()
+
+        loading.value = false
     }
 
     fun setExpandedState(){
         expandedState.value = !expandedState.value
+    }
+
+    fun setDialogState(){
+       dialogState.value = !dialogState.value
     }
 }
