@@ -1,6 +1,6 @@
 package com.example.moviesjetpackcompose.domain.model
 
-data class Episodes(
+data class Episode(
     val season: Int,
     val episode: Int,
     val name: String,
