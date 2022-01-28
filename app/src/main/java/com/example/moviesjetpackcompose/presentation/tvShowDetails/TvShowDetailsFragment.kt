@@ -7,9 +7,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
@@ -19,6 +21,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.unit.dp
+import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.viewModels
 import coil.annotation.ExperimentalCoilApi
 import com.example.moviesjetpackcompose.presentation.BaseApplication
@@ -54,6 +57,7 @@ class TvShowDetailsFragment : Fragment() {
         }
     }
 
+    private val fragment = this
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -69,81 +73,78 @@ class TvShowDetailsFragment : Fragment() {
 
                 val scaffoldState = rememberScaffoldState()
 
-                val bottomSheetScaffoldState = rememberBottomSheetScaffoldState(
-                    bottomSheetState = rememberBottomSheetState(
-                        initialValue = BottomSheetValue.Collapsed
-                    )
-                )
-//                val bottomSheetScaffoldState = rememberBottomSheetScaffoldState(
-//                    bottomSheetState = BottomSheetState(BottomSheetValue.Collapsed)
-//                )
+                val bottomDrawerState: BottomDrawerState =
+                    rememberBottomDrawerState(BottomDrawerValue.Closed)
+
                 val coroutineScope = rememberCoroutineScope()
 
+//                BackHandler(onBack = {
+//                    if (bottomDrawerState.isOpen) {
+//                        coroutineScope.launch {
+//                           // bottomDrawerState.open()
+//                            bottomDrawerState.close() }
+//                    } else {
+////                             fragmentManager?.popBackStack()
+////                      activity?.supportFragmentManager?.beginTransaction()?.remove(fragment)?.commit()
+////                      activity?.supportFragmentManager?.popBackStack()
+//                    }
+//                })
 
                 AppTheme(
                     darkTheme = application.isDark.value,
                 ){
-                    BottomSheetScaffold(
-                        scaffoldState = bottomSheetScaffoldState,
-                        sheetContent ={
-                            tvShow?.let {   EpisodesList(episodes =it.episodes,name= tvShow.name) }
-                                      },
-                        sheetShape = AppShapes.small,
-                        sheetPeekHeight = 0.dp
+                   Scaffold(
+                  scaffoldState = scaffoldState,
+
                     ) {
+                       BottomDrawer(
+                           drawerState = bottomDrawerState,
+                           drawerContent = {
+                               tvShow?.let {
+                                   EpisodesList(
+                                       episodes = it.episodes,
+                                       name = tvShow.name
+                                   )
+                               }
+                           },
+                           content = {
+                               Box (
+                                   modifier = Modifier.fillMaxSize()
+                               ){
 
+                                   if (loading && tvShow == null)
+                                       LoadingTvShowShimmer(imageHeight = IMAGE_HEIGHT.dp)
+                                   tvShow?.let {
+                                       TvShowView(
+                                           tvShow = it,
+                                           expandedState = expandedState,
+                                           onClickExpand = viewModel::setExpandedState,
+                                           onClickEpisodes = {
+                                               coroutineScope.launch {
+                                                   Log.d("sese","open drawer")
+                                                   bottomDrawerState.open() }
+                                           }
 
+                                       )
 
-                        Box (
-                            modifier = Modifier.fillMaxSize()
-                        ){
+                                   }
+                                   CircularIndeterminateProgressBar(isDisplayed = loading, verticalBias = 0.3f)
 
-                            if (loading && tvShow == null)
-                                LoadingTvShowShimmer(imageHeight = IMAGE_HEIGHT.dp)
-                            tvShow?.let {
-                                    TvShowView(
-                                        tvShow = it,
-                                        expandedState = expandedState,
-                                        onClickExpand = viewModel::setExpandedState,
-                                        onClickEpisodes = {
-                                            OpenBottomSheet(
-                                                bottomSheetScaffoldState = bottomSheetScaffoldState,
-                                                coroutineScope = coroutineScope
-                                            )
-                                        }
+                                   if(failure){
+                                       Text(
+                                           text = "Failed to get information",
+                                           style = MaterialTheme.typography.h1,
+                                           modifier = Modifier.align(Alignment.Center).width(200.dp)
+                                       )
+                                   }
+                               }
+                           }
+                       )
 
-                                    )
-
-                            }
-                            CircularIndeterminateProgressBar(isDisplayed = loading, verticalBias = 0.3f)
-
-                            if(failure){
-                                Text(
-                                    text = "Failed to get information",
-                                    style = MaterialTheme.typography.h1,
-                                    modifier = Modifier.align(Alignment.Center)
-                                )
-                            }
-                        }
                     }
                 }
             }
         }
     }
 
-    @SuppressLint("CoroutineCreationDuringComposition")
-    fun OpenBottomSheet(
-        bottomSheetScaffoldState: BottomSheetScaffoldState,
-        coroutineScope:CoroutineScope
-    ){
-        coroutineScope.launch {
-            Log.d("sese","Button Clicked ${bottomSheetScaffoldState.bottomSheetState.isCollapsed}")
-            if (bottomSheetScaffoldState.bottomSheetState.isCollapsed) {
-                bottomSheetScaffoldState.bottomSheetState.expand()
-
-            } else {
-                bottomSheetScaffoldState.bottomSheetState.collapse()
-            }
-        }
-    }
 }

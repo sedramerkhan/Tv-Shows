@@ -10,6 +10,7 @@ import androidx.compose.ui.unit.dp
 import coil.annotation.ExperimentalCoilApi
 import com.example.moviesjetpackcompose.domain.model.TvShowDetails
 import com.example.moviesjetpackcompose.presentation.theme.Green300
+import com.example.moviesjetpackcompose.presentation.theme.Orange
 import com.example.moviesjetpackcompose.presentation.tvShowsList.Components.CoilImage
 
 @ExperimentalCoilApi
@@ -59,7 +60,8 @@ fun ConstraintItems(
             )
             Text(
                 text = tvShow.network + " (" + tvShow.country + ")",
-                style = MaterialTheme.typography.h5,
+                style = MaterialTheme.typography.h4,
+                color = Orange
             )
             Text(
                 text = tvShow.status,

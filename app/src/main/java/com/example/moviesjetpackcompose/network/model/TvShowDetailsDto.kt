@@ -23,5 +23,5 @@ data class TvShowDetailsDto(
     @SerializedName("countdown") val countdown: String?,
     @SerializedName("genres") val genres: List<String>,
     @SerializedName("pictures") val pictures: List<String>,
-    @SerializedName("episodes") val episodes: List<EpisodesDto>
+    @SerializedName("episodes") val episodes: List<EpisodeDto>
 )
