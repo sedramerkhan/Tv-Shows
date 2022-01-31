@@ -6,11 +6,19 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Scaffold
 import androidx.compose.material.rememberScaffoldState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.unit.dp
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import coil.annotation.ExperimentalCoilApi
@@ -22,9 +30,10 @@ import com.example.moviesjetpackcompose.presentation.tvShowsList.Components.Sear
 import com.example.moviesjetpackcompose.presentation.tvShowsList.Components.TopAppBar1
 import com.example.moviesjetpackcompose.presentation.utils.CircularIndeterminateProgressBar
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.*
 import javax.inject.Inject
 
+@DelicateCoroutinesApi
 @ExperimentalCoilApi
 @ExperimentalCoroutinesApi
 @ExperimentalMaterialApi
@@ -52,6 +61,7 @@ class TvShowsListFragment : Fragment() {
                 val scaffoldState = rememberScaffoldState()
                 val searchWidgetState = viewModel.searchWidgetState.value
                 val searchDone = viewModel.searchDone.value
+                var startAnimation by remember { mutableStateOf(false) }
 
                 AppTheme(
                     darkTheme = isDark,
@@ -63,17 +73,29 @@ class TvShowsListFragment : Fragment() {
                                 searchWidgetState = searchWidgetState,
                                 query = query,
                                 isDark = isDark,
+                                startAnimation = startAnimation,
                                 onQueryChanged = viewModel::onQueryChanged,
                                 onExecuteSearch = {
                                     viewModel.onTriggerEvent(TvShowListEvent.NewSearchEvent)
                                 },
                                 onCloseClicked = {
-                                    viewModel.setSearchState(SearchWidgetState.CLOSED)
-                                    if (searchDone)
-                                        viewModel.onTriggerEvent(TvShowListEvent.RestoreStateEvent)
+                                    GlobalScope.launch {
+                                        startAnimation = true
+                                        viewModel.setSearchState(SearchWidgetState.CLOSED)
+                                        if (searchDone)
+                                            viewModel.onTriggerEvent(TvShowListEvent.RestoreStateEvent)
+                                        delay(1000)
+                                        startAnimation = false
+                                    }
                                 },
                                 onSearchTriggered = {
-                                    viewModel.setSearchState(SearchWidgetState.OPENED)
+                                    GlobalScope.launch {
+                                        startAnimation = true
+                                        delay(1000)
+                                        viewModel.setSearchState(SearchWidgetState.OPENED)
+                                        startAnimation = false
+                                    }
+
                                 },
                                 onToggleTheme = application::toggleLightTheme,
                             )

@@ -1,7 +1,11 @@
 package com.example.moviesjetpackcompose.presentation.tvShowsList.Components
 
 
+import android.content.res.Configuration
 import androidx.compose.animation.Crossfade
+import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -16,11 +20,13 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.ui.tooling.preview.Preview
 import com.example.moviesjetpackcompose.R
@@ -32,6 +38,7 @@ fun TopAppBar1(
     searchWidgetState: SearchWidgetState,
     query: String,
     isDark: Boolean,
+    startAnimation: Boolean = true,
     onQueryChanged: (String) -> Unit,
     onExecuteSearch: () -> Unit,
     onCloseClicked: () -> Unit,
@@ -41,9 +48,10 @@ fun TopAppBar1(
     when (searchWidgetState) {
         SearchWidgetState.CLOSED -> {
             DefaultAppBar(
-                onSearchClicked = onSearchTriggered,
                 isDark = isDark,
-                onToggleTheme = onToggleTheme
+                startAnimation = startAnimation,
+                onToggleTheme = onToggleTheme,
+                onSearchClicked = onSearchTriggered,
             )
         }
         SearchWidgetState.OPENED -> {
@@ -61,26 +69,51 @@ fun TopAppBar1(
 
 @Composable
 fun DefaultAppBar(
-    onSearchClicked: () -> Unit,
     isDark: Boolean,
+    startAnimation: Boolean = true,
     onToggleTheme: () -> Unit,
+    onSearchClicked: () -> Unit,
 ) {
+
+    val configuration = LocalConfiguration.current
+    val animStart  = when(configuration.orientation){
+      Configuration.ORIENTATION_PORTRAIT -> -337.dp
+      else -> -737.dp
+    }
+    val animEnd = 0.dp
+    val pos = animateDpAsState(
+        targetValue = if (startAnimation) animStart else animEnd,
+        animationSpec = tween(
+            durationMillis = 1000
+        )
+    )
+    val alpha = animateFloatAsState(
+        targetValue = if (startAnimation) 0f else 1f,
+        animationSpec = tween(
+            durationMillis = 900
+        )
+    )
+
     TopAppBar(
         title = {
             Text(
                 text = "TvShows",
-                style = MaterialTheme.typography.h3
+                style = MaterialTheme.typography.h3,
+                modifier = Modifier
+                    .alpha(alpha = alpha.value),
             )
         },
         actions = {
             IconButton(
                 onClick = onSearchClicked,
-                modifier = Modifier.size(30.dp)
+                modifier = Modifier
+                    .size(30.dp)
+                    .absoluteOffset(x = pos.value)
             ) {
                 Icon(
                     imageVector = Icons.Filled.Search,
                     contentDescription = "Search Icon",
-//                    tint = MaterialTheme.colors.surface
+//                    tint = Color.White
                 )
             }
             IconButton(
@@ -215,13 +248,6 @@ fun SearchAppBar(
 
 
     }
-}
-
-
-@Composable
-@Preview
-fun DefaultAppBarPreview() {
-    DefaultAppBar(onSearchClicked = {}, true, {})
 }
 
 

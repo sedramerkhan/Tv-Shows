@@ -21,7 +21,7 @@ class SplashScreen : AppCompatActivity() {
             val alphaAnim = animateFloatAsState(
                 targetValue = if (startAnimation) 0f else 1f,
                 animationSpec = tween(
-                    durationMillis = 3800
+                    durationMillis = 3900
                 )
             )
 
