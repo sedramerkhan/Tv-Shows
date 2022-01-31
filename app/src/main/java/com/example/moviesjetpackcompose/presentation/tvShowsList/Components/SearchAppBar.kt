@@ -1,5 +1,6 @@
 package com.example.moviesjetpackcompose.presentation.tvShowsList.Components
 
+import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -73,11 +74,14 @@ fun SearchAppBar(
                             },
                         onClick = onToggleTheme,
                     ) {
-                        var id = if (isDark) R.drawable.bulb_day else R.drawable.bulb_night
-                        Icon(
-                            painter = painterResource(id = id),
-                            contentDescription = "Toggle Dark/Light Theme"
-                        )
+
+                        Crossfade(targetState = isDark) { isDark ->
+                            val id = if (isDark) R.drawable.sun else R.drawable.moon
+                            Icon(
+                                painter = painterResource(id = id),
+                                contentDescription = "Toggle Dark/Light Theme"
+                            )
+                        }
                     }
                 }
             }

@@ -15,9 +15,9 @@ import androidx.compose.ui.unit.dp
 fun ExpandedText(
     description: String,
     expandedState: Boolean,
-    onClick : () -> Unit,
-){
-    val (maxLines,buttonText) = when(expandedState){
+    onClick: () -> Unit,
+) {
+    val (maxLines, buttonText) = when (expandedState) {
         true -> Int.MAX_VALUE to "less"
         false -> 4 to " more"
     }
@@ -33,10 +33,12 @@ fun ExpandedText(
     TextButton(
         modifier = Modifier.background(Color.Transparent),
         onClick = onClick
-    ){
-        Text(  text = buttonText,
+    ) {
+        Text(
+            text = buttonText,
             color = Color.Blue,
-            style = MaterialTheme.typography.subtitle1,)
+            style = MaterialTheme.typography.subtitle1,
+        )
     }
 
 }
