@@ -38,6 +38,7 @@ constructor(
     val page = mutableStateOf(1)
     val searchWidgetState = mutableStateOf(SearchWidgetState.CLOSED)
     var tvShowListScrollPosition = 0
+    var failure = mutableStateOf(false)
 
     init {
         savedStateHandle.get<Int>(STATE_KEY_PAGE)?.let { p ->
@@ -91,6 +92,8 @@ constructor(
         val result = repo.getPopular(
             page = 1
         )
+        if(result.isEmpty())
+            setFailure()
         tvShows.value = result
         searchDone.value = false
         loading.value = false
@@ -122,7 +125,7 @@ constructor(
                 page = p,
                 query = query.value
             )
-            results.addAll(result)
+            results.addAll(result!!)
             if (p == page.value) { // done
                 tvShows.value = results
                 searchDone.value = true
@@ -195,6 +198,10 @@ constructor(
 
     fun setSearchState(state: SearchWidgetState) {
         searchWidgetState.value = state
+    }
+
+    fun setFailure(){
+        failure.value = true
     }
 
 }

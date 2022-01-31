@@ -5,7 +5,7 @@ import com.example.moviesjetpackcompose.domain.model.TvShowDetails
 
 interface TvShowRepo {
 
-    suspend fun search(page: Int, query: String): List<TvShow>
+    suspend fun search(page: Int, query: String): List<TvShow>?
 
     suspend fun getPopular( page: Int):  List<TvShow>
 

@@ -1,6 +1,7 @@
 package com.example.moviesjetpackcompose.repository
 
 import android.util.Log
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.moviesjetpackcompose.domain.model.TvShow
@@ -20,11 +21,20 @@ class TvShowRepo_Imp(
     private val tvShowMapper: TvShowMapper,
     private val tvShowDetailsMapper: TvShowDetailsMapper
 ) : TvShowRepo{
-    override suspend fun search(page: Int, query: String): List<TvShow> =
-        tvShowMapper.toDomainList(apiService.searchTVShow(page = page, query = query).tv_shows)
+    override suspend fun search(page: Int, query: String): List<TvShow>? {
+
+        val response = apiService.searchTVShow(page = page, query = query)
+        if(response.isSuccessful)
+            return tvShowMapper.toDomainList(response.body()?.tv_shows!!)
+        return null
+    }
+
 
     override suspend fun getPopular(page: Int): List<TvShow> {
-        return tvShowMapper.toDomainList(apiService.getMostPopularTVShows(page).tv_shows)
+        val response = apiService.getMostPopularTVShows(page)
+        if(response.isSuccessful)
+            return tvShowMapper.toDomainList(response.body()?.tv_shows!!)
+        return listOf()
     }
 
     override suspend fun getDetails( id: String?, callback: (TvShowDetails?) -> Unit) {

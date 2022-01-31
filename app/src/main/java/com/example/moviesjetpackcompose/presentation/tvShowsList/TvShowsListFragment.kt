@@ -9,14 +9,17 @@ import android.view.ViewGroup
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
-import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.Scaffold
-import androidx.compose.material.rememberScaffoldState
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.width
+import androidx.compose.material.*
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.viewModels
@@ -61,7 +64,9 @@ class TvShowsListFragment : Fragment() {
                 val scaffoldState = rememberScaffoldState()
                 val searchWidgetState = viewModel.searchWidgetState.value
                 val searchDone = viewModel.searchDone.value
+                val failure = viewModel.failure.value
                 var startAnimation by remember { mutableStateOf(false) }
+
 
                 AppTheme(
                     darkTheme = isDark,
@@ -117,6 +122,19 @@ class TvShowsListFragment : Fragment() {
                                 )
                             }
                         )
+                        if(failure){
+                            Box(
+                                modifier = Modifier.fillMaxSize()
+                            ) {
+                                Text(
+                                    text = "Failed to get information",
+                                    style = MaterialTheme.typography.h1,
+                                    modifier = Modifier
+                                        .align(Alignment.Center)
+                                        .width(200.dp)
+                                )
+                            }
+                        }
 
                         if (loading && tvShows.isNotEmpty()) {
                             Log.d("loading", tvShows.size.toString())
