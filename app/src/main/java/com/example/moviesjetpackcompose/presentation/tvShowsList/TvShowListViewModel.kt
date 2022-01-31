@@ -7,6 +7,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.moviesjetpackcompose.domain.model.TvShow
+import com.example.moviesjetpackcompose.presentation.tvShowsList.Components.SearchWidgetState
 import com.example.moviesjetpackcompose.repository.TvShowRepo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -38,6 +39,8 @@ constructor(
 
     // Pagination starts at '1' (-1 = exhausted)
     val page = mutableStateOf(1)
+
+    val searchWidgetState = mutableStateOf(SearchWidgetState.CLOSED)
 
     var tvShowListScrollPosition = 0
 
@@ -198,6 +201,10 @@ constructor(
     private fun setQuery(query: String) {
         this.query.value = query
         savedStateHandle.set(STATE_KEY_QUERY, query)
+    }
+
+    fun setSearchState(state: SearchWidgetState){
+        searchWidgetState.value = state
     }
 
 }

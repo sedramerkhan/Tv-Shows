@@ -6,7 +6,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Scaffold
 import androidx.compose.material.rememberScaffoldState
@@ -16,9 +15,10 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import com.example.moviesjetpackcompose.R
 import com.example.moviesjetpackcompose.presentation.BaseApplication
-import com.example.moviesjetpackcompose.presentation.tvShowsList.Components.SearchAppBar
 import com.example.moviesjetpackcompose.presentation.tvShowsList.Components.TvShowList
 import com.example.moviesjetpackcompose.presentation.theme.AppTheme
+import com.example.moviesjetpackcompose.presentation.tvShowsList.Components.SearchWidgetState
+import com.example.moviesjetpackcompose.presentation.tvShowsList.Components.TopAppBar1
 import com.example.moviesjetpackcompose.presentation.utils.CircularIndeterminateProgressBar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -48,6 +48,7 @@ class TvShowsListFragment : Fragment() {
                 val page = viewModel.page.value
                 val isDark = application.isDark.value
                 val scaffoldState = rememberScaffoldState()
+                val searchWidgetState = viewModel.searchWidgetState.value
 
                 AppTheme(
                     darkTheme = isDark,
@@ -55,15 +56,21 @@ class TvShowsListFragment : Fragment() {
 
                     Scaffold(
                         topBar = {
-                            SearchAppBar(
+                            TopAppBar1(
+                                searchWidgetState = searchWidgetState,
                                 query = query,
                                 isDark = isDark,
                                 onQueryChanged = viewModel::onQueryChanged,
                                 onExecuteSearch = {
-
                                     viewModel.onTriggerEvent(TvShowListEvent.NewSearchEvent)
                                 },
-                                onToggleTheme = application::toggleLightTheme
+                                onToggleTheme = application::toggleLightTheme,
+                                onCloseClicked = {
+                                    viewModel.setSearchState(SearchWidgetState.CLOSED)
+                                },
+                                onSearchTriggered = {
+                                    viewModel.setSearchState(SearchWidgetState.OPENED)
+                                }
                             )
                         },
                         scaffoldState = scaffoldState,
