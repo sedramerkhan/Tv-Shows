@@ -141,7 +141,7 @@ fun SearchAppBar(
                         color = Color.White
                     )
                 },
-                textStyle = MaterialTheme.typography.h2,
+                textStyle = MaterialTheme.typography.h5,
                 singleLine = true,
                 leadingIcon = {
                     IconButton(
@@ -184,6 +184,7 @@ fun SearchAppBar(
                     }
                 ),
                 colors = TextFieldDefaults.textFieldColors(
+                    textColor = Color.White,
                     backgroundColor = Color.Transparent,
 //                    focusedIndicatorColor = MaterialTheme.colors.primary,
                     unfocusedIndicatorColor = MaterialTheme.colors.primary,
