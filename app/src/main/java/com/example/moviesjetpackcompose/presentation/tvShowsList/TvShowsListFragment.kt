@@ -13,6 +13,7 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
+import coil.annotation.ExperimentalCoilApi
 import com.example.moviesjetpackcompose.R
 import com.example.moviesjetpackcompose.presentation.BaseApplication
 import com.example.moviesjetpackcompose.presentation.tvShowsList.Components.TvShowList
@@ -24,6 +25,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import javax.inject.Inject
 
+@ExperimentalCoilApi
 @ExperimentalCoroutinesApi
 @ExperimentalMaterialApi
 @ExperimentalComposeUiApi
@@ -49,6 +51,7 @@ class TvShowsListFragment : Fragment() {
                 val isDark = application.isDark.value
                 val scaffoldState = rememberScaffoldState()
                 val searchWidgetState = viewModel.searchWidgetState.value
+                val searchDone = viewModel.searchDone.value
 
                 AppTheme(
                     darkTheme = isDark,
@@ -64,17 +67,19 @@ class TvShowsListFragment : Fragment() {
                                 onExecuteSearch = {
                                     viewModel.onTriggerEvent(TvShowListEvent.NewSearchEvent)
                                 },
-                                onToggleTheme = application::toggleLightTheme,
                                 onCloseClicked = {
                                     viewModel.setSearchState(SearchWidgetState.CLOSED)
+                                    if (searchDone)
+                                        viewModel.onTriggerEvent(TvShowListEvent.RestoreStateEvent)
                                 },
                                 onSearchTriggered = {
                                     viewModel.setSearchState(SearchWidgetState.OPENED)
-                                }
+                                },
+                                onToggleTheme = application::toggleLightTheme,
                             )
                         },
                         scaffoldState = scaffoldState,
-                        ) {
+                    ) {
                         TvShowList(
                             loading = loading,
                             tvShows = tvShows,

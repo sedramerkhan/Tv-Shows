@@ -2,6 +2,7 @@ package com.example.moviesjetpackcompose.presentation.tvShowsList.Components
 
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.material.MaterialTheme
@@ -39,27 +40,35 @@ fun DrawCanvas(
     state: Float,
     radius: Dp,
     color: Color,
-){
+) {
     Canvas(
-        modifier = Modifier.fillMaxWidth().height(55.dp),
-    ){
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(55.dp)
+            .background(MaterialTheme.colors.background),
+    ) {
 
         val radiusValue = radius.value
         val padding = (radiusValue + (radiusValue * 0.5f))
 
-        for(i in 1..5) {
-            if(i-1 == state.toInt()){
+        for (i in 1..5) {
+            if (i - 1 == state.toInt()) {
                 drawCircle(
-                    radius = radiusValue*2,
+                    radius = radiusValue * 2,
                     brush = SolidColor(color),
-                    center = Offset(x = this.center.x + radiusValue * 2 * (i-3)  + padding * (i-3), y = this.center.y)
+                    center = Offset(
+                        x = this.center.x + radiusValue * 2 * (i - 3) + padding * (i - 3),
+                        y = this.center.y
+                    )
                 )
-            }
-            else{
+            } else {
                 drawCircle(
                     radius = radiusValue,
                     brush = SolidColor(color),
-                    center = Offset(x = this.center.x + radiusValue * 2 * (i-3) + padding * (i-3), y = this.center.y)
+                    center = Offset(
+                        x = this.center.x + radiusValue * 2 * (i - 3) + padding * (i - 3),
+                        y = this.center.y
+                    )
                 )
             }
         }

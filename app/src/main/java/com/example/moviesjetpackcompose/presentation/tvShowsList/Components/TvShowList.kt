@@ -7,10 +7,12 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import coil.annotation.ExperimentalCoilApi
 import com.example.moviesjetpackcompose.domain.model.TvShow
 import com.example.moviesjetpackcompose.presentation.tvShowsList.PAGE_SIZE
 import com.example.moviesjetpackcompose.presentation.tvShowsList.TvShowCard
 
+@ExperimentalCoilApi
 @Composable
 fun TvShowList(
     loading: Boolean,

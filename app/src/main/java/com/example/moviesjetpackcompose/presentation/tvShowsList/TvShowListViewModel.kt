@@ -32,26 +32,20 @@ constructor(
     var TAG = "Debug"
 
     val tvShows: MutableState<List<TvShow>> = mutableStateOf(ArrayList())
-
+    val searchDone = mutableStateOf(false)
     val query = mutableStateOf("")
-
     val loading = mutableStateOf(false)
-
-    // Pagination starts at '1' (-1 = exhausted)
     val page = mutableStateOf(1)
-
     val searchWidgetState = mutableStateOf(SearchWidgetState.CLOSED)
-
     var tvShowListScrollPosition = 0
 
     init {
-
         savedStateHandle.get<Int>(STATE_KEY_PAGE)?.let { p ->
             setPage(p)
         }
-        savedStateHandle.get<String>(STATE_KEY_QUERY)?.let { q ->
-            setQuery(q)
-        }
+//        savedStateHandle.get<String>(STATE_KEY_QUERY)?.let { q ->
+//            setQuery(q)
+//        }
         savedStateHandle.get<Int>(STATE_KEY_LIST_POSITION)?.let { p ->
             setListScrollPosition(p)
         }
@@ -98,7 +92,7 @@ constructor(
             page = 1
         )
         tvShows.value = result
-
+        searchDone.value = false
         loading.value = false
     }
 
@@ -107,10 +101,7 @@ constructor(
         val results: MutableList<TvShow> = mutableListOf()
 
         for (p in 1..page.value) {
-            val result = repo.search(
-                page = p,
-                query = query.value
-            )
+            val result = repo.getPopular(page = p)
             results.addAll(result)
             if (p == page.value) { // done
                 tvShows.value = results
@@ -134,6 +125,7 @@ constructor(
             results.addAll(result)
             if (p == page.value) { // done
                 tvShows.value = results
+                searchDone.value = true
                 loading.value = false
             }
             Log.d("newSearch", results.size.toString())
@@ -158,9 +150,7 @@ constructor(
         }
     }
 
-    /**
-     * Append new recipes to the current list of recipes
-     */
+
     private fun appendTvShows(recipes: List<TvShow>) {
         val current = ArrayList(this.tvShows.value)
         current.addAll(recipes)
@@ -203,7 +193,7 @@ constructor(
         savedStateHandle.set(STATE_KEY_QUERY, query)
     }
 
-    fun setSearchState(state: SearchWidgetState){
+    fun setSearchState(state: SearchWidgetState) {
         searchWidgetState.value = state
     }
 

@@ -34,9 +34,9 @@ fun TopAppBar1(
     isDark: Boolean,
     onQueryChanged: (String) -> Unit,
     onExecuteSearch: () -> Unit,
-    onToggleTheme: () -> Unit,
     onCloseClicked: () -> Unit,
     onSearchTriggered: () -> Unit,
+    onToggleTheme: () -> Unit,
 ) {
     when (searchWidgetState) {
         SearchWidgetState.CLOSED -> {
@@ -49,10 +49,10 @@ fun TopAppBar1(
         SearchWidgetState.OPENED -> {
             SearchAppBar(
                 query = query,
-                onQueryChanged = onQueryChanged,
-                onCloseClicked = onCloseClicked,
-                onExecuteSearch = onExecuteSearch,
                 isDark = isDark,
+                onQueryChanged = onQueryChanged,
+                onExecuteSearch = onExecuteSearch,
+                onCloseClicked = onCloseClicked,
                 onToggleTheme = onToggleTheme
             )
         }
@@ -109,13 +109,14 @@ fun DefaultAppBar(
 @Composable
 fun SearchAppBar(
     query: String,
-    onQueryChanged: (String) -> Unit,
-    onCloseClicked: () -> Unit,
-    onExecuteSearch: () -> Unit,
     isDark: Boolean,
+    onQueryChanged: (String) -> Unit,
+    onExecuteSearch: () -> Unit,
+    onCloseClicked: () -> Unit,
     onToggleTheme: () -> Unit,
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
+
     Surface(
         modifier = Modifier
             .fillMaxWidth()
