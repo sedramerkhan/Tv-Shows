@@ -2,18 +2,12 @@ package com.example.moviesjetpackcompose.presentation.tvShowsList.Components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.dp
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.ImagePainter
 import coil.compose.rememberImagePainter
-import coil.size.Scale
 import coil.transform.RoundedCornersTransformation
 import com.example.moviesjetpackcompose.R
 import com.example.moviesjetpackcompose.presentation.utils.CircularIndeterminateProgressBar
@@ -29,6 +23,7 @@ fun CoilImage(
     modifier: Modifier = Modifier,
     imageModifier: Modifier,
     roundCorner: Float = 0f,
+    placeholder: Int = R.drawable.place_holder,
     loading: Boolean = false
     ) {
     Box(
@@ -38,7 +33,7 @@ fun CoilImage(
         val painter = rememberImagePainter(
             data = link,
             builder = {
-                placeholder(R.drawable.place_holder)
+                placeholder(placeholder)
                 error(R.drawable.error)
                 crossfade(1000)
                 transformations(
@@ -61,7 +56,7 @@ fun CoilImage(
         )
         var painterState = painter.state
         if (painterState is ImagePainter.State.Loading && loading ){
-            CircularIndeterminateProgressBar(isDisplayed = loading, verticalBias = 0.25f)
+            CircularIndeterminateProgressBar(isDisplayed = loading, verticalBias = 0.5f)
         }
     }
 }

@@ -27,11 +27,11 @@ constructor(
     var TAG = "App Debug"
 
     val tvShow: MutableState<TvShowDetails?> = mutableStateOf(null)
-
     val loading = mutableStateOf(false)
     val failure = mutableStateOf(false)
     val expandedState = mutableStateOf(false)
     val dialogState = mutableStateOf(false)
+    val imageIndex = mutableStateOf(0)
 
     init {
         // restore if process dies
@@ -85,5 +85,15 @@ constructor(
 
     fun setDialogState(){
        dialogState.value = !dialogState.value
+    }
+
+    fun setImageIndex(){
+        tvShow.value?.let{
+            imageIndex.value++
+            if(it.pictures.size== imageIndex.value) {
+                imageIndex.value = 0
+            }
+        }
+
     }
 }

@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.*
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
@@ -20,6 +21,7 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.viewModels
 import coil.annotation.ExperimentalCoilApi
+import coil.compose.rememberImagePainter
 import com.example.moviesjetpackcompose.presentation.BaseApplication
 import com.example.moviesjetpackcompose.presentation.theme.AppTheme
 import com.example.moviesjetpackcompose.presentation.tvShowDetails.components.IMAGE_HEIGHT
@@ -29,6 +31,7 @@ import com.example.moviesjetpackcompose.presentation.tvShowDetails.episodesCompo
 import com.example.moviesjetpackcompose.presentation.utils.CircularIndeterminateProgressBar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.delay
 import javax.inject.Inject
 
 @ExperimentalCoroutinesApi
@@ -64,13 +67,21 @@ class TvShowDetailsFragment : Fragment() {
                 val tvShow = viewModel.tvShow.value
                 val expandedState = viewModel.expandedState.value
                 val dialogState = viewModel.dialogState.value
-                val isDark= application.isDark.value
+                val isDark = application.isDark.value
                 val scaffoldState = rememberScaffoldState()
+                val imageIndex = viewModel.imageIndex.value
 
-
+                tvShow?.let {
+                    LaunchedEffect(Unit) {
+                        while (true) {
+                            viewModel.setImageIndex()
+                            delay(5000)
+                        }
+                    }
+                }
 //                BackHandler(onBack = {
 //
-////                             fragmentManager?.popBackStack()
+////                      fragmentManager?.popBackStack()
 ////                      activity?.supportFragmentManager?.beginTransaction()?.remove(fragment)?.commit()
 ////                      activity?.supportFragmentManager?.popBackStack()
 //
@@ -80,20 +91,21 @@ class TvShowDetailsFragment : Fragment() {
                     darkTheme = isDark,
                 ) {
 
-                        Scaffold(
-                            scaffoldState = scaffoldState,
+                    Scaffold(
+                        scaffoldState = scaffoldState,
 
-                            ) {
+                        ) {
 
-                            Box(
-                                modifier = Modifier.fillMaxSize()
-                            ) {
+                        Box(
+                            modifier = Modifier.fillMaxSize()
+                        ) {
                             if (loading && tvShow == null)
                                 LoadingTvShowShimmer(imageHeight = IMAGE_HEIGHT.dp)
                             tvShow?.let {
                                 TvShowView(
                                     tvShow = it,
                                     expandedState = expandedState,
+                                    imageIndex = imageIndex,
                                     onClickExpand = viewModel::setExpandedState,
                                     onClickEpisodes = viewModel::setDialogState
                                 )
@@ -119,7 +131,7 @@ class TvShowDetailsFragment : Fragment() {
                                     modifier = Modifier
                                         .background(
                                             color = contentColorFor(Color.Black)
-                                                .copy(alpha =if(isDark) .5f else .8f )
+                                                .copy(alpha = if (isDark) .5f else .8f)
                                         )
 //                                    .clickable(
 //                                        interactionSource = remember { MutableInteractionSource() },

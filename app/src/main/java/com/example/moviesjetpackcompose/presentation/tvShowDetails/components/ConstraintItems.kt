@@ -17,13 +17,13 @@ import com.example.moviesjetpackcompose.presentation.tvShowsList.Components.Coil
 @Composable
 fun ConstraintItems(
     tvShow: TvShowDetails,
-
+    imageIndex: Int,
 ){
     ConstraintLayout(Modifier.fillMaxWidth().padding(bottom = 10.dp)) {
 
         val (imageRef, thumbnailRef, textRef) = createRefs()
         CoilImage(
-            link = tvShow.pictures[0],
+            link = tvShow.pictures[imageIndex],
             modifier = Modifier.constrainAs(imageRef) {
                 top.linkTo(parent.top)
                 end.linkTo(parent.end)
@@ -34,7 +34,6 @@ fun ConstraintItems(
             imageModifier = Modifier
                 .height(IMAGE_HEIGHT.dp)
                 .fillMaxWidth(),
-            loading = true
         )
         CoilImage(
             link = tvShow.image_thumbnail_path,

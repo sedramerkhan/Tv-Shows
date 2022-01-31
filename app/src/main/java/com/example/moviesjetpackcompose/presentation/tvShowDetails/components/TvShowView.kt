@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import coil.annotation.ExperimentalCoilApi
+import com.example.moviesjetpackcompose.R
 import com.example.moviesjetpackcompose.domain.model.TvShowDetails
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -25,10 +26,10 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 fun TvShowView(
     tvShow: TvShowDetails,
     expandedState: Boolean,
+    imageIndex: Int,
     onClickExpand: () -> Unit,
     onClickEpisodes: () -> Unit
 ) {
-
 
     LazyColumn(
         modifier = Modifier
@@ -37,7 +38,7 @@ fun TvShowView(
         item {
             Column {
 
-                ConstraintItems(tvShow = tvShow)
+                ConstraintItems(tvShow = tvShow,imageIndex = imageIndex)
                 ExpandedText(
                     description = tvShow.description,
                     expandedState = expandedState,
