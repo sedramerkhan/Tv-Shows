@@ -30,7 +30,8 @@ fun ExpandedText(
         style = MaterialTheme.typography.body1,
         modifier = Modifier.padding(horizontal = 16.dp),
         maxLines = maxLines,
-        overflow = TextOverflow.Ellipsis
+        overflow = TextOverflow.Ellipsis,
+        color = MaterialTheme.colors.onSurface
     )
 
     Text(

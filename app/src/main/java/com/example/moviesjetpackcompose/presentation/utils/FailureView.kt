@@ -33,8 +33,7 @@ fun FailureView(
         Text(
             text = "Failed to get information",
             style = MaterialTheme.typography.subtitle1,
-
-
+            color = MaterialTheme.colors.onSurface
         )
     }
 }

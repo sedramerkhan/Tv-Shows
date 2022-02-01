@@ -57,7 +57,7 @@ fun AppTheme(
         val systemUiController = rememberSystemUiController()
 
         systemUiController.setStatusBarColor(
-            color =colors.primary
+            color =Teal700
         )
         systemUiController.statusBarDarkContentEnabled = false
 

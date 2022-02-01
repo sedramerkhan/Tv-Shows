@@ -63,11 +63,12 @@ fun ConstraintItems(
                     tvShow.name.length > 22 -> MaterialTheme.typography.subtitle1
                     else -> MaterialTheme.typography.h4
                 },
+                color = MaterialTheme.colors.onSurface
             )
             Text(
                 text = tvShow.network + " (" + tvShow.country + ")",
                 style = MaterialTheme.typography.h5,
-//                color = Orange
+                color = MaterialTheme.colors.onSurface
             )
             Text(
                 text = tvShow.status,
@@ -79,6 +80,7 @@ fun ConstraintItems(
                 Text(
                     text = "Started On: $it",
                     style = MaterialTheme.typography.h5,
+                    color = MaterialTheme.colors.onSurface
                 )
             }
         }

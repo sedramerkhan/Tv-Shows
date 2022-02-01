@@ -36,6 +36,7 @@ fun RowRatingGenresTime(
         Text(
             text = "$rating /$runtime Min",
             style = MaterialTheme.typography.h5,
+            color = MaterialTheme.colors.onSurface
         )
 
     }
@@ -48,6 +49,7 @@ fun RowRatingGenresTime(
         Text(
             text = genres.joinToString(),
             style = MaterialTheme.typography.h5,
+            color = MaterialTheme.colors.onSurface
         )
     }
     Spacer(

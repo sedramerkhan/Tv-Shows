@@ -13,6 +13,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import coil.annotation.ExperimentalCoilApi
 import com.example.moviesjetpackcompose.domain.model.TvShowDetails
+import com.example.moviesjetpackcompose.presentation.theme.Teal700
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @ExperimentalComposeUiApi
@@ -53,7 +54,7 @@ fun TvShowView(
                         .padding(horizontal = 25.dp, vertical = 16.dp)
                         .clip(RoundedCornerShape(10.dp)),
                     onClick = onClickEpisodes,
-//                    colors = ButtonDefaults.buttonColors(backgroundColor = Teal700)
+                   colors = ButtonDefaults.buttonColors(backgroundColor = Teal700)
 
                 ) {
                     Text(

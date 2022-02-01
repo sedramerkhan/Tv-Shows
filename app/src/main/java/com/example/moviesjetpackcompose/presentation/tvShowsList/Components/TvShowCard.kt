@@ -33,7 +33,6 @@ fun TvShowCard(
     ) {
 
         Row {
-
             CoilImage(
                 link = tvShow.image_thumbnail_path,
                 modifier = Modifier.padding(top = 8.dp, bottom = 8.dp, start = 16.dp, end = 8.dp),
@@ -51,14 +50,16 @@ fun TvShowCard(
                     modifier = Modifier
                         .fillMaxWidth()
                         .wrapContentWidth(Alignment.Start),
-                    style = MaterialTheme.typography.h3
+                    style = MaterialTheme.typography.h3,
+                    color = MaterialTheme.colors.onSurface
                 )
                 Text(
                     text = tvShow.network + " (" + tvShow.country + ")",
                     modifier = Modifier
                         .fillMaxWidth()
                         .wrapContentWidth(Alignment.Start),
-                    style = MaterialTheme.typography.h5
+                    style = MaterialTheme.typography.h5,
+                    color = MaterialTheme.colors.onSurface
                 )
                 tvShow.start_date?.let {
 //                    var end = tvShow.end_date ?: ""
@@ -67,7 +68,8 @@ fun TvShowCard(
                         modifier = Modifier
                             .fillMaxWidth()
                             .wrapContentWidth(Alignment.Start),
-                        style = MaterialTheme.typography.h5
+                        style = MaterialTheme.typography.h5,
+                        color = MaterialTheme.colors.onSurface
                     )
                 }
                 Text(
