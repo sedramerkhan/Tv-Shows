@@ -87,7 +87,7 @@ class TvShowsListFragment : Fragment() {
                                 onSearchTriggered = {
                                     GlobalScope.launch {
                                         startAnimation = true
-                                        delay(1000)
+                                        delay(500)
                                         viewModel.setSearchState(SearchWidgetState.OPENED)
                                         startAnimation = false
                                     }
@@ -105,6 +105,7 @@ class TvShowsListFragment : Fragment() {
                             page = page,
                             onTriggerNextPage = { viewModel.onTriggerEvent(TvShowListEvent.NextPageEvent) },
                             onNavigateToTvShowsDetailScreen = {
+                                viewModel.setSearchState(SearchWidgetState.CLOSED)
                                 val bundle = Bundle()
                                 bundle.putString("tvShowId", it)
                                 findNavController().navigate(

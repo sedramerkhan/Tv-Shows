@@ -17,16 +17,17 @@ class SplashScreen : AppCompatActivity() {
         setContent {
             var startAnimation by remember { mutableStateOf(false) }
             var startActivity by remember { mutableStateOf(false) }
+            val time= 1500
             val alphaAnim = animateFloatAsState(
                 targetValue = if (startAnimation) 0f else 1f,
                 animationSpec = tween(
-                    durationMillis = 3900
+                    durationMillis = time
                 )
             )
 
             LaunchedEffect(key1 = true) {
                 startAnimation = true
-                delay(4000)
+                delay(time.toLong())
                 startActivity = true
             }
             Splash(alpha = alphaAnim.value)

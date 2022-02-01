@@ -1,5 +1,6 @@
 package com.example.moviesjetpackcompose.presentation.tvShowsList.Components
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.lazy.LazyColumn
@@ -8,12 +9,15 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import coil.annotation.ExperimentalCoilApi
 import com.example.moviesjetpackcompose.domain.model.TvShow
 import com.example.moviesjetpackcompose.presentation.tvShowsList.PAGE_SIZE
 import com.example.moviesjetpackcompose.presentation.tvShowsList.TvShowCard
+import kotlinx.coroutines.launch
 
+@SuppressLint("CoroutineCreationDuringComposition")
 @ExperimentalCoilApi
 @Composable
 fun TvShowList(
@@ -35,10 +39,12 @@ fun TvShowList(
         else if(tvShows.isNotEmpty()){
 
             val state = rememberLazyListState()
-           LaunchedEffect(listState) {
-                   state.animateScrollToItem(0)
-                   setListState()
-               }
+            if(listState) {
+                rememberCoroutineScope().launch {
+                    state.animateScrollToItem(0)
+                    setListState()
+                }
+            }
 
             LazyColumn(
                 state = state

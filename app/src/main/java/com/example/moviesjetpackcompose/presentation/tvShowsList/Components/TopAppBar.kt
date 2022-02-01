@@ -87,16 +87,17 @@ fun DefaultAppBar(
 //      else -> -737.dp
 //    }
     val animEnd = 0.dp
+    val time = 500
     val pos = animateDpAsState(
         targetValue = if (startAnimation) animStart else animEnd,
         animationSpec = tween(
-            durationMillis = 1000
+            durationMillis = time
         )
     )
     val alpha = animateFloatAsState(
         targetValue = if (startAnimation) 0f else 1f,
         animationSpec = tween(
-            durationMillis = 900
+            durationMillis = time -100
         )
     )
 
@@ -158,7 +159,7 @@ fun SearchAppBar(
     val focusRequester = remember { FocusRequester() }
 
     LaunchedEffect("") {
-        delay(200)
+        delay(100)
         keyboardController?.show()
         focusRequester.requestFocus()
     }
