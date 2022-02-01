@@ -16,6 +16,7 @@
         <activity
             android:name=".presentation.splashScreen.SplashScreen"
             android:exported="true"
+            android:noHistory="true"
             android:theme="@style/Theme.MoviesJetpackCompose.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
