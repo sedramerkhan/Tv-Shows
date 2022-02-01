@@ -59,7 +59,7 @@ fun AppTheme(
         systemUiController.setStatusBarColor(
             color =colors.primary
         )
-
+        systemUiController.statusBarDarkContentEnabled = false
 
         Box(
             modifier = Modifier
