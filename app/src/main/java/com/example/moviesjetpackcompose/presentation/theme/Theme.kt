@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.*
 import androidx.compose.material.MaterialTheme.colors
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
@@ -55,11 +56,12 @@ fun AppTheme(
         shapes = AppShapes
     ) {
         val systemUiController = rememberSystemUiController()
-
-        systemUiController.setStatusBarColor(
-            color =Teal700
-        )
-        systemUiController.statusBarDarkContentEnabled = false
+        SideEffect {
+            systemUiController.setStatusBarColor(
+                color =Teal700
+            )
+            systemUiController.statusBarDarkContentEnabled = false
+        }
 
         Box(
             modifier = Modifier

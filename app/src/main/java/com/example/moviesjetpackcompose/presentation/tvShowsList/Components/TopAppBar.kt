@@ -15,10 +15,14 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
@@ -27,6 +31,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.example.moviesjetpackcompose.R
+import kotlinx.coroutines.delay
 
 
 @ExperimentalComposeUiApi
@@ -150,6 +155,13 @@ fun SearchAppBar(
     onToggleTheme: () -> Unit,
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
+    val focusRequester = remember { FocusRequester() }
+
+    LaunchedEffect("") {
+        delay(200)
+        keyboardController?.show()
+        focusRequester.requestFocus()
+    }
 
     Surface(
         modifier = Modifier
@@ -163,7 +175,8 @@ fun SearchAppBar(
         ) {
             TextField(
                 modifier = Modifier
-                    .weight(.8f),
+                    .weight(.8f)
+                    .focusRequester(focusRequester),
                 value = query,
                 onValueChange = {
                     onQueryChanged(it)
@@ -215,7 +228,7 @@ fun SearchAppBar(
                 keyboardActions = KeyboardActions(
                     onSearch = {
                         onExecuteSearch()
-                        keyboardController?.hideSoftwareKeyboard()
+                        keyboardController?.hide()
                     }
                 ),
                 colors = TextFieldDefaults.textFieldColors(
