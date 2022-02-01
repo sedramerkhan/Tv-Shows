@@ -14,6 +14,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.example.moviesjetpackcompose.R
+import com.example.moviesjetpackcompose.presentation.theme.Gold
 
 
 @Composable
@@ -34,7 +35,7 @@ fun RowRatingGenresTime(
             .fillMaxWidth(),
         horizontalArrangement = Arrangement.Center
     ) {
-        Icon(imageVector = Icons.Filled.Star, contentDescription = "rating", tint = Color.Yellow)
+        Icon(imageVector = Icons.Filled.Star, contentDescription = "rating", tint = Gold)
         Text(
             text = "$rating /$runtime Min",
             style = MaterialTheme.typography.h5,

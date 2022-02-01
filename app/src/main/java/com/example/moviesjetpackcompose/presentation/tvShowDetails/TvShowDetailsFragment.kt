@@ -23,6 +23,7 @@ import androidx.navigation.fragment.findNavController
 import coil.annotation.ExperimentalCoilApi
 import com.example.moviesjetpackcompose.presentation.BaseApplication
 import com.example.moviesjetpackcompose.presentation.theme.AppTheme
+import com.example.moviesjetpackcompose.presentation.tvShowDetails.components.FailureView
 import com.example.moviesjetpackcompose.presentation.tvShowDetails.components.IMAGE_HEIGHT
 import com.example.moviesjetpackcompose.presentation.tvShowDetails.components.LoadingTvShowShimmer
 import com.example.moviesjetpackcompose.presentation.tvShowDetails.components.TvShowView
@@ -98,7 +99,7 @@ class TvShowDetailsFragment : Fragment() {
                         Box(
                             modifier = Modifier.fillMaxSize()
                         ) {
-                            if (loading && tvShow == null)
+                            if (loading && tvShow == null && !failure)
                                 LoadingTvShowShimmer(imageHeight = IMAGE_HEIGHT.dp)
                             tvShow?.let {
                                 TvShowView(
@@ -111,18 +112,12 @@ class TvShowDetailsFragment : Fragment() {
 
                             }
                             CircularIndeterminateProgressBar(
-                                isDisplayed = loading,
+                                isDisplayed = loading && !failure,
                                 verticalBias = 0.3f
                             )
 
                             if (failure) {
-                                Text(
-                                    text = "Failed to get information",
-                                    style = MaterialTheme.typography.h1,
-                                    modifier = Modifier
-                                        .align(Alignment.Center)
-                                        .width(200.dp)
-                                )
+                                FailureView(isDark = isDark)
                             }
 
                             if (dialogState) {

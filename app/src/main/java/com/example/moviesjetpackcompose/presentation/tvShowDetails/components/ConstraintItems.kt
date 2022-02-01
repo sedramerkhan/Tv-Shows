@@ -59,8 +59,8 @@ fun ConstraintItems(
             )
             Text(
                 text = tvShow.network + " (" + tvShow.country + ")",
-                style = MaterialTheme.typography.h4,
-                color = Orange
+                style = MaterialTheme.typography.h5,
+//                color = Orange
             )
             Text(
                 text = tvShow.status,
