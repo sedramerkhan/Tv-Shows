@@ -5,11 +5,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.*
 import androidx.compose.runtime.LaunchedEffect
@@ -20,8 +19,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import coil.annotation.ExperimentalCoilApi
-import coil.compose.rememberImagePainter
 import com.example.moviesjetpackcompose.presentation.BaseApplication
 import com.example.moviesjetpackcompose.presentation.theme.AppTheme
 import com.example.moviesjetpackcompose.presentation.tvShowDetails.components.IMAGE_HEIGHT
@@ -71,21 +70,21 @@ class TvShowDetailsFragment : Fragment() {
                 val scaffoldState = rememberScaffoldState()
                 val imageIndex = viewModel.imageIndex.value
 
-                tvShow?.let {
-                    LaunchedEffect(Unit) {
-                        while (true) {
-                            viewModel.setImageIndex()
-                            delay(5000)
-                        }
-                    }
-                }
-//                BackHandler(onBack = {
-//
-////                      fragmentManager?.popBackStack()
-////                      activity?.supportFragmentManager?.beginTransaction()?.remove(fragment)?.commit()
-////                      activity?.supportFragmentManager?.popBackStack()
-//
-//                })
+//                tvShow?.let {
+//                    LaunchedEffect(Unit) {
+//                        while (true) {
+//                            viewModel.setImageIndex()
+//                            delay(5000)
+//                        }
+//                    }
+//                }
+                BackHandler(onBack = {
+                    if(dialogState)
+                        viewModel.setDialogState()
+                    else
+                        findNavController().popBackStack()
+
+                })
 
                 AppTheme(
                     darkTheme = isDark,

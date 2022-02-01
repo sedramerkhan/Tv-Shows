@@ -2,6 +2,7 @@ package com.example.moviesjetpackcompose.presentation.tvShowsList.Components
 
 
 import android.content.res.Configuration
+import android.util.Log
 import androidx.compose.animation.Crossfade
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.animateFloatAsState
@@ -76,10 +77,14 @@ fun DefaultAppBar(
 ) {
 
     val configuration = LocalConfiguration.current
-    val animStart  = when(configuration.orientation){
-      Configuration.ORIENTATION_PORTRAIT -> -337.dp
-      else -> -737.dp
-    }
+    val screenHeight = configuration.screenHeightDp.dp
+    val screenWidth = configuration.screenWidthDp
+    Log.d("soso",screenWidth.toString())
+    val animStart = (75 - screenWidth).dp
+//    val animStart  = when(configuration.orientation){
+//      Configuration.ORIENTATION_PORTRAIT -> -337.dp
+//      else -> -737.dp
+//    }
     val animEnd = 0.dp
     val pos = animateDpAsState(
         targetValue = if (startAnimation) animStart else animEnd,
@@ -97,7 +102,7 @@ fun DefaultAppBar(
     TopAppBar(
         title = {
             Text(
-                text = "TvShows",
+                text = "Tv Shows",
                 style = MaterialTheme.typography.h3,
                 modifier = Modifier
                     .alpha(alpha = alpha.value),

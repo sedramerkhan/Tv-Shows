@@ -63,7 +63,6 @@ class TvShowsListFragment : Fragment() {
                 val isDark = application.isDark.value
                 val scaffoldState = rememberScaffoldState()
                 val searchWidgetState = viewModel.searchWidgetState.value
-                val searchDone = viewModel.searchDone.value
                 val failure = viewModel.failure.value
                 var startAnimation by remember { mutableStateOf(false) }
 
@@ -87,8 +86,8 @@ class TvShowsListFragment : Fragment() {
                                     GlobalScope.launch {
                                         startAnimation = true
                                         viewModel.setSearchState(SearchWidgetState.CLOSED)
-                                        if (searchDone)
-                                            viewModel.onTriggerEvent(TvShowListEvent.RestoreStateEvent)
+
+                                        viewModel.onTriggerEvent(TvShowListEvent.RestoreStateEvent)
                                         delay(1000)
                                         startAnimation = false
                                     }

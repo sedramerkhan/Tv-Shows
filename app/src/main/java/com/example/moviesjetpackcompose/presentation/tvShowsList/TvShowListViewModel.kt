@@ -95,22 +95,24 @@ constructor(
         if(result.isEmpty())
             setFailure()
         tvShows.value = result
-        searchDone.value = false
         loading.value = false
     }
 
     private suspend fun restoreState() {
-        loading.value = true
-        val results: MutableList<TvShow> = mutableListOf()
+        if (searchDone.value) {
+            loading.value = true
+            val results: MutableList<TvShow> = mutableListOf()
 
-        for (p in 1..page.value) {
-            val result = repo.getPopular(page = p)
-            results.addAll(result)
-            if (p == page.value) { // done
-                tvShows.value = results
-                loading.value = false
+            for (p in 1..page.value) {
+                val result = repo.getPopular(page = p)
+                results.addAll(result)
+                if (p == page.value) { // done
+                    tvShows.value = results
+                    loading.value = false
+                    searchDone.value=false
+                }
+                Log.d("restoreState", results.size.toString())
             }
-            Log.d("restoreState", results.size.toString())
         }
     }
 
@@ -137,19 +139,21 @@ constructor(
 
     private suspend fun nextPage() {
         // prevent duplicate event due to recompose happening to quickly
-        if ((tvShowListScrollPosition + 1) >= (page.value * PAGE_SIZE)) {
-            loading.value = true
-            incrementPage()
-            Log.d(TAG, "nextPage: triggered: ${page.value}")
+        if(!searchDone.value) {
+            if ((tvShowListScrollPosition + 1) >= (page.value * PAGE_SIZE)) {
+                loading.value = true
+                incrementPage()
+                Log.d(TAG, "nextPage: triggered: ${page.value}")
 
-            delay(1000)
+                delay(1000)
 
-            if (page.value > 1) {
-                val result = repo.getPopular(page = page.value)
-                Log.d(TAG, "appending " + result.size.toString())
-                appendTvShows(result)
+                if (page.value > 1) {
+                    val result = repo.getPopular(page = page.value)
+                    Log.d(TAG, "appending " + result.size.toString())
+                    appendTvShows(result)
+                }
+                loading.value = false
             }
-            loading.value = false
         }
     }
 

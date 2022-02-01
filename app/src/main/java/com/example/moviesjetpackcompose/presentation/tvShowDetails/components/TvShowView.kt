@@ -12,6 +12,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import coil.annotation.ExperimentalCoilApi
 import com.example.moviesjetpackcompose.R
@@ -62,7 +63,7 @@ fun TvShowView(
                     Text(
                         text = "Episodes",
                         style = MaterialTheme.typography.h4,
-                        color = MaterialTheme.colors.surface
+                        color = Color.White
                     )
                 }
             }
