@@ -39,6 +39,7 @@ constructor(
     val searchWidgetState = mutableStateOf(SearchWidgetState.CLOSED)
     var tvShowListScrollPosition = 0
     var failure = mutableStateOf(false)
+    val listState =  mutableStateOf(false)
 
     init {
         savedStateHandle.get<Int>(STATE_KEY_PAGE)?.let { p ->
@@ -110,6 +111,7 @@ constructor(
                     tvShows.value = results
                     loading.value = false
                     searchDone.value=false
+                    setListState()
                 }
                 Log.d("restoreState", results.size.toString())
             }
@@ -132,6 +134,7 @@ constructor(
                 tvShows.value = results
                 searchDone.value = true
                 loading.value = false
+                setListState()
             }
             Log.d("newSearch", results.size.toString())
         }
@@ -206,6 +209,11 @@ constructor(
 
     fun setFailure(){
         failure.value = true
+    }
+
+    // it is called when close button for search is clicked or new search is done
+    fun setListState(){
+        listState.value = !listState.value
     }
 
 }

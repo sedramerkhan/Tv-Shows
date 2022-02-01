@@ -6,9 +6,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.compose.animation.core.animateDpAsState
-import androidx.compose.animation.core.animateFloatAsState
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.width
@@ -63,6 +60,7 @@ class TvShowsListFragment : Fragment() {
                 val isDark = application.isDark.value
                 val scaffoldState = rememberScaffoldState()
                 val searchWidgetState = viewModel.searchWidgetState.value
+                val listState = viewModel.listState.value
                 val failure = viewModel.failure.value
                 var startAnimation by remember { mutableStateOf(false) }
 
@@ -119,7 +117,9 @@ class TvShowsListFragment : Fragment() {
                                     R.id.action_moviesListFragment_to_movieFragment,
                                     bundle
                                 )
-                            }
+                            },
+                            listState = listState,
+                            setListState = viewModel::setListState
                         )
                         if(failure){
                             Box(
