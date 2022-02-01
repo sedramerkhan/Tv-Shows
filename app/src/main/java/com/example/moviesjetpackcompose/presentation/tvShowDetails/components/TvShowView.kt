@@ -12,10 +12,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import coil.annotation.ExperimentalCoilApi
-import com.example.moviesjetpackcompose.R
 import com.example.moviesjetpackcompose.domain.model.TvShowDetails
-import com.example.moviesjetpackcompose.presentation.theme.Teal700
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @ExperimentalComposeUiApi
@@ -37,7 +34,7 @@ fun TvShowView(
         item {
             Column {
 
-                ConstraintItems(tvShow = tvShow,imageIndex = imageIndex)
+                ConstraintItems(tvShow = tvShow, imageIndex = imageIndex)
                 ExpandedText(
                     description = tvShow.description,
                     expandedState = expandedState,

@@ -6,19 +6,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.width
 import androidx.compose.material.*
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
-import androidx.compose.ui.unit.dp
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import coil.annotation.ExperimentalCoilApi
@@ -26,6 +20,7 @@ import com.example.moviesjetpackcompose.R
 import com.example.moviesjetpackcompose.presentation.BaseApplication
 import com.example.moviesjetpackcompose.presentation.tvShowsList.Components.TvShowList
 import com.example.moviesjetpackcompose.presentation.theme.AppTheme
+import com.example.moviesjetpackcompose.presentation.tvShowDetails.components.FailureView
 import com.example.moviesjetpackcompose.presentation.tvShowsList.Components.SearchWidgetState
 import com.example.moviesjetpackcompose.presentation.tvShowsList.Components.TopAppBar1
 import com.example.moviesjetpackcompose.presentation.utils.CircularIndeterminateProgressBar
@@ -63,7 +58,6 @@ class TvShowsListFragment : Fragment() {
                 val listState = viewModel.listState.value
                 val failure = viewModel.failure.value
                 var startAnimation by remember { mutableStateOf(false) }
-
 
                 AppTheme(
                     darkTheme = isDark,
@@ -122,17 +116,7 @@ class TvShowsListFragment : Fragment() {
                             setListState = viewModel::setListState
                         )
                         if(failure){
-                            Box(
-                                modifier = Modifier.fillMaxSize()
-                            ) {
-                                Text(
-                                    text = "Failed to get information",
-                                    style = MaterialTheme.typography.h1,
-                                    modifier = Modifier
-                                        .align(Alignment.Center)
-                                        .width(200.dp)
-                                )
-                            }
+                           FailureView(isDark = isDark)
                         }
 
                         if (loading && tvShows.isNotEmpty()) {

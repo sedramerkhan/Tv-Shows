@@ -73,9 +73,9 @@ fun DefaultAppBar(
 ) {
 
     val configuration = LocalConfiguration.current
-    val screenHeight = configuration.screenHeightDp.dp
     val screenWidth = configuration.screenWidthDp
-    Log.d("soso",screenWidth.toString())
+    Log.d("soso", screenWidth.toString())
+
     val animStart = (75 - screenWidth).dp
 //    val animStart  = when(configuration.orientation){
 //      Configuration.ORIENTATION_PORTRAIT -> -337.dp

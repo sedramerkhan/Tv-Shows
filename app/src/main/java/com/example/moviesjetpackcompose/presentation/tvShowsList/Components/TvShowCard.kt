@@ -45,8 +45,6 @@ fun TvShowCard(
                 modifier = Modifier
                     .fillMaxWidth()
                     .align(Alignment.CenterVertically)
-//                    .padding(top = 12.dp, bottom = 12.dp, start = 8.dp, end = 8.dp)
-
             ) {
                 Text(
                     text = tvShow.name,

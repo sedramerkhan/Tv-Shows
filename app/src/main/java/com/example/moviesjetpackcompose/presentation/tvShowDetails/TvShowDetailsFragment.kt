@@ -9,9 +9,7 @@ import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.width
 import androidx.compose.material.*
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
@@ -53,7 +51,6 @@ class TvShowDetailsFragment : Fragment() {
         }
     }
 
-    private val fragment = this
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -71,6 +68,7 @@ class TvShowDetailsFragment : Fragment() {
                 val scaffoldState = rememberScaffoldState()
                 val imageIndex = viewModel.imageIndex.value
 
+//              //change picture every 5 seconds
 //                tvShow?.let {
 //                    LaunchedEffect(Unit) {
 //                        while (true) {
@@ -80,11 +78,10 @@ class TvShowDetailsFragment : Fragment() {
 //                    }
 //                }
                 BackHandler(onBack = {
-                    if(dialogState)
+                    if (dialogState)
                         viewModel.setDialogState()
                     else
                         findNavController().popBackStack()
-
                 })
 
                 AppTheme(
@@ -93,7 +90,6 @@ class TvShowDetailsFragment : Fragment() {
 
                     Scaffold(
                         scaffoldState = scaffoldState,
-
                         ) {
 
                         Box(
@@ -101,6 +97,7 @@ class TvShowDetailsFragment : Fragment() {
                         ) {
                             if (loading && tvShow == null && !failure)
                                 LoadingTvShowShimmer(imageHeight = IMAGE_HEIGHT.dp)
+
                             tvShow?.let {
                                 TvShowView(
                                     tvShow = it,
@@ -109,8 +106,8 @@ class TvShowDetailsFragment : Fragment() {
                                     onClickExpand = viewModel::setExpandedState,
                                     onClickEpisodes = viewModel::setDialogState
                                 )
-
                             }
+
                             CircularIndeterminateProgressBar(
                                 isDisplayed = loading && !failure,
                                 verticalBias = 0.3f

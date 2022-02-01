@@ -29,7 +29,7 @@ constructor(
     private val repo: TvShowRepo,
     private val savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
-    var TAG = "Debug"
+    var TAG = "App Debug"
 
     val tvShows: MutableState<List<TvShow>> = mutableStateOf(ArrayList())
     val searchDone = mutableStateOf(false)
@@ -39,7 +39,7 @@ constructor(
     val searchWidgetState = mutableStateOf(SearchWidgetState.CLOSED)
     var tvShowListScrollPosition = 0
     var failure = mutableStateOf(false)
-    val listState =  mutableStateOf(false)
+    val listState = mutableStateOf(false)
 
     init {
         savedStateHandle.get<Int>(STATE_KEY_PAGE)?.let { p ->
@@ -93,7 +93,7 @@ constructor(
         val result = repo.getPopular(
             page = 1
         )
-        if(result.isEmpty())
+        if (result.isEmpty())
             setFailure()
         tvShows.value = result
         loading.value = false
@@ -110,7 +110,7 @@ constructor(
                 if (p == page.value) { // done
                     tvShows.value = results
                     loading.value = false
-                    searchDone.value=false
+                    searchDone.value = false
                     setListState()
                 }
                 Log.d("restoreState", results.size.toString())
@@ -142,7 +142,7 @@ constructor(
 
     private suspend fun nextPage() {
         // prevent duplicate event due to recompose happening to quickly
-        if(!searchDone.value) {
+        if (!searchDone.value) {
             if ((tvShowListScrollPosition + 1) >= (page.value * PAGE_SIZE)) {
                 loading.value = true
                 incrementPage()
@@ -207,12 +207,12 @@ constructor(
         searchWidgetState.value = state
     }
 
-    fun setFailure(){
+    fun setFailure() {
         failure.value = true
     }
 
     // it is called when close button for search is clicked or new search is done
-    fun setListState(){
+    fun setListState() {
         listState.value = !listState.value
     }
 

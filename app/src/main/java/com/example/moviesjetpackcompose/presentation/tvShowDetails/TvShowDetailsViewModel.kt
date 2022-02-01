@@ -35,8 +35,8 @@ constructor(
 
     init {
         // restore if process dies
-        state.get<String>(STATE_KEY_TV_SHOW)?.let { recipeId ->
-            onTriggerEvent(TvShowDetailsEvent.GetTvShowDetailsEvent(recipeId))
+        state.get<String>(STATE_KEY_TV_SHOW)?.let { tvShowId ->
+            onTriggerEvent(TvShowDetailsEvent.GetTvShowDetailsEvent(tvShowId))
         }
     }
 
@@ -61,36 +61,37 @@ constructor(
         loading.value = true
         // simulate a delay to show loading
         delay(1000)
-        Log.d("soso","hello from get Details")
-        repo.getDetails(id,::apiCallback)
+        Log.d("soso", "hello from get Details")
+        repo.getDetails(id, ::apiCallback)
 
     }
 
-    fun setFailure(){
+    fun setFailure() {
         failure.value = true
     }
-    fun apiCallback(tvShow: TvShowDetails?){
-       tvShow?.let {
-           this.tvShow.value = it
-           Log.d("soso",it.name)
-           state.set(STATE_KEY_TV_SHOW,it.id)
-       } ?: setFailure()
+
+    fun apiCallback(tvShow: TvShowDetails?) {
+        tvShow?.let {
+            this.tvShow.value = it
+            Log.d("soso", it.name)
+            state.set(STATE_KEY_TV_SHOW, it.id)
+        } ?: setFailure()
 
         loading.value = false
     }
 
-    fun setExpandedState(){
+    fun setExpandedState() {
         expandedState.value = !expandedState.value
     }
 
-    fun setDialogState(){
-       dialogState.value = !dialogState.value
+    fun setDialogState() {
+        dialogState.value = !dialogState.value
     }
 
-    fun setImageIndex(){
-        tvShow.value?.let{
+    fun setImageIndex() {
+        tvShow.value?.let {
             imageIndex.value++
-            if(it.pictures.size== imageIndex.value) {
+            if (it.pictures.size == imageIndex.value) {
                 imageIndex.value = 0
             }
         }

@@ -1,17 +1,12 @@
 package com.example.moviesjetpackcompose.repository
 
 import android.util.Log
-import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.example.moviesjetpackcompose.domain.model.TvShow
 import com.example.moviesjetpackcompose.domain.model.TvShowDetails
 import com.example.moviesjetpackcompose.network.ApiService
 import com.example.moviesjetpackcompose.network.mapper.TvShowDetailsMapper
 import com.example.moviesjetpackcompose.network.mapper.TvShowMapper
-import com.example.moviesjetpackcompose.network.model.TvShowDetailsDto
 import com.example.moviesjetpackcompose.network.response.ResponseShowDetails
-import kotlinx.coroutines.delay
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

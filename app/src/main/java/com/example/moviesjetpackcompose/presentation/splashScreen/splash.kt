@@ -31,12 +31,12 @@ fun Splash(alpha: Float) {
                 .alpha(alpha = alpha),
             painter = painterResource(R.drawable.tv_show4),
             contentDescription = "Logo Icon",
-            )
+        )
     }
 }
 
-@Composable
 @Preview
+@Composable
 fun SplashScreenPreview() {
     Splash(alpha = 1f)
 }

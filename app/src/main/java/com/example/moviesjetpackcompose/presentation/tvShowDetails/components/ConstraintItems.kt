@@ -10,7 +10,6 @@ import androidx.compose.ui.unit.dp
 import coil.annotation.ExperimentalCoilApi
 import com.example.moviesjetpackcompose.domain.model.TvShowDetails
 import com.example.moviesjetpackcompose.presentation.theme.Green300
-import com.example.moviesjetpackcompose.presentation.theme.Orange
 import com.example.moviesjetpackcompose.presentation.tvShowsList.Components.CoilImage
 
 @ExperimentalCoilApi
@@ -18,8 +17,12 @@ import com.example.moviesjetpackcompose.presentation.tvShowsList.Components.Coil
 fun ConstraintItems(
     tvShow: TvShowDetails,
     imageIndex: Int,
-){
-    ConstraintLayout(Modifier.fillMaxWidth().padding(bottom = 10.dp)) {
+) {
+    ConstraintLayout(
+        Modifier
+            .fillMaxWidth()
+            .padding(bottom = 10.dp)
+    ) {
 
         val (imageRef, thumbnailRef, textRef) = createRefs()
         CoilImage(
@@ -28,9 +31,7 @@ fun ConstraintItems(
                 top.linkTo(parent.top)
                 end.linkTo(parent.end)
                 start.linkTo(parent.start)
-
             },
-
             imageModifier = Modifier
                 .height(IMAGE_HEIGHT.dp)
                 .fillMaxWidth(),
@@ -49,13 +50,19 @@ fun ConstraintItems(
                 .width(140.dp),
             roundCorner = 20f
         )
-        Column(modifier = Modifier.fillMaxWidth().constrainAs(textRef) {
-            top.linkTo(imageRef.bottom)
-            start.linkTo(thumbnailRef.end)
-        }) {
+        Column(modifier = Modifier
+            .fillMaxWidth()
+            .constrainAs(textRef) {
+                top.linkTo(imageRef.bottom)
+                start.linkTo(thumbnailRef.end)
+            }) {
             Text(
                 text = tvShow.name,
-                style = if(tvShow.name.length <18) MaterialTheme.typography.h3 else if(tvShow.name.length >22) MaterialTheme.typography.subtitle1 else  MaterialTheme.typography.h4,
+                style = when {
+                    tvShow.name.length < 18 -> MaterialTheme.typography.h3
+                    tvShow.name.length > 22 -> MaterialTheme.typography.subtitle1
+                    else -> MaterialTheme.typography.h4
+                },
             )
             Text(
                 text = tvShow.network + " (" + tvShow.country + ")",
@@ -68,7 +75,7 @@ fun ConstraintItems(
                 color = Green300,
             )
             tvShow.start_date?.let {
-//                          var end = tvShow.end_date ?: ""
+//               var end = tvShow.end_date ?: ""
                 Text(
                     text = "Started On: $it",
                     style = MaterialTheme.typography.h5,

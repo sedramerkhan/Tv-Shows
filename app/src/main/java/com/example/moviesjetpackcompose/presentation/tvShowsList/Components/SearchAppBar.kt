@@ -66,7 +66,7 @@ fun SearchAppBar(
                     val (menu) = createRefs()
                     IconButton(
                         modifier = Modifier
-                            .size(if(isDark) 35.dp else 30.dp)
+                            .size(if (isDark) 35.dp else 30.dp)
                             .padding(end = 3.dp)
                             .constrainAs(menu) {
                                 end.linkTo(parent.end)

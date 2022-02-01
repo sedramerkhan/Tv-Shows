@@ -1,6 +1,5 @@
 package com.example.moviesjetpackcompose.presentation.tvShowsList.Components
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.lazy.LazyColumn
@@ -9,14 +8,11 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import coil.annotation.ExperimentalCoilApi
 import com.example.moviesjetpackcompose.domain.model.TvShow
 import com.example.moviesjetpackcompose.presentation.tvShowsList.PAGE_SIZE
 import com.example.moviesjetpackcompose.presentation.tvShowsList.TvShowCard
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.launch
 
 @ExperimentalCoilApi
 @Composable
@@ -36,19 +32,13 @@ fun TvShowList(
         if (loading && tvShows.isEmpty()) {
             HorizontalDottedProgressBar()
         }
-        else if(tvShows.isEmpty()){
-//            NothingHere()
-        }
-        else {
+        else if(tvShows.isNotEmpty()){
 
             val state = rememberLazyListState()
-           if(listState){
-               rememberCoroutineScope().launch{
+           LaunchedEffect(listState) {
                    state.animateScrollToItem(0)
                    setListState()
                }
-
-            }
 
             LazyColumn(
                 state = state

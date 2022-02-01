@@ -1,6 +1,9 @@
 package com.example.moviesjetpackcompose.presentation.tvShowDetails.components
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -19,7 +22,7 @@ fun ExpandedText(
 ) {
     val (maxLines, buttonText) = when (expandedState) {
         true -> Int.MAX_VALUE to "less"
-        false -> 4 to " more"
+        false -> 4 to "more"
     }
 
     Text(
@@ -30,15 +33,16 @@ fun ExpandedText(
         overflow = TextOverflow.Ellipsis
     )
 
-    TextButton(
-        modifier = Modifier.background(Color.Transparent),
-        onClick = onClick
-    ) {
-        Text(
-            text = buttonText,
-            color = Color.Blue,
-            style = MaterialTheme.typography.subtitle1,
-        )
-    }
+    Text(
+        text = buttonText,
+        color = Color.Blue,
+        style = MaterialTheme.typography.subtitle1,
+        modifier = Modifier
+            .padding(horizontal = 16.dp)
+            .padding(bottom = 10.dp)
+            .clickable(
+                onClick = onClick
+            )
+    )
 
 }

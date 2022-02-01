@@ -1,6 +1,7 @@
 package com.example.moviesjetpackcompose.presentation.tvShowDetails.components
 
 
+import android.annotation.SuppressLint
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -82,8 +83,8 @@ fun LoadingTvShowShimmer(
 }
 
 @Composable
-fun Transition(target: Float) :State<Float> =
-     rememberInfiniteTransition().animateFloat(
+fun Transition(target: Float): State<Float> =
+    rememberInfiniteTransition().animateFloat(
         initialValue = 0f,
         targetValue = target,
         animationSpec = infiniteRepeatable(

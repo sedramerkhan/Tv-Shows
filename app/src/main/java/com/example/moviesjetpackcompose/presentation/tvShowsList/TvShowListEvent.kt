@@ -8,6 +8,6 @@ sealed class TvShowListEvent {
 
     object NextPageEvent : TvShowListEvent()
 
-    // restore after process death
-    object RestoreStateEvent: TvShowListEvent()
+    // restore after process death or search end
+    object RestoreStateEvent : TvShowListEvent()
 }
