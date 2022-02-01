@@ -2,13 +2,14 @@ package com.example.moviesjetpackcompose.presentation.theme
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.*
+import androidx.compose.material.MaterialTheme.colors
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 @SuppressLint("ConflictingOnColor")
 private val LightThemeColors = lightColors(
@@ -46,11 +47,20 @@ fun AppTheme(
     darkTheme: Boolean,
     content: @Composable () -> Unit,
 ) {
+
+
     MaterialTheme(
         colors = if (darkTheme) DarkThemeColors else LightThemeColors,
         typography = QuickSandTypography,
         shapes = AppShapes
     ) {
+        val systemUiController = rememberSystemUiController()
+
+        systemUiController.setStatusBarColor(
+            color =colors.primary
+        )
+
+
         Box(
             modifier = Modifier
                 .fillMaxSize()
