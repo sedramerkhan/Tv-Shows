@@ -2,6 +2,7 @@ package com.example.moviesjetpackcompose.presentation.tvShowDetails.episodesComp
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
@@ -63,13 +64,8 @@ fun EpisodesList(
             LazyColumn(
                 modifier = Modifier.padding(bottom = 10.dp)
             ) {
-                itemsIndexed(
-                    items = episodes
-                ) { index, episode ->
-
-                    EpisodesCard(
-                        episode = episode,
-                    )
+                items(episodes){ episode ->
+                    EpisodesCard(ep = episode)
                 }
             }
         }

@@ -22,7 +22,7 @@ import com.example.moviesjetpackcompose.presentation.tvShowsList.Components.TvSh
 import com.example.moviesjetpackcompose.presentation.theme.AppTheme
 import com.example.moviesjetpackcompose.presentation.tvShowDetails.components.FailureView
 import com.example.moviesjetpackcompose.presentation.tvShowsList.Components.SearchWidgetState
-import com.example.moviesjetpackcompose.presentation.tvShowsList.Components.TopAppBar1
+import com.example.moviesjetpackcompose.presentation.tvShowsList.Components.MainAppBar
 import com.example.moviesjetpackcompose.presentation.utils.CircularIndeterminateProgressBar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.*
@@ -65,7 +65,7 @@ class TvShowsListFragment : Fragment() {
 
                     Scaffold(
                         topBar = {
-                            TopAppBar1(
+                            MainAppBar(
                                 searchWidgetState = searchWidgetState,
                                 query = query,
                                 isDark = isDark,

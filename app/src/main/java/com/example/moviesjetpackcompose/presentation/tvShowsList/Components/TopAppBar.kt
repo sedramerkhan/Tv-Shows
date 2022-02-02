@@ -36,7 +36,7 @@ import kotlinx.coroutines.delay
 
 @ExperimentalComposeUiApi
 @Composable
-fun TopAppBar1(
+fun MainAppBar(
     searchWidgetState: SearchWidgetState,
     query: String,
     isDark: Boolean,

@@ -14,7 +14,7 @@ import com.example.moviesjetpackcompose.domain.model.Episode
 
 @Composable
 fun EpisodesCard(
-    episode: Episode
+    ep: Episode
 ){
     Card(
         modifier = Modifier.padding(bottom = 16.dp,start=20.dp,end=20.dp).fillMaxWidth(),
@@ -25,22 +25,25 @@ fun EpisodesCard(
         Column(
             modifier = Modifier.padding(10.dp),
         ) {
-            val s = episode.season.toString()
-            val season = if(s.length>1) s else "0$s"
-            val e = episode.season.toString()
-            val episodeNum = if(e.length>1) e else "0$e"
-            Text(
-                text = "S${season}E${episodeNum}",
-                style = MaterialTheme.typography.h3,
-            )
-            Text(
-                text = episode.name,
-                style = MaterialTheme.typography.h4,
-            )
-            Text(
-                text = "Air Date: ${episode.air_date}",
-                style = MaterialTheme.typography.h5,
-            )
+            with(ep){
+                val s = season.toString()
+                val season = if(s.length>1) s else "0$s"
+                val e = episode.toString()
+                val episodeNum = if(e.length>1) e else "0$e"
+                Text(
+                    text = "S${season}E${episodeNum}",
+                    style = MaterialTheme.typography.h3,
+                )
+                Text(
+                    text = name,
+                    style = MaterialTheme.typography.h4,
+                )
+                Text(
+                    text = "Air Date: ${air_date}",
+                    style = MaterialTheme.typography.h5,
+                )
+            }
+
         }
     }
 }

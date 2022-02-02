@@ -7,6 +7,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.example.moviesjetpackcompose.R
@@ -27,8 +28,8 @@ fun FailureView(
         Icon(
            painter = painterResource(id = R.drawable.warning),
             contentDescription = "Warning Icon",
-            tint =if(isDark) MaterialTheme.colors.surface else Teal700,
-            modifier = Modifier.size(150.dp)
+            tint = Teal700,
+            modifier = Modifier.size(150.dp).alpha(.5f)
         )
         Text(
             text = "Failed to get information",
