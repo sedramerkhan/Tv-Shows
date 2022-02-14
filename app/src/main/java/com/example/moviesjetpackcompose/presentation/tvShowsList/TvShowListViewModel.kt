@@ -219,7 +219,7 @@ constructor(
     }
 
     fun setKeyboardState() {
-        keyboardState.value = !keyboardState.value
+        keyboardState.value = false
     }
 
 }
