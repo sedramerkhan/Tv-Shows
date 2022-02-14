@@ -7,10 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.compose.material.*
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.viewModels
@@ -57,6 +54,7 @@ class TvShowsListFragment : Fragment() {
                 val searchWidgetState = viewModel.searchWidgetState.value
                 val listState = viewModel.listState.value
                 val failure = viewModel.failure.value
+                val keyboardState = viewModel.keyboardState.value
                 var startAnimation by remember { mutableStateOf(false) }
 
                 AppTheme(
@@ -70,6 +68,7 @@ class TvShowsListFragment : Fragment() {
                                 query = query,
                                 isDark = isDark,
                                 startAnimation = startAnimation,
+                                keyboardState = keyboardState,
                                 onQueryChanged = viewModel::onQueryChanged,
                                 onExecuteSearch = {
                                     viewModel.onTriggerEvent(TvShowListEvent.NewSearchEvent)
@@ -78,9 +77,8 @@ class TvShowsListFragment : Fragment() {
                                     GlobalScope.launch {
                                         startAnimation = true
                                         viewModel.setSearchState(SearchWidgetState.CLOSED)
-
                                         viewModel.onTriggerEvent(TvShowListEvent.RestoreStateEvent)
-                                        delay(1000)
+                                        delay(100)
                                         startAnimation = false
                                     }
                                 },
@@ -105,7 +103,7 @@ class TvShowsListFragment : Fragment() {
                             page = page,
                             onTriggerNextPage = { viewModel.onTriggerEvent(TvShowListEvent.NextPageEvent) },
                             onNavigateToTvShowsDetailScreen = {
-                                viewModel.setSearchState(SearchWidgetState.CLOSED)
+                                viewModel.setKeyboardState()
                                 val bundle = Bundle()
                                 bundle.putString("tvShowId", it)
                                 findNavController().navigate(
@@ -116,8 +114,8 @@ class TvShowsListFragment : Fragment() {
                             listState = listState,
                             setListState = viewModel::setListState
                         )
-                        if(failure){
-                           FailureView(isDark = isDark)
+                        if (failure) {
+                            FailureView(isDark = isDark)
                         }
 
                         if (loading && tvShows.isNotEmpty()) {

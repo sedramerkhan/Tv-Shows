@@ -40,6 +40,7 @@ constructor(
     var tvShowListScrollPosition = 0
     var failure = mutableStateOf(false)
     val listState = mutableStateOf(false)
+    val keyboardState = mutableStateOf(true) //it's for keyboard and focusRequester
 
     init {
         savedStateHandle.get<Int>(STATE_KEY_PAGE)?.let { p ->
@@ -97,6 +98,7 @@ constructor(
             setFailure()
         tvShows.value = result
         loading.value = false
+        keyboardState.value = true
     }
 
     private suspend fun restoreState() {
@@ -214,6 +216,10 @@ constructor(
     // it is called when close button for search is clicked or new search is done
     fun setListState() {
         listState.value = !listState.value
+    }
+
+    fun setKeyboardState() {
+        keyboardState.value = !keyboardState.value
     }
 
 }

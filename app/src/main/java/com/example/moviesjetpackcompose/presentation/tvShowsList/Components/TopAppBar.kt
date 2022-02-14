@@ -26,6 +26,7 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.platform.SoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
@@ -41,6 +42,7 @@ fun MainAppBar(
     query: String,
     isDark: Boolean,
     startAnimation: Boolean = true,
+    keyboardState: Boolean,
     onQueryChanged: (String) -> Unit,
     onExecuteSearch: () -> Unit,
     onCloseClicked: () -> Unit,
@@ -60,6 +62,7 @@ fun MainAppBar(
             SearchAppBar(
                 query = query,
                 isDark = isDark,
+                keyboardState = keyboardState,
                 onQueryChanged = onQueryChanged,
                 onExecuteSearch = onExecuteSearch,
                 onCloseClicked = onCloseClicked,
@@ -97,7 +100,7 @@ fun DefaultAppBar(
     val alpha = animateFloatAsState(
         targetValue = if (startAnimation) 0f else 1f,
         animationSpec = tween(
-            durationMillis = time -100
+            durationMillis = time - 100
         )
     )
 
@@ -150,6 +153,7 @@ fun DefaultAppBar(
 fun SearchAppBar(
     query: String,
     isDark: Boolean,
+    keyboardState: Boolean,
     onQueryChanged: (String) -> Unit,
     onExecuteSearch: () -> Unit,
     onCloseClicked: () -> Unit,
@@ -158,10 +162,13 @@ fun SearchAppBar(
     val keyboardController = LocalSoftwareKeyboardController.current
     val focusRequester = remember { FocusRequester() }
 
-    LaunchedEffect("") {
-        delay(100)
-        keyboardController?.show()
-        focusRequester.requestFocus()
+    LaunchedEffect(Unit) {
+        if (keyboardState) {
+            delay(10)
+            keyboardController?.show()
+            focusRequester.requestFocus()
+        }
+
     }
 
     Surface(
