@@ -1,7 +1,6 @@
 package com.example.moviesjetpackcompose.presentation.tvShowDetails.components
 
 
-import android.annotation.SuppressLint
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*

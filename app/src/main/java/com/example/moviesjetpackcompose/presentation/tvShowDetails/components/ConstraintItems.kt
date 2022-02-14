@@ -25,8 +25,9 @@ fun ConstraintItems(
     ) {
 
         val (imageRef, thumbnailRef, textRef) = createRefs()
+        val picture = if (tvShow.pictures.isNotEmpty()) tvShow.pictures[imageIndex] else ""
         CoilImage(
-            link = tvShow.pictures[imageIndex],
+            link = picture,
             modifier = Modifier.constrainAs(imageRef) {
                 top.linkTo(parent.top)
                 end.linkTo(parent.end)

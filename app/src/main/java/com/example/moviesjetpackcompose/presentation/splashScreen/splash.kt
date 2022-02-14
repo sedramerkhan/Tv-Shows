@@ -29,7 +29,7 @@ fun Splash(alpha: Float) {
             modifier = Modifier
                 .size(120.dp)
                 .alpha(alpha = alpha),
-            painter = painterResource(R.drawable.tv_show4),
+            painter = painterResource(R.drawable.tv_show_icon),
             contentDescription = "Logo Icon",
         )
     }
