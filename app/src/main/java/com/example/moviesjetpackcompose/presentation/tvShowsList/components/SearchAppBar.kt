@@ -1,4 +1,4 @@
-package com.example.moviesjetpackcompose.presentation.tvShowsList.Components
+package com.example.moviesjetpackcompose.presentation.tvShowsList.components
 
 import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.layout.*

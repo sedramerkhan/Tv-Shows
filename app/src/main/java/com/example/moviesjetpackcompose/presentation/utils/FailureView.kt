@@ -1,4 +1,4 @@
-package com.example.moviesjetpackcompose.presentation.tvShowDetails.components
+package com.example.moviesjetpackcompose.presentation.utils
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Icon

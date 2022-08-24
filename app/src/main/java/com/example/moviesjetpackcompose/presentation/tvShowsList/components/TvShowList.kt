@@ -1,4 +1,4 @@
-package com.example.moviesjetpackcompose.presentation.tvShowsList.Components
+package com.example.moviesjetpackcompose.presentation.tvShowsList.components
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background
@@ -8,7 +8,6 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import coil.annotation.ExperimentalCoilApi

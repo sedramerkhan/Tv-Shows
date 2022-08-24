@@ -2,10 +2,12 @@ package com.example.moviesjetpackcompose.presentation.tvShowDetails
 
 import android.util.Log
 import androidx.compose.runtime.*
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.moviesjetpackcompose.domain.model.TvShowDetails
+import com.example.moviesjetpackcompose.presentation.BaseApplication
+import com.example.moviesjetpackcompose.presentation.destinations.TvShowDetailsScreenDestination
 import com.example.moviesjetpackcompose.repository.TvShowRepo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -20,24 +22,31 @@ const val STATE_KEY_TV_SHOW = "tvShow.state.tvShow.key"
 class TvShowDetailsViewModel
 @Inject
 constructor(
+    application: BaseApplication,
     private val repo: TvShowRepo,
     private val state: SavedStateHandle,
-) : ViewModel() {
+) : AndroidViewModel(application) {
+    private var TAG = "App Debug"
 
-    var TAG = "App Debug"
+    val application
+        get() = getApplication<BaseApplication>()
 
-    val tvShow: MutableState<TvShowDetails?> = mutableStateOf(null)
-    val loading = mutableStateOf(false)
-    val failure = mutableStateOf(false)
-    val expandedState = mutableStateOf(false)
-    val dialogState = mutableStateOf(false)
-    val imageIndex = mutableStateOf(0)
+    var tvShow by mutableStateOf<TvShowDetails?>(null)
+    var loading by mutableStateOf(false)
+    var failure by mutableStateOf(false)
+    var expandedState by mutableStateOf(false)
+    var dialogState by mutableStateOf(false)
+    var imageIndex by mutableStateOf(0)
+    private val tvShowId = TvShowDetailsScreenDestination.argsFrom(state).id
 
     init {
         // restore if process dies
         state.get<String>(STATE_KEY_TV_SHOW)?.let { tvShowId ->
             onTriggerEvent(TvShowDetailsEvent.GetTvShowDetailsEvent(tvShowId))
         }
+
+        onTriggerEvent(TvShowDetailsEvent.GetTvShowDetailsEvent(tvShowId))
+
     }
 
     fun onTriggerEvent(event: TvShowDetailsEvent) {
@@ -45,7 +54,7 @@ constructor(
             try {
                 when (event) {
                     is TvShowDetailsEvent.GetTvShowDetailsEvent -> {
-                        if (tvShow.value == null) {
+                        if (tvShow == null) {
                             getDetails(event.id)
                         }
                     }
@@ -58,7 +67,7 @@ constructor(
     }
 
     private suspend fun getDetails(id: String) {
-        loading.value = true
+        loading = true
         // simulate a delay to show loading
         delay(1000)
         Log.d("soso", "hello from get Details")
@@ -67,32 +76,32 @@ constructor(
     }
 
     fun setFailure() {
-        failure.value = true
+        failure = true
     }
 
     fun apiCallback(tvShow: TvShowDetails?) {
         tvShow?.let {
-            this.tvShow.value = it
+            this.tvShow = it
             Log.d("soso", it.name)
             state.set(STATE_KEY_TV_SHOW, it.id)
         } ?: setFailure()
 
-        loading.value = false
+        loading = false
     }
 
     fun setExpandedState() {
-        expandedState.value = !expandedState.value
+        expandedState = !expandedState
     }
 
     fun setDialogState() {
-        dialogState.value = !dialogState.value
+        dialogState = !dialogState
     }
 
     fun setImageIndex() {
-        tvShow.value?.let {
-            imageIndex.value++
-            if (it.pictures.size == imageIndex.value) {
-                imageIndex.value = 0
+        tvShow?.let {
+            imageIndex++
+            if (it.pictures.size == imageIndex) {
+                imageIndex = 0
             }
         }
 

@@ -65,7 +65,7 @@ fun AppTheme(
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .background(color = if (!darkTheme) Grey1 else Color.Black)
+//                .background(color = if (!darkTheme) Grey1 else Color.Black)
         ) {
             content()
         }

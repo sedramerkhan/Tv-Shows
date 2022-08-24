@@ -10,7 +10,7 @@ import androidx.compose.ui.unit.dp
 import coil.annotation.ExperimentalCoilApi
 import com.example.moviesjetpackcompose.domain.model.TvShowDetails
 import com.example.moviesjetpackcompose.presentation.theme.Green300
-import com.example.moviesjetpackcompose.presentation.tvShowsList.Components.CoilImage
+import com.example.moviesjetpackcompose.presentation.utils.CoilImage
 
 @ExperimentalCoilApi
 @Composable

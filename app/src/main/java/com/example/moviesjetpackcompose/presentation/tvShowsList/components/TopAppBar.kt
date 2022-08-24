@@ -1,4 +1,4 @@
-package com.example.moviesjetpackcompose.presentation.tvShowsList.Components
+package com.example.moviesjetpackcompose.presentation.tvShowsList.components
 
 
 import android.util.Log
@@ -26,7 +26,6 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
-import androidx.compose.ui.platform.SoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
