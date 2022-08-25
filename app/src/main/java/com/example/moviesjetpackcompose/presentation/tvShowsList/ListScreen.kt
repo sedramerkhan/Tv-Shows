@@ -24,7 +24,7 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalCoroutinesApi::class, ExperimentalComposeUiApi::class,
     ExperimentalCoilApi::class
 )
-@Destination(start = true)
+@Destination
 @Composable
 fun TvShowListScreen(
     navigator: DestinationsNavigator,
