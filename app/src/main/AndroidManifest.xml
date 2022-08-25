@@ -8,15 +8,15 @@
         android:usesCleartextTraffic="true"
         android:name=".presentation.BaseApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher3"
+        android:icon="@mipmap/ic_logo"
         android:label="Tv Shows"
-        android:roundIcon="@mipmap/ic_launcher3_round"
+        android:roundIcon="@mipmap/ic_logo_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MoviesJetpackCompose">
         <activity
             android:name=".presentation.MainActivity"
             android:exported="true"
-            android:label="@string/app_name"
+            android:label="Tv Shows"
             android:theme="@style/Theme.MoviesJetpackCompose.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
