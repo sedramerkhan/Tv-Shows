@@ -36,7 +36,6 @@ constructor(
     var failure by mutableStateOf(false)
     var expandedState by mutableStateOf(false)
     var dialogState by mutableStateOf(false)
-    var imageIndex by mutableStateOf(0)
     private val tvShowId = TvShowDetailsScreenDestination.argsFrom(state).id
 
     init {
@@ -95,15 +94,5 @@ constructor(
 
     fun setDialogState() {
         dialogState = !dialogState
-    }
-
-    fun setImageIndex() {
-        tvShow?.let {
-            imageIndex++
-            if (it.pictures.size == imageIndex) {
-                imageIndex = 0
-            }
-        }
-
     }
 }

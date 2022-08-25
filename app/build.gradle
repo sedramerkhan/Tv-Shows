@@ -121,4 +121,7 @@ dependencies {
     implementation "io.github.raamcosta.compose-destinations:animations-core:$nav"
     ksp "io.github.raamcosta.compose-destinations:ksp:$nav"
 
+    //pager
+    implementation "com.google.accompanist:accompanist-permissions:$accompanist_version"
+    implementation "com.google.accompanist:accompanist-pager:$accompanist_version"
 }

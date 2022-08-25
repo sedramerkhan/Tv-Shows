@@ -39,15 +39,6 @@ fun TvShowDetailsScreen(
 
     val isDark = application.isDark
 
-//              //change picture every 5 seconds
-//                tvShow?.let {
-//                    LaunchedEffect(Unit) {
-//                        while (true) {
-//                            viewModel.setImageIndex()
-//                            delay(5000)
-//                        }
-//                    }
-//                }
     BackHandler(enabled = dialogState, onBack = {
         viewModel.setDialogState()
 
@@ -67,7 +58,6 @@ fun TvShowDetailsScreen(
                 TvShowView(
                     tvShow = it,
                     expandedState = expandedState,
-                    imageIndex = imageIndex,
                     onClickExpand = viewModel::setExpandedState,
                     onClickEpisodes = viewModel::setDialogState
                 )

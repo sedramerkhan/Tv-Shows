@@ -11,12 +11,14 @@ import coil.annotation.ExperimentalCoilApi
 import com.example.moviesjetpackcompose.domain.model.TvShowDetails
 import com.example.moviesjetpackcompose.presentation.theme.Green300
 import com.example.moviesjetpackcompose.presentation.utils.CoilImage
+import com.google.accompanist.pager.ExperimentalPagerApi
+import com.google.accompanist.pager.HorizontalPager
 
+@OptIn(ExperimentalPagerApi::class)
 @ExperimentalCoilApi
 @Composable
 fun ConstraintItems(
     tvShow: TvShowDetails,
-    imageIndex: Int,
 ) {
     ConstraintLayout(
         Modifier
@@ -25,18 +27,32 @@ fun ConstraintItems(
     ) {
 
         val (imageRef, thumbnailRef, textRef) = createRefs()
-        val picture = if (tvShow.pictures.isNotEmpty()) tvShow.pictures[imageIndex] else ""
-        CoilImage(
-            link = picture,
-            modifier = Modifier.constrainAs(imageRef) {
-                top.linkTo(parent.top)
-                end.linkTo(parent.end)
-                start.linkTo(parent.start)
-            },
-            imageModifier = Modifier
-                .height(IMAGE_HEIGHT.dp)
-                .fillMaxWidth(),
-        )
+        val ImageModifier = Modifier.constrainAs(imageRef) {
+            top.linkTo(parent.top)
+            end.linkTo(parent.end)
+            start.linkTo(parent.start)
+        }
+        tvShow.pictures.let {
+            if (it.isEmpty())
+                CoilImage(
+                    link = "",
+                    modifier = ImageModifier,
+                    imageModifier = Modifier
+                        .height(IMAGE_HEIGHT.dp)
+                        .fillMaxWidth(),
+                )
+            else
+                HorizontalPager(count = it.size, modifier = ImageModifier) { imageIndex ->
+                    CoilImage(
+                        link = it[imageIndex],
+                        modifier = ImageModifier,
+                        imageModifier = Modifier
+                            .height(IMAGE_HEIGHT.dp)
+                            .fillMaxWidth(),
+                    )
+                }
+        }
+
         CoilImage(
             link = tvShow.image_thumbnail_path,
             modifier = Modifier
