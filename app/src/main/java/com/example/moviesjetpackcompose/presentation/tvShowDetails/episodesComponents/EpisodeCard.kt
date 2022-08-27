@@ -17,7 +17,7 @@ fun EpisodesCard(
     ep: Episode
 ){
     Card(
-        modifier = Modifier.padding(bottom = 16.dp,start=20.dp,end=20.dp).fillMaxWidth(),
+        modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(8.dp),
         elevation = 10.dp
 //        backgroundColor = MaterialTheme.colors.surface,
@@ -39,7 +39,7 @@ fun EpisodesCard(
                     style = MaterialTheme.typography.h4,
                 )
                 Text(
-                    text = "Air Date: ${air_date}",
+                    text = "Air Date: $air_date",
                     style = MaterialTheme.typography.h5,
                 )
             }

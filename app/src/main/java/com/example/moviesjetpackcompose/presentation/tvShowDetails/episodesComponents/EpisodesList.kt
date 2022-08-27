@@ -19,54 +19,27 @@ import com.example.moviesjetpackcompose.presentation.tvShowsList.TvShowCard
 @Composable
 fun EpisodesList(
     episodes: List<Episode>,
-    name: String,
-    onClickClose: () -> Unit
+    name: String
 ) {
-
-    Surface(
+    Column(
         modifier = Modifier
-            .fillMaxSize()
-            .padding(25.dp),
-        shape = RoundedCornerShape(8.dp),
+            .fillMaxWidth()
+            .padding(10.dp)
     ) {
-        Column(
-            modifier = Modifier.fillMaxWidth()
+
+        Text(
+            text = "Episodes | $name",
+            style = MaterialTheme.typography.h2,
+            color = MaterialTheme.colors.primary,
+            modifier = Modifier.padding(5.dp)
+        )
+
+        LazyColumn(
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+            contentPadding = PaddingValues(top = 10.dp, start = 10.dp, end = 10.dp, bottom = 60.dp)
         ) {
-
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(5.dp)
-
-            ) {
-                Text(
-                    text = "Episodes | $name",
-                    style = MaterialTheme.typography.h3,
-                    color = MaterialTheme.colors.primary,
-                    modifier = Modifier
-                        .padding(5.dp)
-                        .weight(.9f)
-
-                )
-                IconButton(
-                    onClick = onClickClose,
-                    modifier = Modifier.wrapContentWidth(Alignment.End)
-
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Close,
-                        contentDescription = "close dialog",
-                        modifier = Modifier.size(25.dp)
-                    )
-                }
-            }
-
-            LazyColumn(
-                modifier = Modifier.padding(bottom = 10.dp)
-            ) {
-                items(episodes){ episode ->
-                    EpisodesCard(ep = episode)
-                }
+            items(episodes) { episode ->
+                EpisodesCard(ep = episode)
             }
         }
     }

@@ -124,4 +124,7 @@ dependencies {
     //pager
     implementation "com.google.accompanist:accompanist-permissions:$accompanist_version"
     implementation "com.google.accompanist:accompanist-pager:$accompanist_version"
+
+    implementation 'de.charlex.compose:bottom-drawer-scaffold:1.0.0-rc01'
+
 }
