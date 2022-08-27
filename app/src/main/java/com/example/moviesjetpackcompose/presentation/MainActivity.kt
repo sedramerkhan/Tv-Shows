@@ -10,6 +10,8 @@ import com.ramcosta.composedestinations.DestinationsNavHost
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
+
+//https://androidrepo.com/repo/meshramaravind-MoviesApp-Android
 @SuppressLint("RestrictedApi")
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
