@@ -43,12 +43,11 @@ fun TvShowCard(
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .align(Alignment.CenterVertically)
+                    .align(Alignment.CenterVertically).padding(vertical= 4.dp)
             ) {
                 Text(
                     text = tvShow.name,
                     modifier = Modifier
-                        .fillMaxWidth()
                         .wrapContentWidth(Alignment.Start),
                     style = MaterialTheme.typography.h3,
                     color = MaterialTheme.colors.onSurface
@@ -56,7 +55,6 @@ fun TvShowCard(
                 Text(
                     text = tvShow.network + " (" + tvShow.country + ")",
                     modifier = Modifier
-                        .fillMaxWidth()
                         .wrapContentWidth(Alignment.Start),
                     style = MaterialTheme.typography.h5,
                     color = MaterialTheme.colors.onSurface
@@ -66,7 +64,6 @@ fun TvShowCard(
                     Text(
                         text = it,
                         modifier = Modifier
-                            .fillMaxWidth()
                             .wrapContentWidth(Alignment.Start),
                         style = MaterialTheme.typography.h5,
                         color = MaterialTheme.colors.onSurface

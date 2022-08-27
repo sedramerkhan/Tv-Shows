@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.compose.ui.unit.dp
@@ -27,7 +28,7 @@ fun ConstraintItems(
     ) {
 
         val (imageRef, thumbnailRef, textRef) = createRefs()
-        val ImageModifier = Modifier.constrainAs(imageRef) {
+        val pictureModifier = Modifier.constrainAs(imageRef) {
             top.linkTo(parent.top)
             end.linkTo(parent.end)
             start.linkTo(parent.start)
@@ -36,16 +37,16 @@ fun ConstraintItems(
             if (it.isEmpty())
                 CoilImage(
                     link = "",
-                    modifier = ImageModifier,
+                    modifier = pictureModifier,
                     imageModifier = Modifier
                         .height(IMAGE_HEIGHT.dp)
                         .fillMaxWidth(),
                 )
             else
-                HorizontalPager(count = it.size, modifier = ImageModifier) { imageIndex ->
+                HorizontalPager(count = it.size, modifier = pictureModifier) { imageIndex ->
                     CoilImage(
                         link = it[imageIndex],
-                        modifier = ImageModifier,
+                        modifier = pictureModifier,
                         imageModifier = Modifier
                             .height(IMAGE_HEIGHT.dp)
                             .fillMaxWidth(),
@@ -56,7 +57,7 @@ fun ConstraintItems(
         CoilImage(
             link = tvShow.image_thumbnail_path,
             modifier = Modifier
-                .padding(horizontal = 13.dp)
+                .padding(start = 12.dp,end = 12.dp,top=12.dp)
                 .constrainAs(thumbnailRef) {
                     top.linkTo(imageRef.bottom)
                     bottom.linkTo(imageRef.bottom)
@@ -68,13 +69,15 @@ fun ConstraintItems(
             roundCorner = 20f
         )
         Column(modifier = Modifier
-            .fillMaxWidth()
+            .fillMaxWidth(.55f)
             .constrainAs(textRef) {
                 top.linkTo(imageRef.bottom)
                 start.linkTo(thumbnailRef.end)
             }) {
             Text(
                 text = tvShow.name,
+                modifier = Modifier
+                    .wrapContentWidth(Alignment.Start),
                 style = when {
                     tvShow.name.length < 18 -> MaterialTheme.typography.h3
                     tvShow.name.length > 22 -> MaterialTheme.typography.subtitle1

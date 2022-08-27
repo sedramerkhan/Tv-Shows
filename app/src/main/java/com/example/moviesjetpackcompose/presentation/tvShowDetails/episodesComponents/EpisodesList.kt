@@ -29,7 +29,11 @@ fun EpisodesList(
 
         Text(
             text = "Episodes | $name",
-            style = MaterialTheme.typography.h2,
+            style =  when {
+//                        name.length < 18 -> MaterialTheme.typography.h2
+                name.length < 22 -> MaterialTheme.typography.h2
+                else -> MaterialTheme.typography.h3
+            },
             color = MaterialTheme.colors.primary,
             modifier = Modifier.padding(5.dp)
         )

@@ -49,9 +49,9 @@ fun TvShowDetailsScreen(
 
     val isDark = application.isDark
 
-    BackHandler(enabled = bottomDrawerState.isExpanded, onBack = {
+    BackHandler(enabled = bottomDrawerState.isExpanded) {
         coroutineScope.launch { bottomDrawerState.collapse() }
-    })
+    }
 
     //https://camposha.info/jetpack-compose/compose-bottom-drawer/
     BottomDrawerScaffold(

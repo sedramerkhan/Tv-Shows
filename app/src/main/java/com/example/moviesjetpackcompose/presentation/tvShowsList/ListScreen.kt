@@ -1,6 +1,7 @@
 package com.example.moviesjetpackcompose.presentation.tvShowsList
 
 import android.util.Log
+import androidx.activity.compose.BackHandler
 import androidx.compose.material.Scaffold
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.*
@@ -15,14 +16,11 @@ import com.example.moviesjetpackcompose.presentation.tvShowsList.components.TvSh
 import com.example.moviesjetpackcompose.presentation.utils.CircularIndeterminateProgressBar
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 
 
 @OptIn(ExperimentalCoroutinesApi::class, ExperimentalComposeUiApi::class,
-    ExperimentalCoilApi::class
+    ExperimentalCoilApi::class, DelicateCoroutinesApi::class
 )
 @Destination
 @Composable
@@ -33,6 +31,16 @@ fun TvShowListScreen(
 
     val scaffoldState = rememberScaffoldState()
     var startAnimation by remember { mutableStateOf(false) }
+
+    BackHandler(enabled = searchWidgetState == SearchWidgetState.OPENED) {
+        GlobalScope.launch {
+            startAnimation = true
+            viewModel.setSearchState(SearchWidgetState.CLOSED)
+            viewModel.onTriggerEvent(TvShowListEvent.RestoreStateEvent)
+            delay(100)
+            startAnimation = false
+        }
+    }
 
     Scaffold(
         topBar = {
