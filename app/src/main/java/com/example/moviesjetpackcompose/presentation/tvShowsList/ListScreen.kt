@@ -2,6 +2,7 @@ package com.example.moviesjetpackcompose.presentation.tvShowsList
 
 import android.util.Log
 import androidx.activity.compose.BackHandler
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.Scaffold
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.*
@@ -19,7 +20,8 @@ import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import kotlinx.coroutines.*
 
 
-@OptIn(ExperimentalCoroutinesApi::class, ExperimentalComposeUiApi::class,
+@OptIn(
+    ExperimentalCoroutinesApi::class, ExperimentalComposeUiApi::class,
     ExperimentalCoilApi::class, DelicateCoroutinesApi::class
 )
 @Destination
@@ -27,10 +29,11 @@ import kotlinx.coroutines.*
 fun TvShowListScreen(
     navigator: DestinationsNavigator,
     viewModel: TvShowListViewModel = hiltViewModel(),
-)  = viewModel.run{
+) = viewModel.run {
 
     val scaffoldState = rememberScaffoldState()
     var startAnimation by remember { mutableStateOf(false) }
+    val listState = rememberLazyListState()
 
     BackHandler(enabled = searchWidgetState == SearchWidgetState.OPENED) {
         GlobalScope.launch {
@@ -42,6 +45,12 @@ fun TvShowListScreen(
         }
     }
 
+    LaunchedEffect(key1 = listStateTo0) {
+        if (listStateTo0) {
+            listState.animateScrollToItem(0)
+            setListState()
+        }
+    }
     Scaffold(
         topBar = {
             MainAppBar(
@@ -85,13 +94,12 @@ fun TvShowListScreen(
             onTriggerNextPage = { viewModel.onTriggerEvent(TvShowListEvent.NextPageEvent) },
             onNavigateToTvShowsDetailScreen = {
                 viewModel.setKeyboardState()
-               navigator.navigate(TvShowDetailsScreenDestination(it))
+                navigator.navigate(TvShowDetailsScreenDestination(it))
             },
-            listState = listState,
-            setListState = viewModel::setListState
+            state = listState,
         )
         if (failure) {
-            FailureView(isDark =application.isDark)
+            FailureView(isDark = application.isDark)
         }
 
         if (loading && tvShows.isNotEmpty()) {

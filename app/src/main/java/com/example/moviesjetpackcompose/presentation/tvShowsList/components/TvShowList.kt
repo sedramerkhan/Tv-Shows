@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.MaterialTheme
@@ -26,28 +27,18 @@ fun TvShowList(
     page: Int,
     onTriggerNextPage: () -> Unit,
     onNavigateToTvShowsDetailScreen: (String) -> Unit,
-    listState: Boolean,
-    setListState: () -> Unit,
-){
-    Box(modifier = Modifier
-        .background(color = MaterialTheme.colors.surface)
+    state: LazyListState,
+) {
+    Box(
+        modifier = Modifier
+            .background(color = MaterialTheme.colors.surface)
     ) {
         if (loading && tvShows.isEmpty()) {
             HorizontalDottedProgressBar()
-        }
-        else if(tvShows.isNotEmpty()){
-
-            val state = rememberLazyListState()
-            if(listState) {
-                rememberCoroutineScope().launch {
-                    state.animateScrollToItem(0)
-                    setListState()
-                }
-            }
-
+        } else if (tvShows.isNotEmpty()) {
             LazyColumn(
                 state = state
-            ){
+            ) {
                 itemsIndexed(
                     items = tvShows,
                 ) { index, tvShow ->
@@ -57,7 +48,8 @@ fun TvShowList(
                     }
                     TvShowCard(
                         tvShow = tvShow,
-                        onClick = { onNavigateToTvShowsDetailScreen(tvShow.id)
+                        onClick = {
+                            onNavigateToTvShowsDetailScreen(tvShow.id)
                         }
                     )
                 }

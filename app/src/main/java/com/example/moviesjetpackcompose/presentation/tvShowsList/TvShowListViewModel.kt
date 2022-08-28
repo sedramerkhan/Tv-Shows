@@ -43,7 +43,7 @@ constructor(
     var searchWidgetState by mutableStateOf(SearchWidgetState.CLOSED)
     private var tvShowListScrollPosition = 0
     var failure by mutableStateOf(false)
-    var listState by mutableStateOf(false)
+    var listStateTo0 by mutableStateOf(false)
     var keyboardState by mutableStateOf(true) //it's for keyboard and focusRequester
 
     init {
@@ -218,7 +218,7 @@ constructor(
 
     // it is called when close button for search is clicked or new search is done
     fun setListState() {
-        listState = !listState
+        listStateTo0 = !listStateTo0
     }
 
     fun setKeyboardState() {
