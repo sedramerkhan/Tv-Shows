@@ -36,8 +36,9 @@ fun ExpandedText(
         overflow = TextOverflow.Ellipsis,
         color = MaterialTheme.colors.onSurface,
         onTextLayout = { textLayoutResult: TextLayoutResult ->
-            if (maxLines != Int.MAX_VALUE)
-                isLineEllipsized = textLayoutResult.isLineEllipsized(maxLines - 1)
+            if (maxLines != Int.MAX_VALUE && textLayoutResult.hasVisualOverflow) {
+                isLineEllipsized = textLayoutResult.isLineEllipsized(maxLines-1)
+            }
         }
     )
     Log.i("Line", isLineEllipsized.toString())
