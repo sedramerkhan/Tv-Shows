@@ -32,7 +32,7 @@ fun TvShowCard(
         elevation = 8.dp,
     ) {
 
-        Row {
+        Row(verticalAlignment = Alignment.CenterVertically) {
             CoilImage(
                 link = tvShow.image_thumbnail_path,
                 modifier = Modifier.padding(top = 8.dp, bottom = 8.dp, start = 16.dp, end = 8.dp),

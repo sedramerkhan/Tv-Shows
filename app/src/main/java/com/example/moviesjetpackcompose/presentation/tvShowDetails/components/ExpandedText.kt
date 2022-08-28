@@ -41,7 +41,6 @@ fun ExpandedText(
             }
         }
     )
-    Log.i("Line", isLineEllipsized.toString())
     if (isLineEllipsized) {
         Text(
             text = buttonText,

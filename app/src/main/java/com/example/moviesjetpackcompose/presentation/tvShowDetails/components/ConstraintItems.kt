@@ -1,11 +1,14 @@
 package com.example.moviesjetpackcompose.presentation.tvShowDetails.components
 
+import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.TextLayoutResult
+import androidx.compose.ui.text.style.TextAlign
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.compose.ui.unit.dp
 import coil.annotation.ExperimentalCoilApi
@@ -21,6 +24,9 @@ import com.google.accompanist.pager.HorizontalPager
 fun ConstraintItems(
     tvShow: TvShowDetails,
 ) {
+    var linesCount by remember {
+        mutableStateOf(1)
+    }
     ConstraintLayout(
         Modifier
             .fillMaxWidth()
@@ -53,11 +59,10 @@ fun ConstraintItems(
                     )
                 }
         }
-
         CoilImage(
             link = tvShow.image_thumbnail_path,
             modifier = Modifier
-                .padding(start = 12.dp,end = 12.dp,top=12.dp)
+                .padding(start = 12.dp,end = 12.dp,top= (12*(linesCount-1)*(linesCount-1)).dp)
                 .constrainAs(thumbnailRef) {
                     top.linkTo(imageRef.bottom)
                     bottom.linkTo(imageRef.bottom)
@@ -83,7 +88,10 @@ fun ConstraintItems(
                     tvShow.name.length > 22 -> MaterialTheme.typography.subtitle1
                     else -> MaterialTheme.typography.h4
                 },
-                color = MaterialTheme.colors.onSurface
+                color = MaterialTheme.colors.onSurface,
+                onTextLayout = { textLayoutResult: TextLayoutResult ->
+                      linesCount  = textLayoutResult.lineCount
+                }
             )
             Text(
                 text = tvShow.network + " (" + tvShow.country + ")",
