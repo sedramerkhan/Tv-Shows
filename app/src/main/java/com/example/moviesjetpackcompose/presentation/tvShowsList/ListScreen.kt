@@ -38,8 +38,9 @@ fun TvShowListScreen(
     BackHandler(enabled = searchWidgetState == SearchWidgetState.OPENED) {
         GlobalScope.launch {
             startAnimation = true
-            viewModel.setSearchState(SearchWidgetState.CLOSED)
-            viewModel.onTriggerEvent(TvShowListEvent.RestoreStateEvent)
+            setSearchState(SearchWidgetState.CLOSED)
+            onQueryChanged("")
+            onTriggerEvent(TvShowListEvent.RestoreStateEvent)
             delay(100)
             startAnimation = false
         }
@@ -59,15 +60,15 @@ fun TvShowListScreen(
                 isDark = application.isDark,
                 startAnimation = startAnimation,
                 keyboardState = keyboardState,
-                onQueryChanged = viewModel::onQueryChanged,
+                onQueryChanged = ::onQueryChanged,
                 onExecuteSearch = {
-                    viewModel.onTriggerEvent(TvShowListEvent.NewSearchEvent)
+                    onTriggerEvent(TvShowListEvent.NewSearchEvent)
                 },
                 onCloseClicked = {
                     GlobalScope.launch {
                         startAnimation = true
-                        viewModel.setSearchState(SearchWidgetState.CLOSED)
-                        viewModel.onTriggerEvent(TvShowListEvent.RestoreStateEvent)
+                        setSearchState(SearchWidgetState.CLOSED)
+                        onTriggerEvent(TvShowListEvent.RestoreStateEvent)
                         delay(100)
                         startAnimation = false
                     }
@@ -76,7 +77,7 @@ fun TvShowListScreen(
                     GlobalScope.launch {
                         startAnimation = true
                         delay(500)
-                        viewModel.setSearchState(SearchWidgetState.OPENED)
+                        setSearchState(SearchWidgetState.OPENED)
                         startAnimation = false
                     }
 
@@ -89,11 +90,11 @@ fun TvShowListScreen(
         TvShowList(
             loading = loading,
             tvShows = tvShows,
-            onChangeScrollPosition = viewModel::onChangeTvShowScrollPosition,
+            onChangeScrollPosition = ::onChangeTvShowScrollPosition,
             page = page,
-            onTriggerNextPage = { viewModel.onTriggerEvent(TvShowListEvent.NextPageEvent) },
+            onTriggerNextPage = { onTriggerEvent(TvShowListEvent.NextPageEvent) },
             onNavigateToTvShowsDetailScreen = {
-                viewModel.setKeyboardState()
+                setKeyboardState()
                 navigator.navigate(TvShowDetailsScreenDestination(it))
             },
             state = listState,

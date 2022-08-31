@@ -41,8 +41,8 @@ fun TvShowDetailsScreen(
     id: String,
 ) = viewModel.run {
 
-    val topBarHeight = with(LocalDensity.current) { 56.dp.toPx() }
-    val scaffoldState = rememberBottomDrawerScaffoldState(drawerTopInset = topBarHeight.toInt())
+    val topHeight = with(LocalDensity.current) { (IMAGE_HEIGHT/2).dp.toPx() }
+    val scaffoldState = rememberBottomDrawerScaffoldState(drawerTopInset = topHeight.toInt())
     val bottomDrawerState = scaffoldState.bottomDrawerState
 
     val coroutineScope = rememberCoroutineScope()
