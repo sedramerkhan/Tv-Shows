@@ -33,27 +33,25 @@ fun TvShowList(
         modifier = Modifier
             .background(color = MaterialTheme.colors.surface)
     ) {
-        if (loading && tvShows.isEmpty()) {
-            HorizontalDottedProgressBar()
-        } else if (tvShows.isNotEmpty()) {
-            LazyColumn(
-                state = state
-            ) {
-                itemsIndexed(
-                    items = tvShows,
-                ) { index, tvShow ->
-                    onChangeScrollPosition(index)
-                    if ((index + 1) >= (page * PAGE_SIZE) && !loading) {
-                        onTriggerNextPage()
-                    }
-                    TvShowCard(
-                        tvShow = tvShow,
-                        onClick = {
-                            onNavigateToTvShowsDetailScreen(tvShow.id)
-                        }
-                    )
+
+        LazyColumn(
+            state = state
+        ) {
+            itemsIndexed(
+                items = tvShows,
+            ) { index, tvShow ->
+                onChangeScrollPosition(index)
+                if ((index + 1) >= (page * PAGE_SIZE) && !loading) {
+                    onTriggerNextPage()
                 }
+                TvShowCard(
+                    tvShow = tvShow,
+                    onClick = {
+                        onNavigateToTvShowsDetailScreen(tvShow.id)
+                    }
+                )
             }
+
         }
     }
 }

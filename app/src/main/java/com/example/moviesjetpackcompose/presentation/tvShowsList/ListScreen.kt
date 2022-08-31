@@ -2,14 +2,23 @@ package com.example.moviesjetpackcompose.presentation.tvShowsList
 
 import android.util.Log
 import androidx.activity.compose.BackHandler
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
+import androidx.compose.material.Text
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.annotation.ExperimentalCoilApi
 import com.example.moviesjetpackcompose.presentation.destinations.TvShowDetailsScreenDestination
+import com.example.moviesjetpackcompose.presentation.tvShowsList.components.HorizontalDottedProgressBar
 import com.example.moviesjetpackcompose.presentation.utils.FailureView
 import com.example.moviesjetpackcompose.presentation.tvShowsList.components.MainAppBar
 import com.example.moviesjetpackcompose.presentation.tvShowsList.components.SearchWidgetState
@@ -87,6 +96,25 @@ fun TvShowListScreen(
         },
         scaffoldState = scaffoldState,
     ) {
+        if (tvShows.isEmpty()) {
+            if (loading)
+                HorizontalDottedProgressBar()
+            else if(query.isNotEmpty() and query.isNotBlank())
+                Box(Modifier.fillMaxSize().padding(25.dp), contentAlignment = Alignment.Center)
+                {
+                    Text(
+                        text = "Nothing Match \"$query\"",
+                        style = MaterialTheme.typography.h3,
+                        color = MaterialTheme.colors.onSurface
+                    )
+                }
+        }
+        else if (loading) {
+            CircularIndeterminateProgressBar(
+                isDisplayed = loading,
+                verticalBias = 0.1f
+            )
+        }
         TvShowList(
             loading = loading,
             tvShows = tvShows,
@@ -99,18 +127,10 @@ fun TvShowListScreen(
             },
             state = listState,
         )
+
         if (failure) {
             FailureView(isDark = application.isDark)
         }
-
-        if (loading && tvShows.isNotEmpty()) {
-            Log.d("loading", tvShows.size.toString())
-            CircularIndeterminateProgressBar(
-                isDisplayed = loading,
-                verticalBias = 0.1f
-            )
-        }
-
     }
 }
 
