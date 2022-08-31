@@ -12,16 +12,15 @@ Retrofit 2, Dagger-Hilt, KSP (Compose Navigation Library) ,MVVM, LiveData, Coil.
 * Jetpack Compose
 
 ## Light Mode 
-![list](https://github.com/sedramerkhan/Tv-Shows/blob/master/imagesforreadme/LightListScreen.jpg) ![list](https://github.com/sedramerkhan/Tv-Shows/blob/master/imagesforreadme/LightListScreen.jpg)
-<img src="https://github.com/sedramerkhan/Tv-Shows/blob/master/imagesforreadme/LightListScreen.jpg" width="200" /> <img src="https://github.com/sedramerkhan/Tv-Shows/blob/master/imagesforreadme/LightDetailsScreen.jpg" width="200" />
+![list](https://github.com/sedramerkhan/Tv-Shows/blob/master/imagesforreadme/LightListScreen.jpg)
 
 
 <p float="left">
-<img src="https://github.com/sedramerkhan/Tv-Shows/blob/master/imagesforreadme/LightListScreen.jpg" width="200" height="800"/>
+<img src="https://github.com/sedramerkhan/Tv-Shows/blob/master/imagesforreadme/LightListScreen.jpg" width="200" height="600"/>
 
-<img src="https://github.com/sedramerkhan/Tv-Shows/blob/master/imagesforreadme/LightDetailsScreen.jpg" width="200" height="800"/>
+<img src="https://github.com/sedramerkhan/Tv-Shows/blob/master/imagesforreadme/LightDetailsScreen.jpg" width="200" height="600"/>
 
-<img src="https://github.com/sedramerkhan/Tv-Shows/blob/master/imagesforreadme/LightEpisodesDrawer.jpg" width="200" height="800"/>
+<img src="https://github.com/sedramerkhan/Tv-Shows/blob/master/imagesforreadme/LightEpisodesDrawer.jpg" width="200" height="600"/>
 </p>
 
 ## Dark Mode
