@@ -12,7 +12,7 @@ Retrofit 2, Dagger-Hilt, KSP (Compose Navigation Library) ,MVVM, LiveData, Coil.
 * Jetpack Compose
 
 ## Light Mode 
-![list](https://github.com/sedramerkhan/Tv-Shows/blob/master/imagesforreadme/LightListScreen.jpg)
+![list](https://github.com/sedramerkhan/Tv-Shows/blob/master/imagesforreadme/LightListScreen.jpg?row = true)
 
 
 <p float="left">
@@ -25,7 +25,7 @@ Retrofit 2, Dagger-Hilt, KSP (Compose Navigation Library) ,MVVM, LiveData, Coil.
 
 ## Dark Mode
 <p float="left">
-<img src="https://github.com/sedramerkhan/Tv-Shows/blob/master/imagesforreadme/DarkListScreen.jpg?row = true" width="200" />
+<img src="https://github.com/sedramerkhan/Tv-Shows/blob/master/imagesforreadme/DarkListScreen.jpg" width="200" />
 
 <img src="https://github.com/sedramerkhan/Tv-Shows/blob/master/imagesforreadme/DarkDetailsScreen.jpg" width="200" />
 
