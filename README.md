@@ -18,7 +18,7 @@ Retrofit 2, Dagger-Hilt, KSP (Compose Navigation Library) ,MVVM, LiveData, Coil.
 
 <img src="https://user-images.githubusercontent.com/87071899/187787736-31dc2e86-8189-48d6-a8f4-bf3ce81be245.png" width="200" height="500" hspace="20"/>
 
-<img src="https://user-images.githubusercontent.com/87071899/187789052-7427af74-44ad-447a-a1f6-8801629a5bc5.jpg)" width="200" height="500" hspace="20"/>
+<img src="https://user-images.githubusercontent.com/87071899/187789052-7427af74-44ad-447a-a1f6-8801629a5bc5.jpg" width="200" height="500" hspace="20"/>
 
 <img src="https://user-images.githubusercontent.com/87071899/187789043-7bab65da-172e-4e88-acc9-9581e17c75d1.jpg" width="200" height="500"/>
 
