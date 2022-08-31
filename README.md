@@ -1,7 +1,6 @@
 # About The Project
 
-About
-It's a TV Shows Android app that displays Most Popular TV Shows 
+It's a TV Shows Android app that displays most popular TV Shows 
 with the ability to search through all the shows 
 and retrieve all details for the chosen show with Dark Theme & Light Theme.
 I used modern android development tools: 
