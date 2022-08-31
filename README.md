@@ -12,7 +12,8 @@ Retrofit 2, Dagger-Hilt, KSP (Compose Navigation Library) ,MVVM, LiveData, Coil.
 * Jetpack Compose
 
 ## Light Mode 
-![list](https://github.com/sedramerkhan/Tv-Shows/blob/master/imagesforreadme/LightListScreen.jpg?row=true)
+
+![list](https://github.com/sedramerkhan/Tv-Shows/blob/master/LightListScreen.jpg?row=true)
 
 test
 
