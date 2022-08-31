@@ -11,23 +11,17 @@ Retrofit 2, Dagger-Hilt, KSP (Compose Navigation Library) ,MVVM, LiveData, Coil.
 * Kotlin
 * Jetpack Compose
 
-## Light Mode 
+## Light Mode
 
-![list](https://user-images.githubusercontent.com/87071899/187787736-31dc2e86-8189-48d6-a8f4-bf3ce81be245.png)
+<p float="left">
 
-<img src="https://github.com/sedramerkhan/Tv-Shows/blob/master/LightListScreen.png" width="200" height="600"/>
+<img src="https://user-images.githubusercontent.com/87071899/187787736-31dc2e86-8189-48d6-a8f4-bf3ce81be245.png" width="200" height="600"/>
 
-test
+<img src="https://user-images.githubusercontent.com/87071899/187787736-31dc2e86-8189-48d6-a8f4-bf3ce81be245.png" width="200" height="600"/>
 
-[comment]: <> (<p float="left">)
+<img src="https://user-images.githubusercontent.com/87071899/187787736-31dc2e86-8189-48d6-a8f4-bf3ce81be245.png" width="200" height="600"/>
 
-[comment]: <> (<img src="https://github.com/sedramerkhan/Tv-Shows/blob/master/imagesforreadme/LightListScreen.jpg" width="200" height="600"/>)
-
-[comment]: <> (<img src="https://github.com/sedramerkhan/Tv-Shows/blob/master/imagesforreadme/LightDetailsScreen.jpg" width="200" height="600"/>)
-
-[comment]: <> (<img src="https://github.com/sedramerkhan/Tv-Shows/blob/master/imagesforreadme/LightEpisodesDrawer.jpg" width="200" height="600"/>)
-
-[comment]: <> (</p>)
+</p>
 
 ## Dark Mode
 <p float="left">
