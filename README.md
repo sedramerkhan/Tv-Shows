@@ -11,15 +11,25 @@ Retrofit 2, Dagger-Hilt, KSP (Compose Navigation Library) ,MVVM, LiveData, Coil.
 * Kotlin
 * Jetpack Compose
 
-[comment]: <> (![Game Screen Shot]&#40;https://github.com/sedramerkhan/bubbleSortGame/blob/master/image.png?row=true&#41;)
-## Day Mode 
+## Light Mode 
 <p float="left">
-<img src="https://github.com/sedramerkhan/Tv-Shows/blob/master/LightListScreen.jpg" width="200" />
+<img src="https://github.com/sedramerkhan/Tv-Shows/blob/master/imagesforreadme/LightListScreen.jpg" width="200" />
 
 <img src="https://github.com/sedramerkhan/Tv-Shows/blob/master/imagesforreadme/LightDetailsScreen.jpg" width="200" />
 
-<img src="https://github.com/sedramerkhan/Tv-Shows/blob/master/LightEpisodesDrawer.jpg" width="200" />
+<img src="https://github.com/sedramerkhan/Tv-Shows/blob/master/imagesforreadme/LightEpisodesDrawer.jpg" width="200" />
 
 </p>
 
+## Dark Mode
+<p float="left">
+<img src="https://github.com/sedramerkhan/Tv-Shows/blob/master/imagesforreadme/DarkListScreen.jpg" width="200" />
 
+<img src="https://github.com/sedramerkhan/Tv-Shows/blob/master/imagesforreadme/DarkDetailsScreen.jpg" width="200" />
+
+<img src="https://github.com/sedramerkhan/Tv-Shows/blob/master/imagesforreadme/DarkEpisodesDrawer.jpg" width="200" />
+
+</p>
+
+## Tv Shows API
+https://www.episodate.com/api
