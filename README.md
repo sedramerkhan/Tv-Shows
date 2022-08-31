@@ -14,14 +14,17 @@ Retrofit 2, Dagger-Hilt, KSP (Compose Navigation Library) ,MVVM, LiveData, Coil.
 ## Light Mode 
 ![list](https://github.com/sedramerkhan/Tv-Shows/blob/master/imagesforreadme/LightListScreen.jpg?row=true)
 
+test
 
-<p float="left">
-<img src="https://github.com/sedramerkhan/Tv-Shows/blob/master/imagesforreadme/LightListScreen.jpg" width="200" height="600"/>
+[comment]: <> (<p float="left">)
 
-<img src="https://github.com/sedramerkhan/Tv-Shows/blob/master/imagesforreadme/LightDetailsScreen.jpg" width="200" height="600"/>
+[comment]: <> (<img src="https://github.com/sedramerkhan/Tv-Shows/blob/master/imagesforreadme/LightListScreen.jpg" width="200" height="600"/>)
 
-<img src="https://github.com/sedramerkhan/Tv-Shows/blob/master/imagesforreadme/LightEpisodesDrawer.jpg" width="200" height="600"/>
-</p>
+[comment]: <> (<img src="https://github.com/sedramerkhan/Tv-Shows/blob/master/imagesforreadme/LightDetailsScreen.jpg" width="200" height="600"/>)
+
+[comment]: <> (<img src="https://github.com/sedramerkhan/Tv-Shows/blob/master/imagesforreadme/LightEpisodesDrawer.jpg" width="200" height="600"/>)
+
+[comment]: <> (</p>)
 
 ## Dark Mode
 <p float="left">
