@@ -13,7 +13,7 @@ Retrofit 2, Dagger-Hilt, KSP (Compose Navigation Library) ,MVVM, LiveData, Coil.
 
 ## Light Mode 
 
-![list](https://github.com/sedramerkhan/Tv-Shows/blob/master/LightListScreen.jpg?row=true)
+![list](https://github.com/sedramerkhan/Tv-Shows/blob/master/LightListScreen.png?row=true)
 
 test
 
