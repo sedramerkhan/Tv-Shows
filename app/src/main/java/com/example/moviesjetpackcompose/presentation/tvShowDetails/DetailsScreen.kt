@@ -70,7 +70,7 @@ fun TvShowDetailsScreen(
 
         }
     ) {
-        Box(
+        Surface(
             modifier = Modifier.fillMaxSize()
         ) {
             if (loading && tvShow == null && !failure)
