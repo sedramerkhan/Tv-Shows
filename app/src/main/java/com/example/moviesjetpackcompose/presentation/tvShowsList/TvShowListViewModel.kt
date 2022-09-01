@@ -92,7 +92,7 @@ constructor(
 
 
     private suspend fun getMostPopular() {
-        resetSearchState()
+        cleanData()
         repo.getPopular(page = 1).collect {
             tvShowsResponse = it.apply {
                 if (it is NetworkResult.Success) {
@@ -105,21 +105,22 @@ constructor(
     }
 
     private suspend fun restoreState() {
+        //to prevent getting data if close is clicked but no search is done
         if (searchDone) {
+            cleanData()
             val results: MutableList<TvShow> = mutableListOf()
 
             for (p in 1..page) {
                 repo.getPopular(page = p).collect {
+                    tvShowsResponse = it
                     if (it is NetworkResult.Success) {
                         results.addAll(it.data)
                     }
-                }
-
-                if (p == page) { // done
-                    tvShows.clear()
-                    tvShows.addAll(results)
-                    searchDone = false
-                    setListState()
+                    if (p == page) { // done
+                        tvShows.addAll(results)
+                        searchDone = false
+                        setListState()
+                    }
                 }
                 Log.d("restoreState", results.size.toString())
             }
@@ -127,9 +128,8 @@ constructor(
     }
 
     private suspend fun newSearch() {
-        resetSearchState()
+        cleanData()
         val results: MutableList<TvShow> = mutableListOf()
-
         for (p in 1..page) {
             repo.search(page = p, query = query).collect {
                 tvShowsResponse = it
@@ -141,24 +141,33 @@ constructor(
                     searchDone = true
                     setListState()
                 }
-
             }
             Log.d("newSearch", results.size.toString())
         }
     }
 
     private suspend fun nextPage() {
-        // prevent duplicate event due to recompose happening to quickly
-        if (!searchDone) {
-            if ((tvShowListScrollPosition + 1) >= (page * PAGE_SIZE)) {
-                incrementPage()
-                Log.d(TAG, "nextPage: triggered: $page")
-
-                if (page > 1) {
-                    repo.getPopular(page = page).collect {
-                        tvShowsResponse = it
-                        if (it is NetworkResult.Success) {
-                            tvShows.addAll(it.data)
+        if(tvShowsResponse is NetworkResult.Loading)
+            return
+        if ((tvShowListScrollPosition + 1) >= (page * PAGE_SIZE)) {
+            incrementPage()
+            Log.d(TAG, "nextPage: triggered: $page")
+            if (page > 1) {
+                when(searchDone) {
+                    false -> {
+                        repo.getPopular(page = page).collect {
+                            tvShowsResponse = it
+                            if (it is NetworkResult.Success) {
+                                tvShows.addAll(it.data)
+                            }
+                        }
+                    }
+                    else -> {
+                        repo.search(page = page, query = query).collect {
+                            tvShowsResponse = it
+                            if (it is NetworkResult.Success) {
+                                tvShows.addAll(it.data)
+                            }
                         }
                     }
                 }
@@ -176,9 +185,9 @@ constructor(
     }
 
     /**
-     * Called when a new search is executed.
+     * Called when a new search is executed or Restoring data after closing searh bar.
      */
-    private fun resetSearchState() {
+    private fun cleanData() {
         tvShows.clear()
         onChangeTvShowScrollPosition(0)
     }
@@ -217,5 +226,6 @@ constructor(
     fun setKeyboardState() {
         keyboardState = false
     }
+
 
 }

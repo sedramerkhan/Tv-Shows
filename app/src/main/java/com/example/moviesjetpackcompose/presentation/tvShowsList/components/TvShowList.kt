@@ -21,7 +21,6 @@ import kotlinx.coroutines.launch
 @ExperimentalCoilApi
 @Composable
 fun TvShowList(
-    loading: Boolean,
     tvShows: List<TvShow>,
     onChangeScrollPosition: (Int) -> Unit,
     page: Int,
@@ -41,7 +40,7 @@ fun TvShowList(
                 items = tvShows,
             ) { index, tvShow ->
                 onChangeScrollPosition(index)
-                if ((index + 1) >= (page * PAGE_SIZE) && !loading) {
+                if ((index + 1) >= (page * PAGE_SIZE)) {
                     onTriggerNextPage()
                 }
                 TvShowCard(

@@ -98,15 +98,24 @@ fun TvShowListScreen(
     ) {
 
 
+        TvShowList(
+            tvShows = tvShows,
+            onChangeScrollPosition = ::onChangeTvShowScrollPosition,
+            page = page,
+            onTriggerNextPage = { onTriggerEvent(TvShowListEvent.NextPageEvent) },
+            onNavigateToTvShowsDetailScreen = {
+                setKeyboardState()
+                navigator.navigate(TvShowDetailsScreenDestination(it))
+            },
+            state = listState,
+        )
+
         when(tvShowsResponse){
             is NetworkResult.Loading -> {
                 if (tvShows.isEmpty()){
                     HorizontalDottedProgressBar()
                 }else{
-                    CircularIndeterminateProgressBar(
-                        isDisplayed = true,
-                        verticalBias = 0.1f
-                    )
+                    CircularIndeterminateProgressBar(verticalBias = 0.1f)
                 }
             }
             is NetworkResult.Failure -> {
@@ -129,19 +138,6 @@ fun TvShowListScreen(
                     }
             }
         }
-
-        TvShowList(
-            loading = tvShowsResponse is NetworkResult.Loading,
-            tvShows = tvShows,
-            onChangeScrollPosition = ::onChangeTvShowScrollPosition,
-            page = page,
-            onTriggerNextPage = { onTriggerEvent(TvShowListEvent.NextPageEvent) },
-            onNavigateToTvShowsDetailScreen = {
-                setKeyboardState()
-                navigator.navigate(TvShowDetailsScreenDestination(it))
-            },
-            state = listState,
-        )
 
     }
 }

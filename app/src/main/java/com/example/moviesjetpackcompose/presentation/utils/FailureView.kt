@@ -27,7 +27,7 @@ fun FailureView(
         IconButton(onClick = onClicked) {
             Icon(
                 imageVector = Icons.Default.Refresh,
-                contentDescription = "Warning Icon",
+                contentDescription = "Refresh Icon",
                 tint = Teal700,
                 modifier = Modifier
                     .size(150.dp)
@@ -36,7 +36,7 @@ fun FailureView(
         }
 
         Text(
-            text = "Failed to get information, Reload",
+            text = "Failed to get data, Reload",
             style = MaterialTheme.typography.subtitle1,
             color = MaterialTheme.colors.onSurface
         )

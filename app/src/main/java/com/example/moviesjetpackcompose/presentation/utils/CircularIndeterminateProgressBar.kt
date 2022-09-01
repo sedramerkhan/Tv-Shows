@@ -9,8 +9,7 @@ import androidx.constraintlayout.compose.ConstraintLayout
 
 
 @Composable
-fun CircularIndeterminateProgressBar(isDisplayed: Boolean, verticalBias: Float) {
-    if (isDisplayed) {
+fun CircularIndeterminateProgressBar(verticalBias: Float) {
         ConstraintLayout(
             modifier = Modifier.fillMaxSize(),
         ) {
@@ -26,6 +25,4 @@ fun CircularIndeterminateProgressBar(isDisplayed: Boolean, verticalBias: Float) 
                 color = MaterialTheme.colors.primary
             )
         }
-
-    }
 }

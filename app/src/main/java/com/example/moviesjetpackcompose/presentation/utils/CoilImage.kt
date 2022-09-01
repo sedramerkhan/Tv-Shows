@@ -56,7 +56,7 @@ fun CoilImage(
         )
         val painterState = painter.state
         if (painterState is ImagePainter.State.Loading && loading ){
-            CircularIndeterminateProgressBar(isDisplayed = loading, verticalBias = 0.5f)
+            CircularIndeterminateProgressBar(verticalBias = 0.5f)
         }
     }
 }

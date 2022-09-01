@@ -85,10 +85,7 @@ fun TvShowDetailsScreen(
                     is NetworkResult.Loading -> {
                         LoadingTvShowShimmer(imageHeight = IMAGE_HEIGHT.dp)
 
-                        CircularIndeterminateProgressBar(
-                            isDisplayed = true,
-                            verticalBias = 0.3f
-                        )
+                        CircularIndeterminateProgressBar(verticalBias = 0.3f)
                     }
 
                     is NetworkResult.Failure -> {
