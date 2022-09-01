@@ -6,7 +6,6 @@ import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.core.tween
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.*
 import androidx.compose.runtime.rememberCoroutineScope
@@ -17,6 +16,7 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.annotation.ExperimentalCoilApi
+import com.example.moviesjetpackcompose.network.NetworkResult
 import com.example.moviesjetpackcompose.presentation.utils.FailureView
 import com.example.moviesjetpackcompose.presentation.tvShowDetails.components.IMAGE_HEIGHT
 import com.example.moviesjetpackcompose.presentation.tvShowDetails.components.LoadingTvShowShimmer
@@ -41,7 +41,7 @@ fun TvShowDetailsScreen(
     id: String,
 ) = viewModel.run {
 
-    val topHeight = with(LocalDensity.current) { (IMAGE_HEIGHT/2).dp.toPx() }
+    val topHeight = with(LocalDensity.current) { (IMAGE_HEIGHT / 2).dp.toPx() }
     val scaffoldState = rememberBottomDrawerScaffoldState(drawerTopInset = topHeight.toInt())
     val bottomDrawerState = scaffoldState.bottomDrawerState
 
@@ -61,43 +61,61 @@ fun TvShowDetailsScreen(
         drawerBackgroundColor = Color.Transparent,  //Transparent drawer for custom Drawer shape
         drawerElevation = 0.dp,
         drawerContent = {
-            tvShow?.run{
-               EpisodesBottomDrawer(
-                    episodes =episodes,
-                    name = name,
-                )
+            tvShowResponse?.let {
+                when (it) {
+                    is NetworkResult.Success -> {
+                        it.data.run {
+                            EpisodesBottomDrawer(
+                                episodes = episodes,
+                                name = name,
+                            )
+                        }
+                    }
+                    else -> {}
+                }
             }
-
         }
     ) {
         Surface(
             modifier = Modifier.fillMaxSize()
         ) {
-            if (loading && tvShow == null && !failure)
-                LoadingTvShowShimmer(imageHeight = IMAGE_HEIGHT.dp)
 
-            tvShow?.let {
-                TvShowView(
-                    tvShow = it,
-                    expandedState = expandedState,
-                    onClickExpand = viewModel::setExpandedState,
-                    onClickEpisodes = {
-                        coroutineScope.launch {
-                            bottomDrawerState.animateTo(BottomDrawerValue.Expanded, tween(300) )
-                        }
+            tvShowResponse?.let {
+                when (it) {
+                    is NetworkResult.Loading -> {
+                        LoadingTvShowShimmer(imageHeight = IMAGE_HEIGHT.dp)
 
+                        CircularIndeterminateProgressBar(
+                            isDisplayed = true,
+                            verticalBias = 0.3f
+                        )
                     }
-                )
+
+                    is NetworkResult.Failure -> {
+                        FailureView(isDark = isDark){
+                            onTriggerEvent(TvShowDetailsEvent.GetTvShowDetailsEvent(id))
+                        }
+                    }
+
+                    is NetworkResult.Success -> {
+                        TvShowView(
+                            tvShow = it.data,
+                            expandedState = expandedState,
+                            onClickExpand = viewModel::setExpandedState,
+                            onClickEpisodes = {
+                                coroutineScope.launch {
+                                    bottomDrawerState.animateTo(
+                                        BottomDrawerValue.Expanded,
+                                        tween(300)
+                                    )
+                                }
+
+                            }
+                        )
+                    }
+                }
             }
 
-            CircularIndeterminateProgressBar(
-                isDisplayed = loading && !failure,
-                verticalBias = 0.3f
-            )
-
-            if (failure) {
-                FailureView(isDark = isDark)
-            }
 
         }
     }

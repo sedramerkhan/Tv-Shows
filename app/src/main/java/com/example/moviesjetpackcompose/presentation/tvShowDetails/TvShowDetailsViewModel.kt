@@ -3,15 +3,18 @@ package com.example.moviesjetpackcompose.presentation.tvShowDetails
 import android.util.Log
 import androidx.compose.runtime.*
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.example.moviesjetpackcompose.domain.model.TvShowDetails
+import com.example.moviesjetpackcompose.network.NetworkResult
 import com.example.moviesjetpackcompose.presentation.BaseApplication
 import com.example.moviesjetpackcompose.presentation.destinations.TvShowDetailsScreenDestination
 import com.example.moviesjetpackcompose.repository.TvShowRepo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -31,11 +34,9 @@ constructor(
     val application
         get() = getApplication<BaseApplication>()
 
-    var tvShow by mutableStateOf<TvShowDetails?>(null)
-    var loading by mutableStateOf(false)
-    var failure by mutableStateOf(false)
+    var tvShowResponse by mutableStateOf<NetworkResult<TvShowDetails>?>(null)
     var expandedState by mutableStateOf(false)
-    var dialogState by mutableStateOf(false)
+
     private val tvShowId = TvShowDetailsScreenDestination.argsFrom(state).id
 
     init {
@@ -53,9 +54,8 @@ constructor(
             try {
                 when (event) {
                     is TvShowDetailsEvent.GetTvShowDetailsEvent -> {
-                        if (tvShow == null) {
+                        state.set(STATE_KEY_TV_SHOW, event.id)
                             getDetails(event.id)
-                        }
                     }
                 }
             } catch (e: Exception) {
@@ -66,33 +66,16 @@ constructor(
     }
 
     private suspend fun getDetails(id: String) {
-        loading = true
-        // simulate a delay to show loading
-        delay(1000)
         Log.d("soso", "hello from get Details")
-        repo.getDetails(id, ::apiCallback)
-
+        repo.getDetails(id).collect {
+            tvShowResponse = it
+            Log.d("soso", it.toString())
+        }
     }
 
-    fun setFailure() {
-        failure = true
-    }
-
-    fun apiCallback(tvShow: TvShowDetails?) {
-        tvShow?.let {
-            this.tvShow = it
-            Log.d("soso", it.name)
-            state.set(STATE_KEY_TV_SHOW, it.id)
-        } ?: setFailure()
-
-        loading = false
-    }
 
     fun setExpandedState() {
         expandedState = !expandedState
     }
 
-    fun setDialogState() {
-        dialogState = !dialogState
-    }
 }

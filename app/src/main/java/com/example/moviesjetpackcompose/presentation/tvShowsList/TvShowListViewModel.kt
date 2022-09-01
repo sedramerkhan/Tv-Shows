@@ -6,12 +6,13 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.example.moviesjetpackcompose.domain.model.TvShow
+import com.example.moviesjetpackcompose.network.NetworkResult
 import com.example.moviesjetpackcompose.presentation.BaseApplication
 import com.example.moviesjetpackcompose.presentation.tvShowsList.components.SearchWidgetState
 import com.example.moviesjetpackcompose.repository.TvShowRepo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -31,18 +32,17 @@ constructor(
     private val savedStateHandle: SavedStateHandle,
 ) : AndroidViewModel(application) {
     private var TAG = "App Debug"
-    
+
     val application
         get() = getApplication<BaseApplication>()
 
+    var tvShowsResponse by mutableStateOf<NetworkResult<List<TvShow>>?>(null)
     val tvShows = mutableStateListOf<TvShow>()
     private var searchDone by mutableStateOf(false)
     var query by mutableStateOf("")
-    var loading by mutableStateOf(false)
     var page by mutableStateOf(1)
     var searchWidgetState by mutableStateOf(SearchWidgetState.CLOSED)
     private var tvShowListScrollPosition = 0
-    var failure by mutableStateOf(false)
     var listStateTo0 by mutableStateOf(false)
     var keyboardState by mutableStateOf(true) //it's for keyboard and focusRequester
 
@@ -92,32 +92,32 @@ constructor(
 
 
     private suspend fun getMostPopular() {
-        loading = true
         resetSearchState()
-        delay(2000)
-        val result = repo.getPopular(
-            page = 1
-        )
-        if (result.isEmpty())
-            failure = true
-        tvShows.clear()
-        tvShows.addAll(result)
-        loading = false
+        repo.getPopular(page = 1).collect {
+            tvShowsResponse = it.apply {
+                if (it is NetworkResult.Success) {
+                    tvShows.clear()
+                    tvShows.addAll(it.data)
+                }
+            }
+        }
         keyboardState = true
     }
 
     private suspend fun restoreState() {
         if (searchDone) {
-            loading = true
             val results: MutableList<TvShow> = mutableListOf()
 
             for (p in 1..page) {
-                val result = repo.getPopular(page = p)
-                results.addAll(result)
+                repo.getPopular(page = p).collect {
+                    if (it is NetworkResult.Success) {
+                        results.addAll(it.data)
+                    }
+                }
+
                 if (p == page) { // done
                     tvShows.clear()
-                    tvShows.addAll(result)
-                    loading = false
+                    tvShows.addAll(results)
                     searchDone = false
                     setListState()
                 }
@@ -127,23 +127,21 @@ constructor(
     }
 
     private suspend fun newSearch() {
-        loading = true
         resetSearchState()
-        delay(2000)
         val results: MutableList<TvShow> = mutableListOf()
 
         for (p in 1..page) {
-            val result = repo.search(
-                page = p,
-                query = query
-            )
-            results.addAll(result!!)
-            if (p == page) { // done
-                tvShows.clear()
-                tvShows.addAll(result)
-                searchDone = true
-                loading = false
-                setListState()
+            repo.search(page = p, query = query).collect {
+                tvShowsResponse = it
+                if (it is NetworkResult.Success) {
+                    results.addAll(it.data)
+                }
+                if (p == page) { // done
+                    tvShows.addAll(results)
+                    searchDone = true
+                    setListState()
+                }
+
             }
             Log.d("newSearch", results.size.toString())
         }
@@ -153,26 +151,21 @@ constructor(
         // prevent duplicate event due to recompose happening to quickly
         if (!searchDone) {
             if ((tvShowListScrollPosition + 1) >= (page * PAGE_SIZE)) {
-                loading = true
                 incrementPage()
-                Log.d(TAG, "nextPage: triggered: ${page}")
-
-                delay(1000)
+                Log.d(TAG, "nextPage: triggered: $page")
 
                 if (page > 1) {
-                    val result = repo.getPopular(page = page)
-                    Log.d(TAG, "appending " + result.size.toString())
-                    appendTvShows(result)
+                    repo.getPopular(page = page).collect {
+                        tvShowsResponse = it
+                        if (it is NetworkResult.Success) {
+                            tvShows.addAll(it.data)
+                        }
+                    }
                 }
-                loading = false
             }
         }
     }
 
-
-    private fun appendTvShows(recipes: List<TvShow>) {
-        this.tvShows.addAll(recipes)
-    }
 
     private fun incrementPage() {
         setPage(page + 1)

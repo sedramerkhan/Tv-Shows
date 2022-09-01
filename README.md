@@ -4,7 +4,7 @@ It's a TV Shows Android app that displays most popular TV Shows
 with the ability to search through all the shows 
 and retrieve all details for the chosen show with Dark Theme & Light Theme.
 I used modern android development tools: 
-Retrofit 2, Dagger-Hilt, KSP (Compose Navigation Library) ,MVVM, LiveData, Coil. 
+Retrofit 2, Dagger-Hilt, KSP (Compose Navigation Library) ,MVVM, Flow, Coil. 
 
 ## Built with
 * Kotlin
