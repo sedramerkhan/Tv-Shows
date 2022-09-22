@@ -1,14 +1,13 @@
 package com.example.moviesjetpackcompose.presentation.tvShowDetails
 
 
-import androidx.compose.runtime.Composable
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.*
-import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.*
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -22,7 +21,10 @@ import com.example.moviesjetpackcompose.presentation.tvShowDetails.components.IM
 import com.example.moviesjetpackcompose.presentation.tvShowDetails.components.LoadingTvShowShimmer
 import com.example.moviesjetpackcompose.presentation.tvShowDetails.components.TvShowView
 import com.example.moviesjetpackcompose.presentation.tvShowDetails.episodesComponents.EpisodesBottomDrawer
+import com.example.moviesjetpackcompose.presentation.tvShowsList.TvShowListEvent
 import com.example.moviesjetpackcompose.presentation.utils.CircularIndeterminateProgressBar
+import com.example.moviesjetpackcompose.presentation.utils.InternetConnection.ConnectionState
+import com.example.moviesjetpackcompose.presentation.utils.InternetConnection.connectivityState
 import de.charlex.compose.BottomDrawerScaffold
 import de.charlex.compose.BottomDrawerValue
 import de.charlex.compose.rememberBottomDrawerScaffoldState
@@ -40,6 +42,9 @@ fun TvShowDetailsScreen(
     viewModel: TvShowDetailsViewModel = hiltViewModel(),
     id: String,
 ) = viewModel.run {
+
+    val connectionState by connectivityState()
+    var failureMessageState by remember { mutableStateOf(true) }
 
     val topHeight = with(LocalDensity.current) { (IMAGE_HEIGHT / 2).dp.toPx() }
     val scaffoldState = rememberBottomDrawerScaffoldState(drawerTopInset = topHeight.toInt())
@@ -89,8 +94,15 @@ fun TvShowDetailsScreen(
                     }
 
                     is NetworkResult.Failure -> {
-                        FailureView(isDark = isDark){
+                        if (connectionState == ConnectionState.Unavailable)
+                            failureMessageState = false
+
+                        FailureView(
+                            isDark = application.isDark,
+                            connectionState = failureMessageState
+                        ) {
                             onTriggerEvent(TvShowDetailsEvent.GetTvShowDetailsEvent(id))
+                            failureMessageState = true
                         }
                     }
 

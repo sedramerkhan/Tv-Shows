@@ -24,6 +24,8 @@ import com.example.moviesjetpackcompose.presentation.tvShowsList.components.Main
 import com.example.moviesjetpackcompose.presentation.tvShowsList.components.SearchWidgetState
 import com.example.moviesjetpackcompose.presentation.tvShowsList.components.TvShowList
 import com.example.moviesjetpackcompose.presentation.utils.CircularIndeterminateProgressBar
+import com.example.moviesjetpackcompose.presentation.utils.InternetConnection.ConnectionState
+import com.example.moviesjetpackcompose.presentation.utils.InternetConnection.connectivityState
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import kotlinx.coroutines.*
@@ -39,6 +41,9 @@ fun TvShowListScreen(
     navigator: DestinationsNavigator,
     viewModel: TvShowListViewModel = hiltViewModel(),
 ) = viewModel.run {
+
+    val connectionState by connectivityState()
+    var failureMessageState by remember { mutableStateOf(true) }
 
     val scaffoldState = rememberScaffoldState()
     var startAnimation by remember { mutableStateOf(false) }
@@ -61,6 +66,7 @@ fun TvShowListScreen(
             setListState()
         }
     }
+
     Scaffold(
         topBar = {
             MainAppBar(
@@ -97,7 +103,6 @@ fun TvShowListScreen(
         scaffoldState = scaffoldState,
     ) {
 
-
         TvShowList(
             tvShows = tvShows,
             onChangeScrollPosition = ::onChangeTvShowScrollPosition,
@@ -110,25 +115,30 @@ fun TvShowListScreen(
             state = listState,
         )
 
-        when(tvShowsResponse){
+        when (tvShowsResponse) {
             is NetworkResult.Loading -> {
-                if (tvShows.isEmpty()){
+                if (tvShows.isEmpty()) {
                     HorizontalDottedProgressBar()
-                }else{
+                } else {
                     CircularIndeterminateProgressBar(verticalBias = 0.1f)
                 }
             }
             is NetworkResult.Failure -> {
-                FailureView(isDark = application.isDark) {
+                if (connectionState == ConnectionState.Unavailable)
+                    failureMessageState = false
+
+                FailureView(isDark = application.isDark, connectionState = failureMessageState) {
                     onTriggerEvent(TvShowListEvent.GetMostPopular)
+                    failureMessageState = true
                 }
             }
-           else -> {
-                if(tvShows.isEmpty() && query.isNotEmpty() and query.isNotBlank())
+            else -> {
+                if (tvShows.isEmpty() && query.isNotEmpty() and query.isNotBlank())
                     Box(
                         Modifier
                             .fillMaxSize()
-                            .padding(25.dp), contentAlignment = Alignment.Center)
+                            .padding(25.dp), contentAlignment = Alignment.Center
+                    )
                     {
                         Text(
                             text = "Nothing Match \"$query\"",
