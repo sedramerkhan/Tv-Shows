@@ -3,14 +3,17 @@ package com.example.moviesjetpackcompose.presentation.tvShowsList.components
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import coil.annotation.ExperimentalCoilApi
 import com.example.moviesjetpackcompose.domain.model.TvShow
 import com.example.moviesjetpackcompose.presentation.tvShowsList.PAGE_SIZE
@@ -28,12 +31,13 @@ fun TvShowList(
     onNavigateToTvShowsDetailScreen: (String) -> Unit,
     state: LazyListState,
 ) {
-    Box(
-        modifier = Modifier
-            .background(color = MaterialTheme.colors.surface)
+    Surface(
+//        modifier = Modifier
+//            .background(color = MaterialTheme.colors.surface)
     ) {
 
         LazyColumn(
+            modifier=Modifier.padding(top=5.dp),
             state = state
         ) {
             itemsIndexed(

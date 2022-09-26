@@ -51,7 +51,7 @@ fun DrawCanvas(
             modifier = Modifier
                 .fillMaxSize()
                 .height(55.dp)
-                .background(MaterialTheme.colors.background)
+                .background(MaterialTheme.colors.surface)
                 .align(Alignment.Center),
         ) {
 

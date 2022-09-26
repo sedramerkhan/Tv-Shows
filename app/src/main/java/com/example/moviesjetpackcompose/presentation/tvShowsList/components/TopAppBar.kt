@@ -1,7 +1,6 @@
 package com.example.moviesjetpackcompose.presentation.tvShowsList.components
 
 
-import android.util.Log
 import androidx.compose.animation.Crossfade
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.animateFloatAsState
@@ -14,9 +13,7 @@ import androidx.compose.material.TextField
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
@@ -48,27 +45,31 @@ fun MainAppBar(
     onSearchTriggered: () -> Unit,
     onToggleTheme: () -> Unit,
 ) {
-    when (searchWidgetState) {
-        SearchWidgetState.CLOSED -> {
-            DefaultAppBar(
-                isDark = isDark,
-                startAnimation = startAnimation,
-                onToggleTheme = onToggleTheme,
-                onSearchClicked = onSearchTriggered,
-            )
+    Box {
+        when (searchWidgetState) {
+            SearchWidgetState.CLOSED -> {
+                DefaultAppBar(
+                    isDark = isDark,
+                    startAnimation = startAnimation,
+                    onToggleTheme = onToggleTheme,
+                    onSearchClicked = onSearchTriggered,
+                )
+            }
+            SearchWidgetState.OPENED -> {
+                SearchAppBar(
+                    query = query,
+                    isDark = isDark,
+                    keyboardState = keyboardState,
+                    onQueryChanged = onQueryChanged,
+                    onExecuteSearch = onExecuteSearch,
+                    onCloseClicked = onCloseClicked,
+                    onToggleTheme = onToggleTheme
+                )
+            }
         }
-        SearchWidgetState.OPENED -> {
-            SearchAppBar(
-                query = query,
-                isDark = isDark,
-                keyboardState = keyboardState,
-                onQueryChanged = onQueryChanged,
-                onExecuteSearch = onExecuteSearch,
-                onCloseClicked = onCloseClicked,
-                onToggleTheme = onToggleTheme
-            )
-        }
+        WaveShape()
     }
+
 }
 
 @Composable
@@ -81,7 +82,6 @@ fun DefaultAppBar(
 
     val configuration = LocalConfiguration.current
     val screenWidth = configuration.screenWidthDp
-    Log.d("soso", screenWidth.toString())
 
     val animStart = (75 - screenWidth).dp
 //    val animStart  = when(configuration.orientation){

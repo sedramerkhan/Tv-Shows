@@ -1,14 +1,9 @@
 package com.example.moviesjetpackcompose.presentation.tvShowsList
 
 import androidx.activity.compose.BackHandler
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
-import androidx.compose.material.rememberScaffoldState
+import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
@@ -104,52 +99,59 @@ fun TvShowListScreen(
         scaffoldState = scaffoldState,
     ) {
 
-        TvShowList(
-            tvShows = tvShows,
-            onChangeScrollPosition = ::onChangeTvShowScrollPosition,
-            page = page,
-            onTriggerNextPage = { onTriggerEvent(TvShowListEvent.NextPageEvent) },
-            onNavigateToTvShowsDetailScreen = {
-                setKeyboardState()
-                navigator.navigate(TvShowDetailsScreenDestination(it))
-            },
-            state = listState,
-        )
+        Surface {
+            TvShowList(
+                tvShows = tvShows,
+                onChangeScrollPosition = ::onChangeTvShowScrollPosition,
+                page = page,
+                onTriggerNextPage = { onTriggerEvent(TvShowListEvent.NextPageEvent) },
+                onNavigateToTvShowsDetailScreen = {
+                    setKeyboardState()
+                    navigator.navigate(TvShowDetailsScreenDestination(it))
+                },
+                state = listState,
+            )
 
-        when (tvShowsResponse) {
-            is NetworkResult.Loading -> {
-                if (tvShows.isEmpty()) {
-                    HorizontalDottedProgressBar()
-                } else {
-                    CircularIndeterminateProgressBar(verticalBias = 0.1f)
-                }
-            }
-            is NetworkResult.Failure -> {
-                if (connectionState == ConnectionState.Unavailable)
-                    failureMessageState = false
-
-                FailureView(isDark = application.isDark, connectionState = failureMessageState) {
-                    onTriggerEvent(TvShowListEvent.GetMostPopular)
-                    failureMessageState = true
-                }
-            }
-            else -> {
-                if (tvShows.isEmpty() && query.isNotEmpty() and query.isNotBlank())
-                    Box(
-                        Modifier
-                            .fillMaxSize()
-                            .padding(25.dp), contentAlignment = Alignment.Center
-                    )
-                    {
-                        Text(
-                            text = "Nothing Match \"$query\"",
-                            style = MaterialTheme.typography.h3,
-                            color = MaterialTheme.colors.onSurface
-                        )
+            when (tvShowsResponse) {
+                is NetworkResult.Loading -> {
+                    if (tvShows.isEmpty()) {
+                        HorizontalDottedProgressBar()
+                    } else {
+                        CircularIndeterminateProgressBar(verticalBias = 0.1f)
                     }
+                }
+                is NetworkResult.Failure -> {
+                    if (connectionState == ConnectionState.Unavailable)
+                        failureMessageState = false
+
+                    FailureView(
+                        isDark = application.isDark,
+                        connectionState = failureMessageState
+                    ) {
+                        onTriggerEvent(TvShowListEvent.GetMostPopular)
+                        failureMessageState = true
+                    }
+                }
+                else -> {
+                    if (tvShows.isEmpty() && query.isNotEmpty() and query.isNotBlank())
+                        Box(
+                            Modifier
+                                .fillMaxSize()
+                                .padding(25.dp), contentAlignment = Alignment.Center
+                        )
+                        {
+                            Text(
+                                text = "Nothing Match \"$query\"",
+                                style = MaterialTheme.typography.h3,
+                                color = MaterialTheme.colors.onSurface
+                            )
+                        }
+                }
             }
         }
-
     }
+
 }
+
+
 
