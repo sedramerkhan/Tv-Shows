@@ -26,6 +26,7 @@ import com.example.moviesjetpackcompose.presentation.tvShowsList.components.TvSh
 import com.example.moviesjetpackcompose.presentation.utils.CircularIndeterminateProgressBar
 import com.example.moviesjetpackcompose.presentation.utils.InternetConnection.ConnectionState
 import com.example.moviesjetpackcompose.presentation.utils.InternetConnection.connectivityState
+import com.example.moviesjetpackcompose.presentation.utils.SplashTransitions
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import kotlinx.coroutines.*
@@ -33,9 +34,9 @@ import kotlinx.coroutines.*
 
 @OptIn(
     ExperimentalCoroutinesApi::class, ExperimentalComposeUiApi::class,
-    ExperimentalCoilApi::class, DelicateCoroutinesApi::class
+    ExperimentalCoilApi::class, DelicateCoroutinesApi::class,
 )
-@Destination
+@Destination(style = SplashTransitions::class)
 @Composable
 fun TvShowListScreen(
     navigator: DestinationsNavigator,

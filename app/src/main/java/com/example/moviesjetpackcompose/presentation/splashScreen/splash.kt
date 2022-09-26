@@ -22,10 +22,10 @@ import com.ramcosta.composedestinations.annotation.RootNavGraph
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import kotlinx.coroutines.delay
 import com.example.moviesjetpackcompose.R
-import com.ramcosta.composedestinations.spec.DestinationStyle
+import com.example.moviesjetpackcompose.presentation.utils.SplashTransitions
 
 @RootNavGraph(start = true)
-@Destination
+@Destination(style = SplashTransitions::class)
 @Composable
 fun SplashScreen(
     navigator: DestinationsNavigator

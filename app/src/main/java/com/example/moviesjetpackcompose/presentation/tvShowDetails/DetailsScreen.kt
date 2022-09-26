@@ -21,7 +21,6 @@ import com.example.moviesjetpackcompose.presentation.tvShowDetails.components.IM
 import com.example.moviesjetpackcompose.presentation.tvShowDetails.components.LoadingTvShowShimmer
 import com.example.moviesjetpackcompose.presentation.tvShowDetails.components.TvShowView
 import com.example.moviesjetpackcompose.presentation.tvShowDetails.episodesComponents.EpisodesBottomDrawer
-import com.example.moviesjetpackcompose.presentation.tvShowsList.TvShowListEvent
 import com.example.moviesjetpackcompose.presentation.utils.CircularIndeterminateProgressBar
 import com.example.moviesjetpackcompose.presentation.utils.InternetConnection.ConnectionState
 import com.example.moviesjetpackcompose.presentation.utils.InternetConnection.connectivityState
@@ -35,7 +34,7 @@ import kotlinx.coroutines.launch
     ExperimentalComposeUiApi::class, ExperimentalCoroutinesApi::class,
     ExperimentalCoilApi::class, ExperimentalMaterialApi::class
 )
-@Destination()
+@Destination
 @Composable
 fun TvShowDetailsScreen(
     navigator: DestinationsNavigator,
@@ -51,8 +50,6 @@ fun TvShowDetailsScreen(
     val bottomDrawerState = scaffoldState.bottomDrawerState
 
     val coroutineScope = rememberCoroutineScope()
-
-    val isDark = application.isDark
 
     BackHandler(enabled = bottomDrawerState.isExpanded) {
         coroutineScope.launch { bottomDrawerState.collapse() }
