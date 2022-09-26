@@ -1,6 +1,8 @@
 package com.example.moviesjetpackcompose.presentation.splashScreen
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
+import android.view.animation.OvershootInterpolator
+import androidx.compose.animation.core.Animatable
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -9,11 +11,10 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.*
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import com.example.moviesjetpackcompose.presentation.destinations.TvShowListScreenDestination
 import com.ramcosta.composedestinations.annotation.Destination
@@ -21,6 +22,7 @@ import com.ramcosta.composedestinations.annotation.RootNavGraph
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import kotlinx.coroutines.delay
 import com.example.moviesjetpackcompose.R
+import com.ramcosta.composedestinations.spec.DestinationStyle
 
 @RootNavGraph(start = true)
 @Destination
@@ -29,24 +31,25 @@ fun SplashScreen(
     navigator: DestinationsNavigator
 )  {
 
-    var startAnimation by remember { mutableStateOf(false) }
-    val time = 500
-    val alphaAnim = animateFloatAsState(
-        targetValue = if (startAnimation) 0f else 1f,
-        animationSpec = tween(
-            durationMillis = time - 50
-        )
-    )
+    val duration = 500
+    val scale = remember { Animatable(0f) }
+
     LaunchedEffect(key1 = true) {
-        startAnimation = true
-        delay(time.toLong())
+        scale.animateTo(
+            targetValue = 1f,
+            animationSpec = tween(
+                durationMillis = duration - 50,
+                easing = { OvershootInterpolator(2f).getInterpolation(it) }
+            )
+        )
+        delay(duration.toLong())
         navigator.popBackStack()
         navigator.navigate(TvShowListScreenDestination)
     }
-    Splash(alpha = alphaAnim.value)
+    Splash(scale.value)
 }
 @Composable
-fun Splash(alpha: Float) {
+fun Splash(scale: Float) {
     Box(
         modifier = Modifier
             .background(color = Color(0xFFFFFFFF))
@@ -57,7 +60,7 @@ fun Splash(alpha: Float) {
         Image(
             modifier = Modifier
                 .size(150.dp)
-                .alpha(alpha = alpha),
+                .scale(scale),
             painter = painterResource(R.drawable.ic_logo_round),
             contentDescription = "Logo Icon",
         )
@@ -67,11 +70,11 @@ fun Splash(alpha: Float) {
 @androidx.compose.ui.tooling.preview.Preview
 @Composable
 fun SplashScreenPreview() {
-    Splash(alpha = 1f)
+    Splash(1f)
 }
 
 @Composable
 @androidx.compose.ui.tooling.preview.Preview(uiMode = UI_MODE_NIGHT_YES)
 fun SplashScreenDarkPreview() {
-    Splash(alpha = 1f)
+    Splash(1f)
 }
