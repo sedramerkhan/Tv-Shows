@@ -2,12 +2,11 @@ package com.example.moviesjetpackcompose.presentation.theme
 
 import androidx.compose.ui.graphics.Color
 
-val Purple200 = Color(0xFFBB86FC)
-val Purple500 = Color(0xFF6200EE)
-val Purple700 = Color(0xFF3700B3)
+
 val Teal200 = Color(0xFF03DAC5)
 val Teal700 = Color(0xFF018786)
 val Teal300 = Color(0xFF1AC6FF)
+val Teal400 = Color(0xFF006968)
 
 val Blue300 = Color(0xFF64B5F6)
 val Blue400 = Color(0xFF42A5F5)

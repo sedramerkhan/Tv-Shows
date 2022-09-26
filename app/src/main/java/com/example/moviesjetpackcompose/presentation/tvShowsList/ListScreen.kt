@@ -13,11 +13,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import coil.annotation.ExperimentalCoilApi
 import com.example.moviesjetpackcompose.network.NetworkResult
 import com.example.moviesjetpackcompose.presentation.destinations.TvShowDetailsScreenDestination
-import com.example.moviesjetpackcompose.presentation.tvShowsList.components.HorizontalDottedProgressBar
+import com.example.moviesjetpackcompose.presentation.tvShowsList.components.*
 import com.example.moviesjetpackcompose.presentation.utils.FailureView
-import com.example.moviesjetpackcompose.presentation.tvShowsList.components.MainAppBar
-import com.example.moviesjetpackcompose.presentation.tvShowsList.components.SearchWidgetState
-import com.example.moviesjetpackcompose.presentation.tvShowsList.components.TvShowList
 import com.example.moviesjetpackcompose.presentation.utils.CircularIndeterminateProgressBar
 import com.example.moviesjetpackcompose.presentation.utils.InternetConnection.ConnectionState
 import com.example.moviesjetpackcompose.presentation.utils.InternetConnection.connectivityState
@@ -134,18 +131,7 @@ fun TvShowListScreen(
                 }
                 else -> {
                     if (tvShows.isEmpty() && query.isNotEmpty() and query.isNotBlank())
-                        Box(
-                            Modifier
-                                .fillMaxSize()
-                                .padding(25.dp), contentAlignment = Alignment.Center
-                        )
-                        {
-                            Text(
-                                text = "Nothing Match \"$query\"",
-                                style = MaterialTheme.typography.h3,
-                                color = MaterialTheme.colors.onSurface
-                            )
-                        }
+                      NotFoundSearchView(query = query)
                 }
             }
         }
