@@ -10,7 +10,6 @@ import coil.compose.ImagePainter
 import coil.compose.rememberImagePainter
 import coil.transform.RoundedCornersTransformation
 import com.example.moviesjetpackcompose.R
-import com.example.moviesjetpackcompose.presentation.utils.CircularIndeterminateProgressBar
 
 
 /***
@@ -23,7 +22,7 @@ fun CoilImage(
     modifier: Modifier = Modifier,
     imageModifier: Modifier,
     roundCorner: Float = 0f,
-    placeholder: Int = R.drawable.place_holder,
+    placeholder: Int = R.drawable.placeholder,
     loading: Boolean = false
     ) {
     Box(

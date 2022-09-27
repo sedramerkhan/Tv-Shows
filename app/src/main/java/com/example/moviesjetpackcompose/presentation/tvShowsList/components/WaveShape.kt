@@ -48,7 +48,7 @@ val Wave = @Composable { num: Int, modifier: Modifier, round1: Dp, round2: Dp, h
 @Composable
 fun WaveShape() {
 
-    val (width, height, round) = listOf(60.dp, 30.dp, 40.dp)
+    val (width, height, round) = listOf(65.dp, 30.dp, 30.dp)
     val screenWidth = LocalConfiguration.current.screenWidthDp
     val randNum = 11
     val num = (screenWidth / (width.value - randNum)).toInt()

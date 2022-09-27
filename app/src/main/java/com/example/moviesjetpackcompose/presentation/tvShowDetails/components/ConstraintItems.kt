@@ -2,14 +2,17 @@ package com.example.moviesjetpackcompose.presentation.tvShowDetails.components
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextLayoutResult
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.compose.ui.unit.dp
 import coil.annotation.ExperimentalCoilApi
+import com.example.moviesjetpackcompose.R
 import com.example.moviesjetpackcompose.domain.model.TvShowDetails
 import com.example.moviesjetpackcompose.presentation.theme.Green300
 import com.example.moviesjetpackcompose.presentation.utils.CoilImage
@@ -38,29 +41,30 @@ fun ConstraintItems(
             start.linkTo(parent.start)
         }
         tvShow.pictures.let {
-            if (it.isEmpty())
-                CoilImage(
-                    link = "",
-                    modifier = pictureModifier,
-                    imageModifier = Modifier
-                        .height(IMAGE_HEIGHT.dp)
-                        .fillMaxWidth(),
-                )
-            else
-                HorizontalPager(count = it.size, modifier = pictureModifier) { imageIndex ->
+            val size = if (it.isEmpty()) 1 else it.size
+            Surface( modifier = pictureModifier,color= Color.LightGray)
+            {
+                HorizontalPager(count = size,) { imageIndex ->
                     CoilImage(
-                        link = it[imageIndex],
+                        link = if (it.isEmpty()) "" else it[imageIndex],
                         modifier = pictureModifier,
                         imageModifier = Modifier
                             .height(IMAGE_HEIGHT.dp)
                             .fillMaxWidth(),
+                        placeholder = R.drawable.placeholder_transparent
+
                     )
                 }
+            }
         }
         CoilImage(
             link = tvShow.image_thumbnail_path,
             modifier = Modifier
-                .padding(start = 12.dp,end = 12.dp,top= (12*(linesCount-1)*(linesCount-1)).dp)
+                .padding(
+                    start = 12.dp,
+                    end = 12.dp,
+                    top = (12 * (linesCount - 1) * (linesCount - 1)).dp
+                )
                 .constrainAs(thumbnailRef) {
                     top.linkTo(imageRef.bottom)
                     bottom.linkTo(imageRef.bottom)
@@ -88,7 +92,7 @@ fun ConstraintItems(
                 },
                 color = MaterialTheme.colors.onSurface,
                 onTextLayout = { textLayoutResult: TextLayoutResult ->
-                      linesCount  = textLayoutResult.lineCount
+                    linesCount = textLayoutResult.lineCount
                 }
             )
             Text(
