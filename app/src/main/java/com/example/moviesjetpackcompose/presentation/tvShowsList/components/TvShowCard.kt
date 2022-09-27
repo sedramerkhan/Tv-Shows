@@ -39,11 +39,11 @@ fun TvShowCard(
                 imageModifier = Modifier.height(130.dp).width(110.dp),
                 roundCorner = 20f
             )
-            Spacer(modifier = Modifier.padding(5.dp))
+
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .align(Alignment.CenterVertically).padding(vertical= 4.dp)
+                    .align(Alignment.CenterVertically).padding(top= 4.dp, bottom = 4.dp,start = 5.dp, end = 10.dp)
             ) {
                 Text(
                     text = tvShow.name,
