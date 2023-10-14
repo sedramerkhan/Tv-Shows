@@ -5,6 +5,7 @@ import android.content.res.Configuration
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.compose.animation.*
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.tween
@@ -37,6 +38,7 @@ class MainActivity : AppCompatActivity() {
         setContent {
             val isDark = application.isDark
             AppTheme(darkTheme = isDark) {
+
                 BoxWithConstraints {
                     val width = constraints.maxWidth
                     val height = constraints.maxHeight

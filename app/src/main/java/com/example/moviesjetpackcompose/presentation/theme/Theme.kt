@@ -54,10 +54,14 @@ fun AppTheme(
         typography = QuickSandTypography,
         shapes = AppShapes
     ) {
+        val color = MaterialTheme.colors.surface
         val systemUiController = rememberSystemUiController()
         SideEffect {
             systemUiController.setStatusBarColor(
                 color = Teal700
+            )
+            systemUiController.setNavigationBarColor(
+                color = color
             )
             systemUiController.statusBarDarkContentEnabled = false
         }
