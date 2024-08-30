@@ -22,3 +22,4 @@
 
 -keep class com.example.moviesjetpackcompose.domain.model.** { *; }
 -keep class com.example.moviesjetpackcompose.network.model.** { *; }
+-keep class com.example.moviesjetpackcompose.network.response.** { *; }

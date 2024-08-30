@@ -1,7 +1,6 @@
 package com.example.moviesjetpackcompose.presentation.tvShowsList.components
 
-import android.os.Build
-import androidx.annotation.RequiresApi
+
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -46,7 +45,6 @@ val Wave = @Composable { num: Int, modifier: Modifier, round1: Dp, round2: Dp, h
 }
 
 
-@RequiresApi(Build.VERSION_CODES.HONEYCOMB_MR2)
 @Composable
 fun WavesSurfaces() {
 
@@ -55,8 +53,8 @@ fun WavesSurfaces() {
     val randNum = 11
     val num = (screenWidth / (width.value - randNum)).toInt()
     val remainWidth = screenWidth % (width.value - randNum)
-    val paddingStart = { num: Int ->
-        width.times(num) - (randNum * num).dp
+    val paddingStart = { n: Int ->
+        width.times(num) - (randNum * n).dp
     }
     Box(
         Modifier
@@ -90,7 +88,7 @@ fun OneWaveSurface() {
     val randNum = 5
     val num = (screenWidth / (width.value - randNum)).toInt()
     val remainWidth = screenWidth % (width.value - randNum)
-    val paddingStart = { num: Int -> width.times(num) - (randNum * num).dp }
+    val paddingStart = { n: Int -> width.times(num) - (randNum * n).dp }
     Box(
         Modifier.padding(top = 45.dp) // the height of TopAppBar is 56
             .height(height).fillMaxWidth().background(MaterialTheme.colors.surface),

@@ -10,7 +10,7 @@ class EpisodesMapper : DomainMapper<EpisodeDto, Episode> {
             season= model.season,
             episode= model.episode,
             name= model.name,
-            air_date= model.air_date
+            air_date= model.airDate
         )
 
 
@@ -20,7 +20,7 @@ class EpisodesMapper : DomainMapper<EpisodeDto, Episode> {
             season= domainModel.season,
             episode= domainModel.episode,
             name= domainModel.name,
-            air_date= domainModel.air_date
+            airDate= domainModel.air_date
         )
 
     fun toDomainList(initial: List<EpisodeDto>): List<Episode>{
