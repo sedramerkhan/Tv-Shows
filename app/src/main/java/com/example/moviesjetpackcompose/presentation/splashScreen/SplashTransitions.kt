@@ -1,4 +1,4 @@
-package com.example.moviesjetpackcompose.presentation.utils
+package com.example.moviesjetpackcompose.presentation.splashScreen
 
 import androidx.compose.animation.*
 import androidx.compose.animation.core.tween
@@ -11,7 +11,7 @@ import com.ramcosta.composedestinations.spec.DestinationStyle
 @OptIn(ExperimentalAnimationApi::class)
 object SplashTransitions : DestinationStyle.Animated {
 
-    override fun AnimatedContentScope<NavBackStackEntry>.enterTransition(): EnterTransition? {
+    override fun AnimatedContentTransitionScope<NavBackStackEntry>.enterTransition(): EnterTransition? {
 
         return when (initialState.appDestination()) {
             SplashScreenDestination ->
@@ -20,8 +20,7 @@ object SplashTransitions : DestinationStyle.Animated {
         }
     }
 
-    override fun AnimatedContentScope<NavBackStackEntry>.exitTransition(): ExitTransition? {
-
+    override fun AnimatedContentTransitionScope<NavBackStackEntry>.exitTransition(): ExitTransition? {
         return when (targetState.appDestination()) {
             SplashScreenDestination ->
                 fadeOut(animationSpec = tween(500)) + shrinkOut(tween(500))
@@ -29,7 +28,7 @@ object SplashTransitions : DestinationStyle.Animated {
         }
     }
 
-    override fun AnimatedContentScope<NavBackStackEntry>.popEnterTransition(): EnterTransition? {
+    override fun AnimatedContentTransitionScope<NavBackStackEntry>.popEnterTransition(): EnterTransition? {
 
         return when (initialState.appDestination()) {
             SplashScreenDestination -> fadeIn(animationSpec = tween(500))
@@ -37,7 +36,7 @@ object SplashTransitions : DestinationStyle.Animated {
         }
     }
 
-    override fun AnimatedContentScope<NavBackStackEntry>.popExitTransition(): ExitTransition? {
+    override fun AnimatedContentTransitionScope<NavBackStackEntry>.popExitTransition(): ExitTransition? {
 
         return when (targetState.appDestination()) {
             SplashScreenDestination -> fadeOut(animationSpec = tween(500))

@@ -22,7 +22,6 @@ import com.ramcosta.composedestinations.annotation.RootNavGraph
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import kotlinx.coroutines.delay
 import com.example.moviesjetpackcompose.R
-import com.example.moviesjetpackcompose.presentation.utils.SplashTransitions
 
 @RootNavGraph(start = true)
 @Destination(style = SplashTransitions::class)

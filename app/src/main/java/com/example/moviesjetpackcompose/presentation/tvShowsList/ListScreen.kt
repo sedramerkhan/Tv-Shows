@@ -1,14 +1,10 @@
 package com.example.moviesjetpackcompose.presentation.tvShowsList
 
 import androidx.activity.compose.BackHandler
-import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.*
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.annotation.ExperimentalCoilApi
 import com.example.moviesjetpackcompose.network.NetworkResult
@@ -18,7 +14,7 @@ import com.example.moviesjetpackcompose.presentation.utils.FailureView
 import com.example.moviesjetpackcompose.presentation.utils.CircularIndeterminateProgressBar
 import com.example.moviesjetpackcompose.presentation.utils.InternetConnection.ConnectionState
 import com.example.moviesjetpackcompose.presentation.utils.InternetConnection.connectivityState
-import com.example.moviesjetpackcompose.presentation.utils.SplashTransitions
+import com.example.moviesjetpackcompose.presentation.splashScreen.SplashTransitions
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import kotlinx.coroutines.*
