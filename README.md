@@ -1,10 +1,8 @@
 # About The Project
+It's an Android app to browse and search for popular TV shows, with detailed information for each show.
+The app supports both Dark & Light themes and utilizes modern Android development tools: 
 
-It's a TV Shows Android app that displays most popular TV Shows 
-with the ability to search through all the shows 
-and retrieve all details for the chosen show with Dark Theme & Light Theme.
-I used modern android development tools: 
-Retrofit 2, Dagger-Hilt, Compose Destinations, MVVM, Flow, Coil. 
+Kotlin, Jetpack Compose, Retrofit 2, Dagger-Hilt, Compose Navigation Library ,MVVM, Flow and Coil.
 
 ## Built with
 * Kotlin
