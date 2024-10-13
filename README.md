@@ -2,7 +2,7 @@
 It's an Android app to browse and search for popular TV shows, with detailed information for each show.
 The app supports both Dark & Light themes and utilizes modern Android development tools: 
 
-Kotlin, Jetpack Compose, Retrofit 2, Dagger-Hilt, Compose Navigation Library ,MVVM, Flow and Coil.
+Kotlin, Jetpack Compose, Retrofit 2, Dagger-Hilt, Compose Destinations ,MVVM, Flow and Coil.
 
 ## Built with
 * Kotlin
