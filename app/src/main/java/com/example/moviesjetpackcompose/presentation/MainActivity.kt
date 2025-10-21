@@ -43,7 +43,8 @@ class MainActivity : AppCompatActivity() {
                     val width = constraints.maxWidth
                     val height = constraints.maxHeight
                     DestinationsNavHost(
-                        navGraph = NavGraphs.root,
+                        navGraph =
+                            NavGraphs.root,
                         engine = navHostEngine(IntOffset(width, height))
                     )
                 }
