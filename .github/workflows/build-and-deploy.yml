@@ -40,8 +40,8 @@ jobs:
     - name: Get version info
       id: version_info
       run: |
-        VERSION_NAME=$(grep -A 2 "defaultConfig" app/build.gradle | grep "versionName" | tr -d ' "' | cut -d= -f2)
-        VERSION_CODE=$(grep -A 2 "defaultConfig" app/build.gradle | grep "versionCode" | tr -d ' ' | cut -d: -f2)
+        VERSION_NAME=$(grep "versionName" app/build.gradle | sed -n 's/.*versionName "\(.*\)".*/\1/p')
+        VERSION_CODE=$(grep "versionCode" app/build.gradle | sed -n 's/.*versionCode \([0-9]*\).*/\1/p')
         echo "version_name=$VERSION_NAME" >> $GITHUB_OUTPUT
         echo "version_code=$VERSION_CODE" >> $GITHUB_OUTPUT
         echo "build_name=TvShows V$VERSION_NAME($VERSION_CODE)" >> $GITHUB_OUTPUT
