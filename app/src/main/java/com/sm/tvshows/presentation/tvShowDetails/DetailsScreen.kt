@@ -22,8 +22,8 @@ import com.sm.tvshows.presentation.tvShowDetails.components.LoadingTvShowShimmer
 import com.sm.tvshows.presentation.tvShowDetails.components.TvShowView
 import com.sm.tvshows.presentation.tvShowDetails.episodesComponents.EpisodesBottomDrawer
 import com.sm.tvshows.presentation.utils.CircularIndeterminateProgressBar
-import com.sm.tvshows.presentation.utils.InternetConnection.ConnectionState
-import com.sm.tvshows.presentation.utils.InternetConnection.connectivityState
+import com.sm.tvshows.presentation.utils.internetConnection.ConnectionState
+import com.sm.tvshows.presentation.utils.internetConnection.connectivityState
 import de.charlex.compose.BottomDrawerScaffold
 import de.charlex.compose.BottomDrawerValue
 import de.charlex.compose.rememberBottomDrawerScaffoldState

@@ -6,6 +6,12 @@ import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.windowInsetsTopHeight
+import androidx.compose.foundation.layout.statusBars
+import androidx.compose.foundation.layout.windowInsetsPadding
+import androidx.compose.foundation.background
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
@@ -22,13 +28,16 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.sm.tvshows.R
+import com.sm.tvshows.presentation.utils.getStatusBarPadding
 import kotlinx.coroutines.delay
+
 
 
 @ExperimentalComposeUiApi
@@ -55,6 +64,7 @@ fun MainAppBar(
                     onSearchClicked = onSearchTriggered,
                 )
             }
+
             SearchWidgetState.OPENED -> {
                 SearchAppBar(
                     query = query,
@@ -67,7 +77,7 @@ fun MainAppBar(
                 )
             }
         }
-       WaveShape4()
+        WaveShape4()
 //        WaveShape3()
     }
 
@@ -81,14 +91,15 @@ fun DefaultAppBar(
     onSearchClicked: () -> Unit,
 ) {
 
-    val configuration = LocalConfiguration.current
-    val screenWidth = configuration.screenWidthDp
+    val density = LocalDensity.current
+    val windowInfo = androidx.compose.ui.platform.LocalWindowInfo.current
+    
+    // Get screen width in pixels and convert to dp
+    val screenWidthPx = windowInfo.containerSize.width
+    val screenWidth = with(density) { screenWidthPx.toDp() }
 
-    val animStart = (75 - screenWidth).dp
-//    val animStart  = when(configuration.orientation){
-//      Configuration.ORIENTATION_PORTRAIT -> -337.dp
-//      else -> -737.dp
-//    }
+    val animStart = (75 - screenWidth.value).dp
+
     val animEnd = 0.dp
     val time = 500
     val pos = animateDpAsState(
@@ -104,19 +115,24 @@ fun DefaultAppBar(
         )
     )
 
+    val statusBarPadding = getStatusBarPadding()
+    
     TopAppBar(
+        modifier = Modifier.height(56.dp + statusBarPadding),
         title = {
             Text(
                 text = "Tv Shows",
                 style = MaterialTheme.typography.h3,
                 modifier = Modifier
-                    .alpha(alpha = alpha.value),
+                    .alpha(alpha = alpha.value)
+                    .padding(top = statusBarPadding)
             )
         },
         actions = {
             IconButton(
                 onClick = onSearchClicked,
                 modifier = Modifier
+                    .padding(top = statusBarPadding)
                     .size(30.dp)
                     .absoluteOffset(x = pos.value)
             ) {
@@ -129,6 +145,7 @@ fun DefaultAppBar(
             IconButton(
                 onClick = onToggleTheme,
                 modifier = Modifier
+                    .padding(top = statusBarPadding)
                     .size(31.dp)
                     .padding(horizontal = 5.dp)
             ) {
@@ -161,6 +178,7 @@ fun SearchAppBar(
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
     val focusRequester = remember { FocusRequester() }
+    val statusBarPadding = getStatusBarPadding()
 
     LaunchedEffect(Unit) {
         if (keyboardState) {
@@ -174,12 +192,14 @@ fun SearchAppBar(
     Surface(
         modifier = Modifier
             .fillMaxWidth()
-            .height(56.dp),
+            .height(56.dp + statusBarPadding),
         elevation = AppBarDefaults.TopAppBarElevation,
         color = MaterialTheme.colors.primary
     ) {
         Row(
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = statusBarPadding)
         ) {
             TextField(
                 modifier = Modifier

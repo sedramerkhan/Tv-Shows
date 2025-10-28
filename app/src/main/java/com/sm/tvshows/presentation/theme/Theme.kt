@@ -9,7 +9,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 @SuppressLint("ConflictingOnColor")
 private val LightThemeColors = lightColors(
@@ -54,17 +53,7 @@ fun AppTheme(
         typography = QuickSandTypography,
         shapes = AppShapes
     ) {
-        val color = MaterialTheme.colors.surface
-        val systemUiController = rememberSystemUiController()
-        SideEffect {
-            systemUiController.setStatusBarColor(
-                color = Teal700
-            )
-            systemUiController.setNavigationBarColor(
-                color = color
-            )
-            systemUiController.statusBarDarkContentEnabled = false
-        }
+        // Edge-to-edge: prefer Activity.enableEdgeToEdge in MainActivity if needed
 
         Box(
             modifier = Modifier

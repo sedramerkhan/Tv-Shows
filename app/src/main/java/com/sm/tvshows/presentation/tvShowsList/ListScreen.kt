@@ -12,8 +12,8 @@ import com.sm.tvshows.presentation.destinations.TvShowDetailsScreenDestination
 import com.sm.tvshows.presentation.tvShowsList.components.*
 import com.sm.tvshows.presentation.utils.FailureView
 import com.sm.tvshows.presentation.utils.CircularIndeterminateProgressBar
-import com.sm.tvshows.presentation.utils.InternetConnection.ConnectionState
-import com.sm.tvshows.presentation.utils.InternetConnection.connectivityState
+import com.sm.tvshows.presentation.utils.internetConnection.ConnectionState
+import com.sm.tvshows.presentation.utils.internetConnection.connectivityState
 import com.sm.tvshows.presentation.splashScreen.SplashTransitions
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator

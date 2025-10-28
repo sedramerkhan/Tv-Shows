@@ -52,7 +52,7 @@ fun WaveShape2(
 fun WaveShape4() {
     Box(
         Modifier
-            .padding(top = 40.dp) // the height of TopAppBar is 56
+            .padding(top = 40.dp+WindowInsets.statusBars.asPaddingValues().calculateTopPadding()) // the height of TopAppBar is 56
             .height(20.dp)
             .fillMaxWidth()
             .background(MaterialTheme.colors.surface),

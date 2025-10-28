@@ -1,4 +1,4 @@
-package com.sm.tvshows.presentation.utils.InternetConnection
+package com.sm.tvshows.presentation.utils.internetConnection
 
 
 sealed class ConnectionState {
