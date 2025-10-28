@@ -1,7 +1,7 @@
 package com.sm.tvshows.presentation
 
 import android.annotation.SuppressLint
-import android.content.res.Configuration
+import android.content.Context
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
@@ -54,9 +54,11 @@ class MainActivity : AppCompatActivity() {
     private fun setDefaultLanguage(lang: String?) {
         val locale = Locale.forLanguageTag(lang ?: "en-US")
         Locale.setDefault(locale)
-        val config = Configuration()
-        config.locale = locale
-        this.resources.updateConfiguration(config, this.resources.displayMetrics)
+        
+        // Modern way to set locale (API 24+)
+        val config = resources.configuration
+        config.setLocale(locale)
+        resources.updateConfiguration(config, resources.displayMetrics)
     }
 }
 

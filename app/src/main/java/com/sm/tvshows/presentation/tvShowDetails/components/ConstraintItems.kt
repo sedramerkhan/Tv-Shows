@@ -1,6 +1,8 @@
 package com.sm.tvshows.presentation.tvShowDetails.components
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
@@ -16,10 +18,7 @@ import com.sm.tvshows.R
 import com.sm.tvshows.domain.model.TvShowDetails
 import com.sm.tvshows.presentation.theme.Green300
 import com.sm.tvshows.presentation.utils.CoilImage
-import com.google.accompanist.pager.ExperimentalPagerApi
-import com.google.accompanist.pager.HorizontalPager
 
-@OptIn(ExperimentalPagerApi::class)
 @ExperimentalCoilApi
 @Composable
 fun ConstraintItems(
@@ -42,9 +41,13 @@ fun ConstraintItems(
         }
         tvShow.pictures.let {
             val size = if (it.isEmpty()) 1 else it.size
-            Surface( modifier = pictureModifier,color= Color.LightGray)
+            Surface(modifier = pictureModifier, color = Color.LightGray)
             {
-                HorizontalPager(count = size,) { imageIndex ->
+                HorizontalPager(
+                    state = rememberPagerState(pageCount = {
+                        size
+                    },)
+                ) { imageIndex ->
                     CoilImage(
                         link = if (it.isEmpty()) "" else it[imageIndex],
                         modifier = pictureModifier,
@@ -75,12 +78,13 @@ fun ConstraintItems(
                 .width(140.dp),
             roundCorner = 20f
         )
-        Column(modifier = Modifier
-            .fillMaxWidth(.55f)
-            .constrainAs(textRef) {
-                top.linkTo(imageRef.bottom)
-                start.linkTo(thumbnailRef.end)
-            }) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth(.55f)
+                .constrainAs(textRef) {
+                    top.linkTo(imageRef.bottom)
+                    start.linkTo(thumbnailRef.end)
+                }) {
             Text(
                 text = tvShow.name,
                 modifier = Modifier

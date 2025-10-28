@@ -5,7 +5,7 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.ExperimentalComposeUiApi
-import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import coil.annotation.ExperimentalCoilApi
 import com.sm.tvshows.network.NetworkResult
 import com.sm.tvshows.presentation.destinations.TvShowDetailsScreenDestination
