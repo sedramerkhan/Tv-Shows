@@ -20,6 +20,6 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 
--keep class com.example.moviesjetpackcompose.domain.model.** { *; }
--keep class com.example.moviesjetpackcompose.network.model.** { *; }
--keep class com.example.moviesjetpackcompose.network.response.** { *; }
+-keep class com.sm.tvshows.domain.model.** { *; }
+-keep class com.sm.tvshows.network.model.** { *; }
+-keep class com.sm.tvshows.network.response.** { *; }

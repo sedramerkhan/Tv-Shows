@@ -7,11 +7,11 @@ plugins {
 }
 
 android {
-    namespace "com.example.moviesjetpackcompose"
+    namespace "com.sm.tvshows"
     compileSdk libs.versions.compile.sdk.get().toInteger()
 
     defaultConfig {
-        applicationId "com.example.moviesjetpackcompose"
+        applicationId "com.sm.tvshows"
         minSdk libs.versions.min.sdk.get().toInteger()
         targetSdk libs.versions.target.sdk.get().toInteger()
         versionCode 1
@@ -72,6 +72,7 @@ dependencies {
 
     // Compose
     implementation libs.bundles.compose
+    implementation libs.androidx.test.ext.junit
     debugImplementation libs.bundles.compose.debug
     implementation libs.androidx.compose.ui.tooling.preview
 
