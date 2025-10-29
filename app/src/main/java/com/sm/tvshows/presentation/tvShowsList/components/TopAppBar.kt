@@ -116,7 +116,7 @@ fun DefaultAppBar(
     )
 
     val statusBarPadding = getStatusBarPadding()
-    
+
     TopAppBar(
         modifier = Modifier.height(56.dp + statusBarPadding),
         title = {
@@ -145,7 +145,7 @@ fun DefaultAppBar(
             IconButton(
                 onClick = onToggleTheme,
                 modifier = Modifier
-                    .padding(top = statusBarPadding)
+                    .statusBarsPadding()
                     .size(31.dp)
                     .padding(horizontal = 5.dp)
             ) {
@@ -199,7 +199,7 @@ fun SearchAppBar(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = statusBarPadding)
+                .statusBarsPadding()
         ) {
             TextField(
                 modifier = Modifier

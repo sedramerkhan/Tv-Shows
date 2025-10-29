@@ -16,6 +16,7 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.layout.windowInsetsPadding
@@ -57,7 +58,7 @@ class MainActivity : AppCompatActivity() {
         setContent {
             val isDark = application.isDark
             AppTheme(darkTheme = isDark) {
-                BoxWithConstraints(Modifier.background(MaterialTheme.colors.surface).padding(bottom = getNavigationBarPadding())) {
+                BoxWithConstraints(Modifier.background(MaterialTheme.colors.surface).navigationBarsPadding()) {
                     val width = constraints.maxWidth
                     val height = constraints.maxHeight
                     
@@ -88,7 +89,7 @@ class MainActivity : AppCompatActivity() {
         SideEffect {
             val controller = WindowInsetsControllerCompat(window, window.decorView)
             // If splash screen, use black text; otherwise use theme-based text color
-            controller.isAppearanceLightStatusBars =  if (isSplashScreen) true else false
+            controller.isAppearanceLightStatusBars = isSplashScreen
             controller.isAppearanceLightNavigationBars =  if (isSplashScreen) true else !isDark
         }
     }

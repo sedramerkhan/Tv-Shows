@@ -1,10 +1,12 @@
 package com.sm.tvshows.presentation.tvShowsList
 
 import androidx.activity.compose.BackHandler
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.ExperimentalComposeUiApi
+import androidx.compose.ui.Modifier
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import coil.annotation.ExperimentalCoilApi
 import com.sm.tvshows.network.NetworkResult
@@ -92,7 +94,7 @@ fun TvShowListScreen(
         scaffoldState = scaffoldState,
     ) {
 
-        Surface {
+        Surface(Modifier.padding(it)) {
             TvShowList(
                 tvShows = tvShows,
                 onChangeScrollPosition = ::onChangeTvShowScrollPosition,
